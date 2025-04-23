@@ -82,7 +82,6 @@ fun Screen() {
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            // Botão "Saiba mais"
             Button(
                 onClick = { /* TODO: ação saiba mais */ },
                 modifier = Modifier

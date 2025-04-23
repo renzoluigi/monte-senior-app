@@ -1,6 +1,6 @@
 package br.com.montesenior.aplicativo
 
-import TelaTrilhaUsuario
+import TelaSelecaoMaterial
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
             AplicativoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Surface(modifier = Modifier.padding(innerPadding)) {
-                        TelaTrilhaUsuario()
+                        TelaSelecaoMaterial()
                     }
                 }
             }

@@ -1,3 +1,4 @@
+import android.os.Handler
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -47,7 +48,6 @@ fun TelaConclusao() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Animação sutil no troféu
         var rotation by remember { mutableStateOf(0f) }
         val animatedRotation by animateFloatAsState(
             targetValue = rotation,
@@ -60,7 +60,7 @@ fun TelaConclusao() {
             modifier = Modifier
                 .size(140.dp)
                 .graphicsLayer { rotationZ = animatedRotation }
-                .clickable { rotation += 30f } // Pequena rotação ao clicar
+                .clickable { rotation += 30f }
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -87,8 +87,7 @@ fun TelaConclusao() {
         Button(
             onClick = {
                 isButtonClicked = true
-                // Simular um pequeno delay antes de executar a ação do botão
-                android.os.Handler().postDelayed({
+                Handler().postDelayed({
                     isButtonClicked = false
                     /* TODO: Implementar a lógica para pegar o certificado */
                     println("Botão Pegar Certificado clicado!")
@@ -97,17 +96,17 @@ fun TelaConclusao() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 48.dp)
-                .scale(scale), // Adiciona o efeito de clique
+                .scale(scale),
             colors = ButtonDefaults.buttonColors(containerColor = BlueMonteSenior),
-            shape = RoundedCornerShape(28.dp), // Bordas mais arredondadas
-            elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp, pressedElevation = 2.dp) // Adiciona elevação
+            shape = RoundedCornerShape(28.dp),
+            elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp, pressedElevation = 2.dp)
         ) {
             Text(
                 text = "Pegar seu Certificado",
                 color = Color.White,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(vertical = 8.dp) // Adiciona um pouco de padding interno
+                modifier = Modifier.padding(vertical = 8.dp)
             )
         }
     }
