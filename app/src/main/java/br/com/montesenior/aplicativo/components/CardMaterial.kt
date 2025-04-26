@@ -21,14 +21,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.montesenior.aplicativo.ui.theme.BlueMonteSenior
+import androidx.navigation.NavController
+import br.com.montesenior.aplicativo.ui.theme.CozyBlue
+import br.com.montesenior.aplicativo.ui.theme.Poppins
 
 @Composable
-fun CardMaterial(item: MaterialItem) {
+fun CardMaterial(item: MaterialItem, navController: NavController) {
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(6.dp),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(Color.White)
     ) {
         Column {
             Image(
@@ -46,27 +49,31 @@ fun CardMaterial(item: MaterialItem) {
                 text = item.titulo,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp),
+                fontFamily = Poppins
             )
 
             Text(
                 text = item.descricao,
                 fontSize = 14.sp,
                 color = Color.Gray,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                fontFamily = Poppins
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
-                onClick = { /* TODO: ação ao clicar */ },
+                onClick = {
+                    navController.navigate("detalhes")
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = BlueMonteSenior),
+                colors = ButtonDefaults.buttonColors(containerColor = CozyBlue),
                 shape = RoundedCornerShape(20.dp)
             ) {
-                Text("Entrar")
+                Text(text = "Ver detalhes >", fontFamily = Poppins)
             }
         }
     }

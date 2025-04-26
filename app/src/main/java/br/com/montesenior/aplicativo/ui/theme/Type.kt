@@ -9,6 +9,8 @@ import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.R
 
 val Roboto = FontFamily(Font(R.font.roboto_italic))
+val Poppins = FontFamily(Font(R.font.poppins))
+val PoppinsBold = FontFamily(Font(R.font.poppins_bold))
 
 // Set of Material typography styles to start with
 val Typography = Typography(

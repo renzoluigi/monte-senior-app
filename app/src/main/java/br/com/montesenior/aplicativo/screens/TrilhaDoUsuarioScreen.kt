@@ -26,14 +26,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.R
-import br.com.montesenior.aplicativo.components.CardTarefaSimples
+import br.com.montesenior.aplicativo.components.CardTrilhaTarefa
 import br.com.montesenior.aplicativo.model.AtividadeItem
+import br.com.montesenior.aplicativo.ui.theme.Poppins
 
 @Composable
-fun TrilhaDoUsuarioScreen() {
+fun TrilhaDoUsuarioScreen(modifier: Modifier = Modifier) {
     val atividades = listOf(
         AtividadeItem("Introdução", "Uma visão geral dos principais tópicos que abordaremos para te ajudar no dia a dia do cuidado.", R.drawable.didatic),
         AtividadeItem("Habilidades Básicas de Cuidado", "Desenvolva as habilidades" +
@@ -71,12 +73,14 @@ fun TrilhaDoUsuarioScreen() {
                         Text(
                             text = "Marconi Luckas",
                             fontSize = 18.sp,
+                            fontFamily = Poppins,
                             fontWeight = FontWeight.Bold,
                             color = Color.White
                         )
                         Text(
                             text = "Progresso: 30%",
                             fontSize = 14.sp,
+                            fontFamily = Poppins,
                             color = Color.White
                         )
                     }
@@ -97,7 +101,7 @@ fun TrilhaDoUsuarioScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(atividades) { atividade ->
-                CardTarefaSimples(
+                CardTrilhaTarefa(
                     titulo = atividade.titulo,
                     descricao = atividade.descricao,
                     imagem = atividade.imagem
@@ -109,4 +113,10 @@ fun TrilhaDoUsuarioScreen() {
             }
         }
     }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun TrilhaDoUsuarioScreenPreview() {
+    TrilhaDoUsuarioScreen()
 }

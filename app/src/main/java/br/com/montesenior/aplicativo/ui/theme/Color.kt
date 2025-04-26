@@ -11,3 +11,4 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val BlueMonteSenior = Color(0xFF0078D4)
+val CozyBlue = Color(0xFF719BE1)

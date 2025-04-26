@@ -1,6 +1,6 @@
 package br.com.montesenior.aplicativo.components
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,80 +18,103 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import br.com.montesenior.aplicativo.ui.theme.Poppins
 
 @Composable
-fun NavBar() {
+fun NavBar(navController: NavController) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(75.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        border = BorderStroke(width = 2.dp, color = Color.Black)
+        shape = RectangleShape
     ) {
         Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(100.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Home,
-                    contentDescription = "Ícone da página inicial",
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Text(
-                    text = "Início",
-                    fontSize = 20.sp
-                )
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(100.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Notifications,
-                    contentDescription = "Ícone de notificações",
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Text(
-                    text = "Novidades",
-                    fontSize = 20.sp
-                )
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .width(100.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Ícone de perfil",
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Text(
-                    text = "Perfil",
-                    fontSize = 20.sp
-                )
-            }
+            NavBarItem(
+                label = "Início",
+                icon = Icons.Default.Home,
+                isSelected = currentRoute == "cursos", // Assumindo que "cursos" é sua tela inicial pós-login
+                onClick = {
+                    navController.navigate("cursos") {
+                        popUpTo(navController.graph.startDestinationId) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
+            )
+            NavBarItem(
+                label = "Novidades",
+                icon = Icons.Default.Notifications,
+                isSelected = currentRoute == "novidades",
+                onClick = {
+                    navController.navigate("novidades") {
+                        popUpTo(navController.graph.startDestinationId) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
+            )
+            NavBarItem(
+                label = "Perfil",
+                icon = Icons.Default.AccountCircle,
+                isSelected = currentRoute == "perfil",
+                onClick = {
+                    navController.navigate("perfil") {
+                        popUpTo(navController.graph.startDestinationId) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
+            )
         }
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-private fun NavigationBarPreview() {
-    NavBar()
+fun NavBarItem(label: String, icon: androidx.compose.ui.graphics.vector.ImageVector, isSelected: Boolean, onClick: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .width(100.dp)
+            .clickable(onClick = onClick),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = "Ícone da página $label",
+            modifier = Modifier.fillMaxWidth(),
+            tint = if (isSelected) Color.Black else Color.Gray
+        )
+        Text(
+            text = label,
+            fontSize = if (label == "Novidades") 18.sp else 20.sp,
+            fontFamily = Poppins,
+            color = if (isSelected) Color.Black else Color.Gray
+        )
+    }
 }
+
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//private fun NavigationBarPreview() {
+//    NavBar()
+//}

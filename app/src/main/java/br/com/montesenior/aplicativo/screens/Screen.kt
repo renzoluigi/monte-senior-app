@@ -1,3 +1,4 @@
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,13 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.ui.theme.BlueMonteSenior
-import br.com.montesenior.aplicativo.ui.theme.Roboto
+import br.com.montesenior.aplicativo.ui.theme.Poppins
 
 @Composable
 fun Screen() {
@@ -38,16 +38,16 @@ fun Screen() {
                 contentScale = ContentScale.Crop
             )
             Image(
-                painter = painterResource(id = R.drawable.logo), // Altere para o nome da sua logo
+                painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Logo Monte Senior",
                 modifier = Modifier
-                    .size(100.dp) // Ajuste o tamanho conforme o necessário
+                    .size(100.dp)
             )
 
-            // Botão de Voltar
+
             Text(
                 text = "Voltar >",
-                fontFamily = Roboto,
+                fontFamily = Poppins,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Medium,
                 color = Color.White,
@@ -66,7 +66,7 @@ fun Screen() {
                 text = "Cuidadores de apoio domiciliar",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Serif,
+                fontFamily = Poppins,
                 color = Color.Black,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -74,10 +74,15 @@ fun Screen() {
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = "Oferecemos cuidados domiciliares personalizados para garantir conforto, segurança e bem-estar na rotina dos idosos. Auxiliamos em tarefas do dia a dia, como alimentação, higiene pessoal e outras atividades essenciais, sempre respeitando as necessidades e preferências de cada pessoa.",
+                text = "Oferecemos cuidados domiciliares personalizados para garantir" +
+                        " conforto, segurança e bem-estar na rotina dos idosos. Auxiliamos em" +
+                        " tarefas do dia a dia, como alimentação, higiene pessoal e outras" +
+                        " atividades essenciais, sempre respeitando as necessidades e preferências" +
+                        " de cada pessoa.",
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
-                color = Color.DarkGray
+                color = Color.DarkGray,
+                fontFamily = Poppins
             )
 
             Spacer(modifier = Modifier.height(30.dp))
@@ -95,7 +100,7 @@ fun Screen() {
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
                     color = Color.White,
-                    fontFamily = Roboto
+                    fontFamily = Poppins
                 )
             }
         }

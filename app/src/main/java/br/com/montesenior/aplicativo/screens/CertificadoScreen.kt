@@ -1,4 +1,4 @@
-import android.os.Handler
+
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -28,13 +28,15 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.ui.theme.BlueMonteSenior
+import br.com.montesenior.aplicativo.ui.theme.Poppins
 
 @Composable
-fun TelaConclusao() {
+fun CertificadoScreen() {
     var isButtonClicked by remember { mutableStateOf(false) }
     val scale by animateFloatAsState(
         targetValue = if (isButtonClicked) 0.95f else 1f,
@@ -79,7 +81,8 @@ fun TelaConclusao() {
             text = "Você concluiu esta etapa com sucesso!\nSeu esforço e dedicação são muito importantes.",
             fontSize = 18.sp,
             color = Color.Gray,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            fontFamily = Poppins
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -87,11 +90,6 @@ fun TelaConclusao() {
         Button(
             onClick = {
                 isButtonClicked = true
-                Handler().postDelayed({
-                    isButtonClicked = false
-                    /* TODO: Implementar a lógica para pegar o certificado */
-                    println("Botão Pegar Certificado clicado!")
-                }, 200)
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -104,10 +102,17 @@ fun TelaConclusao() {
             Text(
                 text = "Pegar seu Certificado",
                 color = Color.White,
-                fontSize = 18.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = 8.dp),
+                fontFamily = Poppins
             )
         }
     }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun CertificadoScreenPreview() {
+    CertificadoScreen()
 }

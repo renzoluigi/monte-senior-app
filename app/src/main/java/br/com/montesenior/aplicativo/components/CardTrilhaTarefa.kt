@@ -1,6 +1,5 @@
 package br.com.montesenior.aplicativo.components
 
-import TrilhaCard
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,14 +23,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.model.TrilhaItem
 import br.com.montesenior.aplicativo.ui.theme.BlueMonteSenior
+import br.com.montesenior.aplicativo.ui.theme.Poppins
 
 @Composable
-fun CardTarefaSimples(titulo: String, descricao: String, imagem: Int) {
+fun CardTrilhaTarefa(titulo: String, descricao: String, imagem: Int) {
     Card(
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(8.dp),
@@ -48,16 +49,30 @@ fun CardTarefaSimples(titulo: String, descricao: String, imagem: Int) {
                     modifier = Modifier.size(48.dp)
                 )
                 Spacer(modifier = Modifier.width(16.dp))
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(titulo, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                    Text(descricao, fontSize = 14.sp, color = Color.Gray)
+                Column(modifier = Modifier.width(150.dp)) {
+                    Text(
+                        titulo,
+                        fontSize = 18.sp,
+                        fontFamily = Poppins,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        descricao,
+                        fontSize = 14.sp,
+                        fontFamily = Poppins,
+                        color = Color.Gray,
+                        )
                 }
                 Button(
                     onClick = { /* TODO: ação */ },
                     shape = RoundedCornerShape(20.dp),
                     colors = ButtonDefaults.buttonColors(BlueMonteSenior)
                 ) {
-                    Text("Começar", color = Color.White)
+                    Text(
+                        text = "Começar",
+                        fontFamily = Poppins,
+                        color = Color.White
+                    )
                 }
             }
 
@@ -65,7 +80,8 @@ fun CardTarefaSimples(titulo: String, descricao: String, imagem: Int) {
             Text(
                 text = "Sua Trilha de Aprendizado",
                 fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                fontFamily = Poppins
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -94,3 +110,15 @@ val trilhaItens = listOf(
     TrilhaItem(R.drawable.prova, "Responda o Quiz"),
     TrilhaItem(R.drawable.logo, "Conclua a Atividade")
 )
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun CardTarefaSimplesPreview() {
+    CardTrilhaTarefa(
+        titulo = "Introdução",
+        imagem = R.drawable.estudante,
+        descricao = "Desenvolva as habilidades" +
+                " essenciais que todo cuidador de idosos precisa para garantir o conforto, a segurança e o bem-estar " +
+                "no dia a dia."
+    )
+}
