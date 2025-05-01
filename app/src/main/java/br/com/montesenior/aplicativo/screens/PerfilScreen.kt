@@ -71,7 +71,7 @@ fun PerfilScreen(usuario: Usuario) {
                     painter = painterResource(id = usuario.foto),
                     contentDescription = "Foto de perfil",
                     modifier = Modifier
-                        .size(150.dp)
+                        .size(125.dp)
                         .clip(CircleShape)
                 )
             }
