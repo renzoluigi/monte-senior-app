@@ -20,7 +20,6 @@ Público-alvo: Profissionais já atuantes e novos ingressantes na área.
 Status: Em desenvolvimento.
 
 🛠 Tecnologias Utilizadas 🛠
-
 Linguagem: Kotlin
 
 Interface: Jetpack Compose (Android)
@@ -28,7 +27,6 @@ Interface: Jetpack Compose (Android)
 Ferramenta: Android Studio
 
 🔍 Recursos do App 🔍
-
 Catálogo de cursos organizados por temas.
 
 Emissão de certificados digitais.
