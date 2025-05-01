@@ -27,7 +27,7 @@ Interface: Jetpack Compose (Android)
 
 Ferramenta: Android Studio
 
-🔍 Recursos do App
+🔍 Recursos do App 🔍
 
 Catálogo de cursos organizados por temas.
 
