@@ -1,5 +1,6 @@
 package br.com.montesenior.aplicativo.ui.theme
 
+import android.graphics.Color.rgb
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -12,3 +13,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val BlueMonteSenior = Color(0xFF0078D4)
 val CozyBlue = Color(0xFF719BE1)
+val GreenMonteSenior = Color(rgb(22,83,88))
+val AzulMarinho = Color(rgb(36,122,130))

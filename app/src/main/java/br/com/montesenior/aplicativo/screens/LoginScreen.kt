@@ -3,14 +3,15 @@
 package br.com.montesenior.aplicativo.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -24,7 +25,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -43,8 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
-import br.com.montesenior.aplicativo.ui.theme.CozyBlue
-import br.com.montesenior.aplicativo.ui.theme.Poppins
+import br.com.montesenior.aplicativo.components.VoltarColumnButton
+import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
 fun LoginScreen(
@@ -65,6 +65,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
+        VoltarColumnButton(navController, "boas-vindas")
         Column(
             modifier = Modifier
                 .fillMaxSize(),
@@ -82,22 +83,19 @@ fun LoginScreen(
                     Text(
                         text = "Entrar",
                         fontWeight = FontWeight.Bold,
-                        fontSize = 28.sp,
-                        fontFamily = Poppins
+                        fontSize = 28.sp
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(
                         text = "Insira seu email e senha para acessar o app.",
                         color = Color.Gray,
-                        fontFamily = Poppins,
                         fontSize = 18.sp
                     )
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(
                         text = "Email",
                         fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = Poppins
+                        fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     OutlinedTextField(
@@ -109,8 +107,7 @@ fun LoginScreen(
                         shape = RoundedCornerShape(20.dp),
                         placeholder = {
                             Text(
-                                text = "Insira seu email",
-                                fontFamily = Poppins
+                                text = "Insira seu email"
                             )
                         },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -126,8 +123,7 @@ fun LoginScreen(
                     Text(
                         text = "Senha",
                         fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = Poppins
+                        fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     OutlinedTextField(
@@ -139,8 +135,7 @@ fun LoginScreen(
                         shape = RoundedCornerShape(20.dp),
                         placeholder = {
                             Text(
-                                text = "Insira sua senha",
-                                fontFamily = Poppins
+                                text = "Insira sua senha"
                             )
                         },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -153,32 +148,28 @@ fun LoginScreen(
                                 }
                             ) {
                                 Icon(
-                                    painter = painterResource(id = if (isSenhaVisivel) R.drawable.visibility_off else R.drawable.visibility_on),
+                                    painter = painterResource(
+                                        id = if (isSenhaVisivel) R.drawable.visibility_off else R.drawable.visibility_on
+                                    ),
                                     contentDescription = "Visibility Icon"
                                 )
                             }
                         }
                     )
-                    TextButton(
-                        onClick = {
-                            navController.navigate("esqueceuasenha")
-                        }
-                    ) {
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                         Text(
                             text = "Esqueceu sua senha?",
-                            modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.End,
                             color = Color.Black,
-                            fontFamily = Poppins
+                            modifier = Modifier
+                                .clickable(onClick = {
+                                    navController.navigate("esqueceu-a-senha")
+                                })
                         )
                     }
                     Text(
                         text = mensagemErro,
                         color = if (isAutorizado) Color.Green else Color.Red,
-                        fontFamily = Poppins,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .offset(y = (-10).dp),
+                        modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center
                     )
                     Button(
@@ -188,15 +179,15 @@ fun LoginScreen(
                                 navController.navigate("cursos")
                             }
                         },
-                        colors = ButtonDefaults.buttonColors(CozyBlue),
+                        colors = ButtonDefaults.buttonColors(AzulMarinho),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(60.dp)
+                            .height(60.dp),
+                        shape = RoundedCornerShape(10.dp)
                     ) {
                         Text(
                             text = "Entrar",
-                            fontSize = 20.sp,
-                            fontFamily = Poppins
+                            fontSize = 20.sp
                         )
                     }
                 }
@@ -208,5 +199,9 @@ fun LoginScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun RegistroScreenPreview() {
-    LoginScreen(modifier = Modifier, loginScreenViewModel = LoginScreenViewModel(), navController = NavController(LocalContext.current))
+    LoginScreen(
+        modifier = Modifier,
+        loginScreenViewModel = LoginScreenViewModel(),
+        navController = NavController(LocalContext.current)
+    )
 }

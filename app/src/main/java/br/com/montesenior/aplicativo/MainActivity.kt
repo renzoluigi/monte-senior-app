@@ -1,6 +1,6 @@
 package br.com.montesenior.aplicativo
 
-import MaterialScreen
+import CursosScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,11 +17,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.montesenior.aplicativo.components.NavBar
+import br.com.montesenior.aplicativo.model.usuarioMock
+import br.com.montesenior.aplicativo.repository.cursoCuidador
+import br.com.montesenior.aplicativo.repository.cursoEtarismo
 import br.com.montesenior.aplicativo.screens.BoasVindasScreen
 import br.com.montesenior.aplicativo.screens.DetalhesCursoScreen
 import br.com.montesenior.aplicativo.screens.EsqueceuSuaSenhaScreen
 import br.com.montesenior.aplicativo.screens.LoginScreen
 import br.com.montesenior.aplicativo.screens.LoginScreenViewModel
+import br.com.montesenior.aplicativo.screens.MenuCursoScreen
 import br.com.montesenior.aplicativo.screens.PerfilScreen
 import br.com.montesenior.aplicativo.ui.theme.AplicativoTheme
 import com.br.montesenior.aplicativo_porto.screens.RegistroScreen
@@ -45,14 +49,14 @@ class MainActivity : ComponentActivity() {
                     Surface(modifier = Modifier.fillMaxSize()) {
                         NavHost(
                             navController = navController,
-                            startDestination = "boasvindas",
+                            startDestination = "boas-vindas",
                             modifier = Modifier.padding(innerPadding)
                         ) {
-                            composable(route = "boasvindas") {
+                            composable(route = "boas-vindas") {
                                 BoasVindasScreen(navController = navController)
                             }
                             composable(route = "registro") {
-                                RegistroScreen()
+                                RegistroScreen(navController = navController)
                             }
                             composable(route = "login") {
                                 LoginScreen(
@@ -61,20 +65,29 @@ class MainActivity : ComponentActivity() {
                                     loginScreenViewModel = LoginScreenViewModel()
                                 )
                             }
-                            composable(route = "esqueceuasenha") {
-                                EsqueceuSuaSenhaScreen()
+                            composable(route = "esqueceu-a-senha") {
+                                EsqueceuSuaSenhaScreen(navController = navController)
                             }
                             composable(route = "cursos") {
-                                MaterialScreen(modifier = Modifier.fillMaxSize(), navController = navController)
+                                CursosScreen(modifier = Modifier.fillMaxSize(), navController = navController)
+                            }
+                            composable(route = "detalhes-curso-cuidador") {
+                                DetalhesCursoScreen(navController = navController, curso = cursoCuidador)
+                            }
+                            composable(route = "detalhes-curso-etarismo") {
+                                DetalhesCursoScreen(navController = navController, curso = cursoEtarismo)
                             }
                             composable(route = "perfil") {
-                                PerfilScreen()
+                                PerfilScreen(usuario = usuarioMock)
                             }
                             composable(route = "novidades") {
                                 Text("Tela de Novidades")
                             }
-                            composable(route = "detalhes") {
-                                DetalhesCursoScreen(navController = navController)
+                            composable(route = "menu-curso-cuidador") {
+                                MenuCursoScreen(cursoItem = cursoCuidador, usuario = usuarioMock)
+                            }
+                            composable(route = "menu-curso-etarismo") {
+                                MenuCursoScreen(cursoItem = cursoEtarismo, usuario = usuarioMock)
                             }
                         }
                     }
@@ -83,6 +96,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+// trilha no perfil
+// formacao de cuidador familiar
+// chatbot
+// email, telefone, genero, profissional familiar
+// carteirinhas, certificado, oportunidade, eventos
+// banco de dados
+// somente navegacao
 
-// mostrar para o luckas variacoes da cor de fonte em loginscreen e registroscreen (cozyblue nos titulos)
-// ajeitar perfilscreen com arrangement e alignment center
+// onclick abre duas vezes cada tela

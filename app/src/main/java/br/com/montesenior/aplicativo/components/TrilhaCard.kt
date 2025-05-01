@@ -25,7 +25,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.montesenior.aplicativo.ui.theme.Poppins
 
 @Composable
 fun TrilhaCard(imagem: Int, titulo: String, onClick: () -> Unit) {
@@ -55,8 +54,7 @@ fun TrilhaCard(imagem: Int, titulo: String, onClick: () -> Unit) {
                 text = titulo,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Center,
-                fontFamily = Poppins
+                textAlign = TextAlign.Center
             )
         }
     }

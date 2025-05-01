@@ -28,8 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.model.TrilhaItem
-import br.com.montesenior.aplicativo.ui.theme.BlueMonteSenior
-import br.com.montesenior.aplicativo.ui.theme.Poppins
+import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
 fun CardTrilhaTarefa(titulo: String, descricao: String, imagem: Int) {
@@ -53,24 +52,21 @@ fun CardTrilhaTarefa(titulo: String, descricao: String, imagem: Int) {
                     Text(
                         titulo,
                         fontSize = 18.sp,
-                        fontFamily = Poppins,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
                         descricao,
                         fontSize = 14.sp,
-                        fontFamily = Poppins,
                         color = Color.Gray,
                         )
                 }
                 Button(
                     onClick = { /* TODO: ação */ },
                     shape = RoundedCornerShape(20.dp),
-                    colors = ButtonDefaults.buttonColors(BlueMonteSenior)
+                    colors = ButtonDefaults.buttonColors(AzulMarinho)
                 ) {
                     Text(
                         text = "Começar",
-                        fontFamily = Poppins,
                         color = Color.White
                     )
                 }
@@ -79,9 +75,7 @@ fun CardTrilhaTarefa(titulo: String, descricao: String, imagem: Int) {
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = "Sua Trilha de Aprendizado",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = Poppins
+                fontWeight = FontWeight.SemiBold
             )
 
             Spacer(modifier = Modifier.height(12.dp))

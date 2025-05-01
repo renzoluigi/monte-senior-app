@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.ui.theme.BlueMonteSenior
-import br.com.montesenior.aplicativo.ui.theme.Poppins
 
 
 @Composable
@@ -43,15 +42,13 @@ fun CardPerfilStats(textUp: String, textDown: String) {
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 12.sp,
-                textAlign = TextAlign.Center,
-                fontFamily = Poppins
+                textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(5.dp))
             Text(
                 text = textDown,
                 color = Color.White,
-                fontSize = 12.sp,
-                fontFamily = Poppins
+                fontSize = 12.sp
             )
         }
     }

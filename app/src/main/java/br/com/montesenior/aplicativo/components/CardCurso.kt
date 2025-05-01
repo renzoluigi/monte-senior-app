@@ -22,11 +22,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import br.com.montesenior.aplicativo.ui.theme.CozyBlue
-import br.com.montesenior.aplicativo.ui.theme.Poppins
+import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
-fun CardMaterial(item: MaterialItem, navController: NavController) {
+fun CardCurso(item: MaterialItem, navController: NavController) {
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(6.dp),
@@ -44,36 +43,29 @@ fun CardMaterial(item: MaterialItem, navController: NavController) {
             )
 
             Spacer(modifier = Modifier.height(8.dp))
-
             Text(
                 text = item.titulo,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 16.dp),
-                fontFamily = Poppins
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
-
             Text(
                 text = item.descricao,
                 fontSize = 14.sp,
                 color = Color.Gray,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
-                fontFamily = Poppins
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
             Button(
                 onClick = {
-                    navController.navigate("detalhes")
+                    navController.navigate(item.rota)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = CozyBlue),
+                colors = ButtonDefaults.buttonColors(containerColor = AzulMarinho),
                 shape = RoundedCornerShape(20.dp)
             ) {
-                Text(text = "Ver detalhes >", fontFamily = Poppins)
+                Text(text = "Inscreva-se >")
             }
         }
     }

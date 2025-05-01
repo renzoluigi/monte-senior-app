@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.R
-import br.com.montesenior.aplicativo.ui.theme.BlueMonteSenior
+import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 import br.com.montesenior.aplicativo.ui.theme.Poppins
 
 @Composable
@@ -71,7 +71,7 @@ fun CertificadoScreen() {
             text = "Parabéns!",
             fontSize = 36.sp,
             fontWeight = FontWeight.Bold,
-            color = BlueMonteSenior,
+            color = AzulMarinho,
             textAlign = TextAlign.Center
         )
 
@@ -95,7 +95,7 @@ fun CertificadoScreen() {
                 .fillMaxWidth()
                 .padding(horizontal = 48.dp)
                 .scale(scale),
-            colors = ButtonDefaults.buttonColors(containerColor = BlueMonteSenior),
+            colors = ButtonDefaults.buttonColors(containerColor = AzulMarinho),
             shape = RoundedCornerShape(28.dp),
             elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp, pressedElevation = 2.dp)
         ) {

@@ -8,9 +8,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.R
 
-val Roboto = FontFamily(Font(R.font.roboto_italic))
+
 val Poppins = FontFamily(Font(R.font.poppins))
-val PoppinsBold = FontFamily(Font(R.font.poppins_bold))
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -37,4 +36,14 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
     */
+)
+
+val AppTypography = Typography(
+    bodyLarge = TextStyle(
+        fontFamily = Poppins,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    )
 )

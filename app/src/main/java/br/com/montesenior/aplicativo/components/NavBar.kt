@@ -45,7 +45,7 @@ fun NavBar(navController: NavController) {
             NavBarItem(
                 label = "Início",
                 icon = Icons.Default.Home,
-                isSelected = currentRoute == "cursos", // Assumindo que "cursos" é sua tela inicial pós-login
+                isSelected = currentRoute == "cursos",
                 onClick = {
                     navController.navigate("cursos") {
                         popUpTo(navController.graph.startDestinationId) {
@@ -89,7 +89,12 @@ fun NavBar(navController: NavController) {
 }
 
 @Composable
-fun NavBarItem(label: String, icon: androidx.compose.ui.graphics.vector.ImageVector, isSelected: Boolean, onClick: () -> Unit) {
+fun NavBarItem(
+    label: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    isSelected: Boolean,
+    onClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -107,7 +112,6 @@ fun NavBarItem(label: String, icon: androidx.compose.ui.graphics.vector.ImageVec
         Text(
             text = label,
             fontSize = if (label == "Novidades") 18.sp else 20.sp,
-            fontFamily = Poppins,
             color = if (isSelected) Color.Black else Color.Gray
         )
     }

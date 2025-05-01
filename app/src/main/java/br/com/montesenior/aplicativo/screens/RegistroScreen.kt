@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -35,11 +36,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
-import br.com.montesenior.aplicativo.ui.theme.CozyBlue
-import br.com.montesenior.aplicativo.ui.theme.Poppins
+import br.com.montesenior.aplicativo.components.VoltarColumnButton
+import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
-fun RegistroScreen(modifier: Modifier = Modifier) {
+fun RegistroScreen(modifier: Modifier = Modifier, navController: NavController) {
+
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.cute_blue_bg),
@@ -47,6 +49,7 @@ fun RegistroScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
+        VoltarColumnButton(navController, "boas-vindas")
         Column(
             modifier = Modifier
                 .fillMaxSize(),
@@ -64,13 +67,11 @@ fun RegistroScreen(modifier: Modifier = Modifier) {
                     Text(
                         text = "Registre-se",
                         fontWeight = FontWeight.Bold,
-                        fontSize = 28.sp,
-                        fontFamily = Poppins
+                        fontSize = 28.sp
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(
                         text = "Preencha os campos abaixo para continuar.",
-                        fontFamily = Poppins,
                         color = Color.Gray,
                         fontSize = 18.sp
                     )
@@ -82,7 +83,7 @@ fun RegistroScreen(modifier: Modifier = Modifier) {
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(20.dp),
                             label = {
-                                Text(text = "Insira seu nome completo", fontFamily = Poppins)
+                                Text(text = "Insira seu nome completo")
                             },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                             trailingIcon = {
@@ -99,7 +100,7 @@ fun RegistroScreen(modifier: Modifier = Modifier) {
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(20.dp),
                             label = {
-                                Text(text = "Insira seu email", fontFamily = Poppins)
+                                Text(text = "Insira seu email")
                             },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                             trailingIcon = {
@@ -151,15 +152,15 @@ fun RegistroScreen(modifier: Modifier = Modifier) {
                     Spacer(modifier = Modifier.height(15.dp))
                     Button(
                         onClick = {},
-                        colors = ButtonDefaults.buttonColors(CozyBlue),
+                        colors = ButtonDefaults.buttonColors(AzulMarinho),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(60.dp)
+                            .height(60.dp),
+                        shape = RoundedCornerShape(10.dp)
                     ) {
                         Text(
                             text = "Registrar-se",
-                            fontSize = 20.sp,
-                            fontFamily = Poppins
+                            fontSize = 20.sp
                         )
                     }
                 }
@@ -171,5 +172,5 @@ fun RegistroScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun LoginScreenPreview() {
-    RegistroScreen()
+    RegistroScreen(navController = NavController(LocalContext.current))
 }

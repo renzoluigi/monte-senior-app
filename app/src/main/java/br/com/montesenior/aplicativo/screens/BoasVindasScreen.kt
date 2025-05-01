@@ -26,15 +26,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
-import br.com.montesenior.aplicativo.ui.theme.CozyBlue
-import br.com.montesenior.aplicativo.ui.theme.PoppinsBold
+import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
 fun BoasVindasScreen(modifier: Modifier = Modifier, navController: NavController) {
     Column(modifier = Modifier.fillMaxSize()) {
         Box() {
             Image(
-                painter = painterResource(id = R.drawable.imagem_boas_vindas),
+                painter = painterResource(id = R.drawable.boasvindas_bg),
                 contentDescription = "Imagem um cuidador de idosos com um idoso",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
@@ -44,7 +43,7 @@ fun BoasVindasScreen(modifier: Modifier = Modifier, navController: NavController
                     .fillMaxWidth()
                     .height(300.dp)
                     .align(Alignment.BottomCenter),
-                colors = CardDefaults.cardColors(CozyBlue),
+                colors = CardDefaults.cardColors(AzulMarinho),
                 shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp),
                 elevation = CardDefaults.cardElevation(10.dp)
             ) {
@@ -53,50 +52,46 @@ fun BoasVindasScreen(modifier: Modifier = Modifier, navController: NavController
                     .padding(20.dp)) {
                     Text(
                         text = "Seja bem vindo ao app da Monte Senior!",
-                        color = Color.White,
-                        fontFamily = PoppinsBold,
-                        fontSize = 25.sp
+                        fontSize = 25.sp,
+                        color = Color.White
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = "Escolha uma das opções abaixo para continuar.",
-                        fontFamily = PoppinsBold,
                         color = Color.White
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                     Button(
                         onClick = {
                             navController.navigate("registro")
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(50.dp),
+                            .height(60.dp),
                         colors = ButtonDefaults.buttonColors(Color.White),
                         shape = RoundedCornerShape(5.dp),
                     ) {
                         Text(
-                            text = "Ainda nâo tenho uma conta",
-                            color = CozyBlue,
-                            fontFamily = PoppinsBold,
-                            fontSize = 16.sp
+                            text = "Ainda não tenho uma conta",
+                            color = AzulMarinho,
+                            fontSize = 18.sp
                         )
                     }
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                     Button(
                         onClick = {
                             navController.navigate("login")
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(50.dp),
+                            .height(60.dp),
                         colors = ButtonDefaults.buttonColors(Color.White),
                         shape = RoundedCornerShape(5.dp),
                     ) {
                         Text(
                             text = "Já tenho uma conta.",
-                            color = CozyBlue,
-                            fontFamily = PoppinsBold,
-                            fontSize = 16.sp
+                            color = AzulMarinho,
+                            fontSize = 18.sp
                         )
                     }
                 }
