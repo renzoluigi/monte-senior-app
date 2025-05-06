@@ -1,7 +1,6 @@
 package br.com.montesenior.aplicativo.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,15 +22,52 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
-import br.com.montesenior.aplicativo.model.TrilhaItem
+import br.com.montesenior.aplicativo.model.Tarefa
+import br.com.montesenior.aplicativo.model.TipoTarefa
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
-fun CardTrilhaTarefa(titulo: String, descricao: String, imagem: Int) {
+fun CardTarefaTrilha(
+    titulo: String,
+    descricao: String,
+    imagem: Int,
+    navController: NavController
+) {
+    val trilhaItens = listOf(
+        Tarefa(
+            id = "",
+            imagem = R.drawable.ler_material,
+            titulo = "Leia o  Material",
+            onClick = {
+            },
+            isConcluida = false,
+            tipo = TipoTarefa.LEITURA
+        ),
+        Tarefa(
+            id = "",
+            imagem = R.drawable.assista_o_video,
+            titulo = "Assista o Vídeo",
+            onClick = {
+                navController.navigate("video-aula")
+            },
+            isConcluida = false,
+            tipo = TipoTarefa.VIDEO),
+        Tarefa(
+            id = "",
+            imagem = R.drawable.prova,
+            titulo = "Responda o Quiz",
+            onClick = {
+                navController.navigate("quiz")
+            },
+            isConcluida = false,
+            tipo = TipoTarefa.QUIZ
+        )
+    )
+
     Card(
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(8.dp),
@@ -58,7 +94,7 @@ fun CardTrilhaTarefa(titulo: String, descricao: String, imagem: Int) {
                         descricao,
                         fontSize = 14.sp,
                         color = Color.Gray,
-                        )
+                    )
                 }
                 Button(
                     onClick = { /* TODO: ação */ },
@@ -71,48 +107,27 @@ fun CardTrilhaTarefa(titulo: String, descricao: String, imagem: Int) {
                     )
                 }
             }
-
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = "Sua Trilha de Aprendizado",
                 fontWeight = FontWeight.SemiBold
             )
-
             Spacer(modifier = Modifier.height(12.dp))
-
             LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp)
-                    .padding(horizontal = 8.dp)
             ) {
                 items(trilhaItens.size) { item ->
+                    Spacer(modifier = Modifier.width(8.dp))
                     TrilhaCard(
                         imagem = trilhaItens[item].imagem,
                         titulo = trilhaItens[item].titulo,
-                        onClick = { /* TODO: ação específica */ }
+                        onClick = trilhaItens[item].onClick
                     )
+                    Spacer(modifier = Modifier.width(4.dp))
                 }
             }
         }
     }
-}
-
-val trilhaItens = listOf(
-    TrilhaItem(R.drawable.estudante, "Leia o Material"),
-    TrilhaItem(R.drawable.prova, "Responda o Quiz"),
-    TrilhaItem(R.drawable.logo, "Conclua a Atividade")
-)
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun CardTarefaSimplesPreview() {
-    CardTrilhaTarefa(
-        titulo = "Introdução",
-        imagem = R.drawable.estudante,
-        descricao = "Desenvolva as habilidades" +
-                " essenciais que todo cuidador de idosos precisa para garantir o conforto, a segurança e o bem-estar " +
-                "no dia a dia."
-    )
 }
