@@ -34,7 +34,7 @@ import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 fun EsqueceuSuaSenhaScreen(modifier: Modifier = Modifier, navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.lightblue_bg),
+            painter = painterResource(id = R.drawable.aa),
             contentDescription = "Plano de fundo",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop

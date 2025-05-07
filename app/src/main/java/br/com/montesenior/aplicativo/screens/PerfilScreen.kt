@@ -32,13 +32,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.RowTextInfo
 import br.com.montesenior.aplicativo.model.Usuario
-import br.com.montesenior.aplicativo.model.usuarioMock
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 import br.com.montesenior.aplicativo.ui.theme.BlueMonteSenior
 
@@ -48,10 +46,10 @@ fun PerfilScreen(usuario: Usuario) {
         modifier = Modifier.fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.perfil_cuidador_bg),
+            painter = painterResource(id = R.drawable.perfil_bg),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.FillBounds
         )
         Column(
             modifier = Modifier.fillMaxSize()
@@ -170,10 +168,4 @@ fun PerfilScreen(usuario: Usuario) {
             }
         }
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun SobreMimScreenPreview() {
-    PerfilScreen(usuarioMock)
 }

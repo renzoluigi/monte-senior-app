@@ -15,36 +15,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.CardCurso
 import br.com.montesenior.aplicativo.components.VoltarColumnButton
+import br.com.montesenior.aplicativo.model.CardCursoItem
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 
-data class MaterialItem(
-    val titulo: String,
-    val descricao: String,
-    val imagem: Int,
-    val rota: String
-)
+
 
 @Composable
 fun CursosScreen(modifier: Modifier = Modifier, navController: NavController) {
     val materiais = listOf(
-        MaterialItem(
+        CardCursoItem(
             "Cuidador de idosos",
             "Ideal para familiares e profissionais, ensina cuidados básicos, segurança e bem-estar para idosos.",
             R.drawable.curso_cuidador,
             "detalhes-curso-cuidador"
         ),
-        MaterialItem(
+        CardCursoItem(
             "Estereótipos e etarismo",
             "Desenvolva uma visão crítica sobre preconceitos contra a velhice," +
             " aprendendo a combater práticas discriminatórias e promover o respeito ao" +
@@ -55,7 +49,7 @@ fun CursosScreen(modifier: Modifier = Modifier, navController: NavController) {
     )
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.lightblue_bg),
+            painter = painterResource(id = R.drawable.cute_blue_bg),
             contentDescription = "Plano de fundo",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -87,10 +81,4 @@ fun CursosScreen(modifier: Modifier = Modifier, navController: NavController) {
             }
         }
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun MaterialScreenPreview() {
-    CursosScreen(navController = NavController(LocalContext.current))
 }

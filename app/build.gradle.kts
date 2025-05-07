@@ -59,4 +59,5 @@ dependencies {
 
     implementation("androidx.compose.runtime:runtime-livedata:1.8.0")
     implementation("com.google.accompanist:accompanist-navigation-animation:0.34.0")
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
 }

@@ -50,7 +50,7 @@ import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 fun LoginScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
-    loginScreenViewModel: LoginScreenViewModel
+    loginScreenViewModel: LoginScreenViewModel = LoginScreenViewModel()
 ) {
     val email by loginScreenViewModel.email.observeAsState(initial = "")
     val senha by loginScreenViewModel.senha.observeAsState(initial = "")
@@ -60,7 +60,7 @@ fun LoginScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.cute_blue_bg),
+            painter = painterResource(id = R.drawable.lightblue_bg),
             contentDescription = "Plano de fundo",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop

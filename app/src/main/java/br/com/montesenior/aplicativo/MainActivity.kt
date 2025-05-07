@@ -1,6 +1,7 @@
 package br.com.montesenior.aplicativo
 
 import CursosScreen
+import QuizScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -24,9 +26,10 @@ import br.com.montesenior.aplicativo.screens.BoasVindasScreen
 import br.com.montesenior.aplicativo.screens.DetalhesCursoScreen
 import br.com.montesenior.aplicativo.screens.EsqueceuSuaSenhaScreen
 import br.com.montesenior.aplicativo.screens.LoginScreen
-import br.com.montesenior.aplicativo.screens.LoginScreenViewModel
 import br.com.montesenior.aplicativo.screens.MenuCursoScreen
+import br.com.montesenior.aplicativo.screens.MenuCursoScreenViewModel
 import br.com.montesenior.aplicativo.screens.PerfilScreen
+import br.com.montesenior.aplicativo.screens.VideoAulaScreen
 import br.com.montesenior.aplicativo.ui.theme.AplicativoTheme
 import com.br.montesenior.aplicativo_porto.screens.RegistroScreen
 
@@ -41,15 +44,18 @@ class MainActivity : ComponentActivity() {
                 val currentRoute = navBackStackEntry?.destination?.route
                 Scaffold(
                     bottomBar = {
-                        if (currentRoute == "cursos" || currentRoute == "perfil" || currentRoute == "novidades" || currentRoute == "detalhes") {
+                        if (currentRoute == "cursos" || currentRoute == "perfil" ||
+                            currentRoute == "novidades" || currentRoute == "detalhes"
+                        ) {
                             NavBar(navController = navController)
                         }
                     },
-                    modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
                     Surface(modifier = Modifier.fillMaxSize()) {
                         NavHost(
                             navController = navController,
-                            startDestination = "boas-vindas",
+                            startDestination = "menu-curso-etarismo",
                             modifier = Modifier.padding(innerPadding)
                         ) {
                             composable(route = "boas-vindas") {
@@ -60,22 +66,29 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(route = "login") {
                                 LoginScreen(
-                                    navController = navController,
-                                    modifier = Modifier.fillMaxSize(),
-                                    loginScreenViewModel = LoginScreenViewModel()
+                                    navController = navController
                                 )
                             }
                             composable(route = "esqueceu-a-senha") {
                                 EsqueceuSuaSenhaScreen(navController = navController)
                             }
                             composable(route = "cursos") {
-                                CursosScreen(modifier = Modifier.fillMaxSize(), navController = navController)
+                                CursosScreen(
+                                    modifier = Modifier.fillMaxSize(),
+                                    navController = navController
+                                )
                             }
                             composable(route = "detalhes-curso-cuidador") {
-                                DetalhesCursoScreen(navController = navController, curso = cursoCuidador)
+                                DetalhesCursoScreen(
+                                    navController = navController,
+                                    curso = cursoCuidador
+                                )
                             }
                             composable(route = "detalhes-curso-etarismo") {
-                                DetalhesCursoScreen(navController = navController, curso = cursoEtarismo)
+                                DetalhesCursoScreen(
+                                    navController = navController,
+                                    curso = cursoEtarismo
+                                )
                             }
                             composable(route = "perfil") {
                                 PerfilScreen(usuario = usuarioMock)
@@ -84,10 +97,43 @@ class MainActivity : ComponentActivity() {
                                 Text("Tela de Novidades")
                             }
                             composable(route = "menu-curso-cuidador") {
-                                MenuCursoScreen(cursoItem = cursoCuidador, usuario = usuarioMock)
+                                MenuCursoScreen(
+                                    cursoItem = cursoCuidador,
+                                    usuario = usuarioMock,
+                                    navController = navController
+                                )
                             }
                             composable(route = "menu-curso-etarismo") {
-                                MenuCursoScreen(cursoItem = cursoEtarismo, usuario = usuarioMock)
+                                MenuCursoScreen(
+                                    cursoItem = cursoEtarismo,
+                                    usuario = usuarioMock,
+                                    navController = navController
+                                )
+                            }
+                        composable(route = "video-aula/{atividadeId}/{tarefaId}") { backStackEntry ->
+                            val atividadeId = backStackEntry.arguments?.getString("atividadeId")
+                                ?: return@composable
+                            val tarefaId = backStackEntry.arguments?.getString("tarefaId")
+                                ?: return@composable
+                                VideoAulaScreen(
+                                    videoAulaId = tarefaId,
+                                    navController = navController
+                                )
+                            }
+                            val cursoViewModel = MenuCursoScreenViewModel()
+                            composable("quiz/{atividadeId}/{tarefaId}") { backStackEntry ->
+                                val atividadeId = backStackEntry.arguments?.getString("atividadeId")
+                                    ?: return@composable
+                                val tarefaId = backStackEntry.arguments?.getString("tarefaId")
+                                    ?: return@composable
+                                QuizScreen(
+                                    onQuizCompleted = {
+                                        cursoViewModel.marcarTarefaComoConcluida(atividadeId, tarefaId)
+                                    },
+                                    navController = navController,
+                                    viewModel = viewModel(),
+                                    tarefaId = tarefaId
+                                )
                             }
                         }
                     }

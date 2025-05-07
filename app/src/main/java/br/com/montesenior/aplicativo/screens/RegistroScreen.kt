@@ -44,7 +44,7 @@ fun RegistroScreen(modifier: Modifier = Modifier, navController: NavController) 
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.cute_blue_bg),
+            painter = painterResource(id = R.drawable.lightblue_bg),
             contentDescription = "Plano de fundo",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop

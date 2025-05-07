@@ -10,19 +10,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
-import br.com.montesenior.aplicativo.components.CardTrilhaTarefa
+import br.com.montesenior.aplicativo.components.CardTarefaTrilha
 import br.com.montesenior.aplicativo.components.TopBarCurso
 import br.com.montesenior.aplicativo.model.AtividadeItem
 import br.com.montesenior.aplicativo.model.CursoItem
 import br.com.montesenior.aplicativo.model.Usuario
-import br.com.montesenior.aplicativo.repository.cursoEtarismo
 import br.com.montesenior.aplicativo.model.usuarioMock
 
 @Composable
-fun MenuCursoScreen(cursoItem: CursoItem, usuario: Usuario) {
+fun MenuCursoScreen(cursoItem: CursoItem, usuario: Usuario, navController: NavController) {
     val atividades = listOf(
         AtividadeItem(
             "Introdução",
@@ -37,7 +36,13 @@ fun MenuCursoScreen(cursoItem: CursoItem, usuario: Usuario) {
     )
     Scaffold(
         topBar = {
-            TopBarCurso(nomeCurso = cursoItem.titulo, usuario = usuarioMock)
+            TopBarCurso(
+                nomeCurso = cursoItem.titulo,
+                usuario = usuarioMock,
+                comandoVoltar = {
+                    navController.navigate("cursos")
+                }
+            )
         },
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
@@ -49,10 +54,11 @@ fun MenuCursoScreen(cursoItem: CursoItem, usuario: Usuario) {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(atividades) { atividade ->
-                CardTrilhaTarefa(
+                CardTarefaTrilha(
                     titulo = atividade.titulo,
                     descricao = atividade.descricao,
-                    imagem = atividade.imagem
+                    imagem = atividade.imagem,
+                    navController = navController
                 )
             }
             item {
@@ -61,11 +67,4 @@ fun MenuCursoScreen(cursoItem: CursoItem, usuario: Usuario) {
         }
 
     }
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun MenuCursoScreenPreview() {
-    MenuCursoScreen(cursoItem = cursoEtarismo, usuario = usuarioMock)
 }

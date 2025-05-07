@@ -13,7 +13,7 @@ val cursoEtarismo: CursoItem = CursoItem(
             "Como promover uma cultura de respeito e inclusão em diferentes contextos (família, trabalho, saúde e sociedade).\n" +
             "Análise de situações comuns e alternativas para abordá-las com empatia.\n" +
             "Dinâmicas e recursos para sensibilizar outras pessoas sobre o tema.",
-    imagem = R.drawable.etarismo,
+    imagem = R.drawable.curso_estereotipos_bg,
     cargaHoraria = 2
 )
 
@@ -25,6 +25,6 @@ val cursoCuidador: CursoItem = CursoItem(
             "O processo de envelhecimento da pessoa idosa e os principais cuidados de higiene e conforto, saúde e alimentação. (25H)\n" +
             "Auxílio na reabilitação da pessoa idosa acometida por imobilidade prejudicada, incontinências e adaptações pós sequelas. (20 H)\n" +
             "Marketing Pessoal, elaboração do currículo. auxílio no desenvolvimento profissional. (10H)",
-    imagem = R.drawable.auxilio,
+    imagem = R.drawable.curso_cuidador_bg,
     cargaHoraria = 80
 )

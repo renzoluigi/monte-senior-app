@@ -1,9 +1,8 @@
 package br.com.montesenior.aplicativo.model
 
-data class Modulo(
-    val id: String,
+data class CardCursoItem(
     val titulo: String,
     val descricao: String,
     val imagem: Int,
-    val tarefas: List<Tarefa>
+    val rota: String
 )

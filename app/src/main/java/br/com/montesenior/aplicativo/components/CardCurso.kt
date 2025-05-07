@@ -1,6 +1,5 @@
 package br.com.montesenior.aplicativo.components
 
-import MaterialItem
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,10 +21,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import br.com.montesenior.aplicativo.model.CardCursoItem
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
-fun CardCurso(item: MaterialItem, navController: NavController) {
+fun CardCurso(curso: CardCursoItem, navController: NavController) {
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(6.dp),
@@ -34,8 +34,8 @@ fun CardCurso(item: MaterialItem, navController: NavController) {
     ) {
         Column {
             Image(
-                painter = painterResource(id = item.imagem),
-                contentDescription = item.titulo,
+                painter = painterResource(id = curso.imagem),
+                contentDescription = curso.titulo,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(160.dp),
@@ -44,20 +44,20 @@ fun CardCurso(item: MaterialItem, navController: NavController) {
 
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = item.titulo,
+                text = curso.titulo,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
             Text(
-                text = item.descricao,
+                text = curso.descricao,
                 fontSize = 14.sp,
                 color = Color.Gray,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
             Button(
                 onClick = {
-                    navController.navigate(item.rota)
+                    navController.navigate(curso.rota)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
