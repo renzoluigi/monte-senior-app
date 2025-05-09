@@ -53,7 +53,7 @@ fun TopBarCurso(
                     contentDescription = "Voltar",
                     tint = Color.White,
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(30.dp)
                         .clickable(onClick = comandoVoltar)
                 )
             }

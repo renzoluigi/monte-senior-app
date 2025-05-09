@@ -25,9 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import br.com.montesenior.aplicativo.R
-import br.com.montesenior.aplicativo.model.Tarefa
-import br.com.montesenior.aplicativo.model.TipoTarefa
+import br.com.montesenior.aplicativo.repository.ModuloRepository
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
@@ -35,38 +33,10 @@ fun CardTarefaTrilha(
     titulo: String,
     descricao: String,
     imagem: Int,
-    navController: NavController
+    navController: NavController,
+    moduloId: String
 ) {
-    val trilhaItens = listOf(
-        Tarefa(
-            id = "",
-            imagem = R.drawable.ler_material,
-            titulo = "Leia o  Material",
-            onClick = {
-            },
-            isConcluida = false,
-            tipo = TipoTarefa.LEITURA
-        ),
-        Tarefa(
-            id = "",
-            imagem = R.drawable.assista_o_video,
-            titulo = "Assista o Vídeo",
-            onClick = {
-                navController.navigate("video-aula")
-            },
-            isConcluida = false,
-            tipo = TipoTarefa.VIDEO),
-        Tarefa(
-            id = "",
-            imagem = R.drawable.prova,
-            titulo = "Responda o Quiz",
-            onClick = {
-                navController.navigate("quiz")
-            },
-            isConcluida = false,
-            tipo = TipoTarefa.QUIZ
-        )
-    )
+    val tarefas = ModuloRepository.modulos.getValue(moduloId).tarefas
 
     Card(
         shape = RoundedCornerShape(20.dp),
@@ -118,12 +88,14 @@ fun CardTarefaTrilha(
                     .fillMaxWidth()
                     .height(200.dp)
             ) {
-                items(trilhaItens.size) { item ->
+                items(tarefas.size) { item ->
                     Spacer(modifier = Modifier.width(8.dp))
                     TrilhaCard(
-                        imagem = trilhaItens[item].imagem,
-                        titulo = trilhaItens[item].titulo,
-                        onClick = trilhaItens[item].onClick
+                        imagem = tarefas[item].imagem,
+                        titulo = tarefas[item].titulo,
+                        onClick = {
+                            navController.navigate("${tarefas[item].tipo.id}/${tarefas[item].id}")
+                        }
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                 }

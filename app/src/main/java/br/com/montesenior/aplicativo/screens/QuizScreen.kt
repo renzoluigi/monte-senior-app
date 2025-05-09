@@ -1,5 +1,4 @@
-import br.com.montesenior.aplicativo.screens.QuizResultScreen
-import br.com.montesenior.aplicativo.screens.QuizScreenViewModel
+
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -29,6 +28,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.TopBarVideoAula
 import br.com.montesenior.aplicativo.repository.QuizRepository
+import br.com.montesenior.aplicativo.screens.QuizResultScreen
+import br.com.montesenior.aplicativo.screens.QuizScreenViewModel
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
@@ -42,7 +43,7 @@ fun QuizScreen(
     val score by viewModel.score.observeAsState(0)
     val isCompleted by viewModel.isCompleted.observeAsState(false)
     val selectedAnswer by viewModel.selectedAnswer.observeAsState(null)
-    val questoes = QuizRepository.quizzes[tarefaId]?.questoes
+    val questoes = QuizRepository.quizzes.getValue(tarefaId).questoes
 
     Column(
         modifier = Modifier
@@ -51,13 +52,13 @@ fun QuizScreen(
     ) {
         TopBarVideoAula(
             tipo = "Quiz",
-            tituloAula = "Introdu├º├úo ao Etarismo",
+            tituloAula = "Introdução ao Etarismo",
             navController = navController
         )
         if (isCompleted) {
             QuizResultScreen(
                 score = score,
-                totalQuestions = questoes!!.size,
+                totalQuestions = questoes.size,
                 onRetry = {
                     viewModel.onRetry()
                 },
@@ -73,7 +74,7 @@ fun QuizScreen(
             ) {
                 item {
                     Text(
-                        text = "Quest├úo ${currentQuestion + 1}/${questoes!!.size}",
+                        text = "Questão ${currentQuestion + 1}/${questoes.size}",
                         style = MaterialTheme.typography.titleMedium,
                         color = AzulMarinho,
                         fontWeight = FontWeight.Bold
@@ -86,7 +87,7 @@ fun QuizScreen(
                         fontWeight = FontWeight.SemiBold
                     )
                 }
-                items(questoes!![currentQuestion].opcoes.size) { index ->
+                items(questoes[currentQuestion].opcoes.size) { index ->
                     val isSelected = selectedAnswer == index
                     Surface(
                         modifier = Modifier
@@ -136,7 +137,7 @@ fun QuizScreen(
                         )
                     ) {
                         Text(
-                            text = if (currentQuestion < questoes.size - 1) "Pr├│xima" else "Finalizar",
+                            text = if (currentQuestion < questoes.size - 1) "Próxima" else "Finalizar",
                             color = Color.White,
                             fontSize = 16.sp
                         )

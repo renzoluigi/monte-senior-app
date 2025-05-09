@@ -9,9 +9,9 @@ object VideoAulaRepository {
                 tituloAula = "Entendendo o etarismo",
                 descricaoAula = """
                                     Nesta aula essencial com o Dr. Drauzio Varella,
-                                     exploraremos o conceito de etarismo e seus impactos.
-                                    Dura├º├úo: 5 minutos
-                                    N├¡vel: B├ísico
+                                    exploraremos o conceito de etarismo e seus impactos.
+                                    Duração: 5 minutos
+                                    Nível: B├ísico
                                     Instrutor: Dr. Drauzio Varella
                                 """.trimIndent(),
                 youtubeId = "oyyjgAu_RaI",

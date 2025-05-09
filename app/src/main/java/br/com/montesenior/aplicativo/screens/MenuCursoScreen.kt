@@ -12,28 +12,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.CardTarefaTrilha
 import br.com.montesenior.aplicativo.components.TopBarCurso
-import br.com.montesenior.aplicativo.model.AtividadeItem
 import br.com.montesenior.aplicativo.model.CursoItem
-import br.com.montesenior.aplicativo.model.Usuario
 import br.com.montesenior.aplicativo.model.usuarioMock
+import br.com.montesenior.aplicativo.repository.ModuloRepository
 
 @Composable
-fun MenuCursoScreen(cursoItem: CursoItem, usuario: Usuario, navController: NavController) {
-    val atividades = listOf(
-        AtividadeItem(
-            "Introdução",
-            "Uma visão geral dos principais tópicos que abordaremos para te ajudar no dia a dia do cuidado.",
-            R.drawable.didatic
-        ),
-        AtividadeItem(
-            "Habilidades Básicas de Cuidado", "Desenvolva as habilidades" +
-                    " essenciais que todo cuidador de idosos precisa para garantir o conforto, a segurança e o bem-estar " +
-                    "no dia a dia.", R.drawable.habilidade
-        ),
-    )
+fun MenuCursoScreen(cursoItem: CursoItem, navController: NavController) {
+    val modulos = ModuloRepository.modulos.values.toList()
     Scaffold(
         topBar = {
             TopBarCurso(
@@ -53,12 +40,13 @@ fun MenuCursoScreen(cursoItem: CursoItem, usuario: Usuario, navController: NavCo
                 .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(atividades) { atividade ->
+            items(modulos) { modulo ->
                 CardTarefaTrilha(
-                    titulo = atividade.titulo,
-                    descricao = atividade.descricao,
-                    imagem = atividade.imagem,
-                    navController = navController
+                    titulo = modulo.titulo,
+                    descricao = modulo.descricao,
+                    imagem = modulo.imagem,
+                    navController = navController,
+                    moduloId = modulo.id
                 )
             }
             item {

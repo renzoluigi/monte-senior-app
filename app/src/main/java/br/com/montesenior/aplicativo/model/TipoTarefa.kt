@@ -1,5 +1,5 @@
 package br.com.montesenior.aplicativo.model
 
-enum class TipoTarefa {
-    LEITURA,VIDEO,QUIZ
+enum class TipoTarefa(val id: String) {
+    LEITURA("leitura"),VIDEO("video-aula"),QUIZ("quiz")
 }

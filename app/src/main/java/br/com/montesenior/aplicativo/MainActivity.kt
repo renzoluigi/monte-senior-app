@@ -99,20 +99,16 @@ class MainActivity : ComponentActivity() {
                             composable(route = "menu-curso-cuidador") {
                                 MenuCursoScreen(
                                     cursoItem = cursoCuidador,
-                                    usuario = usuarioMock,
                                     navController = navController
                                 )
                             }
                             composable(route = "menu-curso-etarismo") {
                                 MenuCursoScreen(
                                     cursoItem = cursoEtarismo,
-                                    usuario = usuarioMock,
                                     navController = navController
                                 )
                             }
-                        composable(route = "video-aula/{atividadeId}/{tarefaId}") { backStackEntry ->
-                            val atividadeId = backStackEntry.arguments?.getString("atividadeId")
-                                ?: return@composable
+                        composable(route = "video-aula/{tarefaId}") { backStackEntry ->
                             val tarefaId = backStackEntry.arguments?.getString("tarefaId")
                                 ?: return@composable
                                 VideoAulaScreen(
@@ -121,14 +117,12 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             val cursoViewModel = MenuCursoScreenViewModel()
-                            composable("quiz/{atividadeId}/{tarefaId}") { backStackEntry ->
-                                val atividadeId = backStackEntry.arguments?.getString("atividadeId")
-                                    ?: return@composable
+                            composable("quiz/{tarefaId}") { backStackEntry ->
                                 val tarefaId = backStackEntry.arguments?.getString("tarefaId")
                                     ?: return@composable
                                 QuizScreen(
                                     onQuizCompleted = {
-                                        cursoViewModel.marcarTarefaComoConcluida(atividadeId, tarefaId)
+//                                        cursoViewModel.marcarTarefaComoConcluida(atividadeId, tarefaId)
                                     },
                                     navController = navController,
                                     viewModel = viewModel(),

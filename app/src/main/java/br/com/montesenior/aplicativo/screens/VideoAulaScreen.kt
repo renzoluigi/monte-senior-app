@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.TopBarVideoAula
 import br.com.montesenior.aplicativo.components.YoutubePlayer
-import br.com.montesenior.aplicativo.model.VideoAula
 import br.com.montesenior.aplicativo.repository.VideoAulaRepository
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 import br.com.montesenior.aplicativo.ui.theme.Poppins
@@ -100,23 +99,23 @@ fun VideoAulaScreen(
                         modifier = Modifier.padding(16.dp)
                     ) {
                         Text(
-                            text = "≡ƒôü Materiais Complementares",
+                            text = "\uD83D\uDCC2 Materiais Complementares",
                             fontWeight = FontWeight.SemiBold,
                             color = AzulMarinho
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "ΓÇó Apresenta├º├úo em PDF",
+                            text = " • Apresentação em PDF",
                             modifier = Modifier.clickable(onClick = {}),
                             color = Color.DarkGray
                         )
                         Text(
-                            text = "ΓÇó Lista de Exercícios",
+                            text = " • Lista de Exercícios",
                             modifier = Modifier.clickable(onClick = {}),
                             color = Color.DarkGray
                         )
                         Text(
-                            text = "ΓÇó Links Úteis",
+                            text = " • Links Úteis",
                             modifier = Modifier.clickable(onClick = {}),
                             color = Color.DarkGray
                         )
