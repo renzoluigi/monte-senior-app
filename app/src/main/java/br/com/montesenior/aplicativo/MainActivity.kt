@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -28,6 +27,7 @@ import br.com.montesenior.aplicativo.screens.EsqueceuSuaSenhaScreen
 import br.com.montesenior.aplicativo.screens.LoginScreen
 import br.com.montesenior.aplicativo.screens.MenuCursoScreen
 import br.com.montesenior.aplicativo.screens.MenuCursoScreenViewModel
+import br.com.montesenior.aplicativo.screens.NovidadesScreen
 import br.com.montesenior.aplicativo.screens.PerfilScreen
 import br.com.montesenior.aplicativo.screens.VideoAulaScreen
 import br.com.montesenior.aplicativo.ui.theme.AplicativoTheme
@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
                     Surface(modifier = Modifier.fillMaxSize()) {
                         NavHost(
                             navController = navController,
-                            startDestination = "menu-curso-etarismo",
+                            startDestination = "novidades",
                             modifier = Modifier.padding(innerPadding)
                         ) {
                             composable(route = "boas-vindas") {
@@ -94,7 +94,7 @@ class MainActivity : ComponentActivity() {
                                 PerfilScreen(usuario = usuarioMock)
                             }
                             composable(route = "novidades") {
-                                Text("Tela de Novidades")
+                                NovidadesScreen()
                             }
                             composable(route = "menu-curso-cuidador") {
                                 MenuCursoScreen(
