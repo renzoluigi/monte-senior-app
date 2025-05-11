@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
                     Surface(modifier = Modifier.fillMaxSize()) {
                         NavHost(
                             navController = navController,
-                            startDestination = "novidades",
+                            startDestination = "cursos",
                             modifier = Modifier.padding(innerPadding)
                         ) {
                             composable(route = "boas-vindas") {

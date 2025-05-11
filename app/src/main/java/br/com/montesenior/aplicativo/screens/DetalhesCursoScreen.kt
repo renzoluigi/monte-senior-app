@@ -35,11 +35,10 @@ fun DetalhesCursoScreen(
     Column(modifier = Modifier.fillMaxSize()) {
         Box {
             Image(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxWidth().height(400.dp),
                 painter = painterResource(id = curso.imagem),
                 contentDescription = "Imagem de um cuidador de idoso auxiliando uma idosa",
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.FillBounds
             )
             Column(
                 modifier = Modifier
@@ -54,11 +53,10 @@ fun DetalhesCursoScreen(
                     fontSize = 20.sp,
                 )
             }
-            Spacer(modifier = Modifier.height(400.dp))
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp, top = 350.dp)
+                    .padding(start = 16.dp, end = 16.dp, top = 410.dp)
             ) {
                 item {
                     Text(
@@ -120,6 +118,7 @@ fun DetalhesCursoScreen(
                             fontWeight = FontWeight.Bold
                         )
                     }
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
             }
         }

@@ -1,6 +1,5 @@
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,9 +23,6 @@ import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.CardCurso
 import br.com.montesenior.aplicativo.components.VoltarColumnButton
 import br.com.montesenior.aplicativo.model.CardCursoItem
-import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
-
-
 
 
 @Composable
@@ -49,7 +45,7 @@ fun CursosScreen(modifier: Modifier = Modifier, navController: NavController) {
     )
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.cute_blue_bg),
+            painter = painterResource(id = R.drawable.white_bg),
             contentDescription = "Plano de fundo",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -64,18 +60,18 @@ fun CursosScreen(modifier: Modifier = Modifier, navController: NavController) {
                     Text(
                         text = "Cursos disponíveis",
                         fontWeight = FontWeight.Bold,
-                        fontSize = 26.sp,
-                        color = AzulMarinho
+                        fontSize = 26.sp
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 LazyColumn(
                     modifier = Modifier
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                        .fillMaxSize()
                 ) {
                     items(materiais) { item ->
+                        Spacer(modifier = Modifier.height(8.dp))
                         CardCurso(item, navController)
+                        Spacer(modifier = Modifier.height(8.dp))
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package br.com.montesenior.aplicativo.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,20 +33,20 @@ fun NovidadeCard(imagem: Int, titulo: String, descricao: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp),
-        colors = CardDefaults.cardColors(Color.White),
-        shape = RectangleShape
+            .height(150.dp)
+            .clickable(onClick = {}),
+        colors = CardDefaults.cardColors(Color.White)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(8.dp)
         ) {
-            Card {
+            Card{
                 Image(
                     painter = painterResource(id = imagem),
-                    contentDescription = null,
-                    modifier = Modifier.size(100.dp),
+                    contentDescription = "Imagem do evento",
+                    modifier = Modifier.size(150.dp),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -52,12 +56,19 @@ fun NovidadeCard(imagem: Int, titulo: String, descricao: String) {
             ) {
                 Text(
                     text = titulo,
-                    fontSize = 20.sp
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Spacer(Modifier.height(4.dp))
                 Text(
                     text = descricao,
-                    color = Color.Gray
+                    fontSize = 12.sp,
+                    color = Color.Gray,
+                    textAlign = TextAlign.Justify,
+                    maxLines = 4,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }
@@ -67,5 +78,9 @@ fun NovidadeCard(imagem: Int, titulo: String, descricao: String) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun NovidadeCardPreview() {
-    NovidadeCard(imagem = R.drawable.curso_cuidador, titulo = "Titulo", descricao = "Descricao")
+    NovidadeCard(
+        imagem = R.drawable.curso_cuidador,
+        titulo = "Titulo",
+        descricao = "Descricao"
+    )
 }

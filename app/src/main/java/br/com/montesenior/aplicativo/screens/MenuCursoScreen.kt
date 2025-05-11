@@ -1,6 +1,5 @@
 package br.com.montesenior.aplicativo.screens
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -12,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import br.com.montesenior.aplicativo.components.CardTarefaTrilha
+import br.com.montesenior.aplicativo.components.CardModulo
 import br.com.montesenior.aplicativo.components.TopBarCurso
 import br.com.montesenior.aplicativo.model.CursoItem
 import br.com.montesenior.aplicativo.model.usuarioMock
@@ -37,20 +36,18 @@ fun MenuCursoScreen(cursoItem: CursoItem, navController: NavController) {
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(horizontal = 16.dp)
         ) {
             items(modulos) { modulo ->
-                CardTarefaTrilha(
+                Spacer(modifier = Modifier.height(8.dp))
+                CardModulo(
                     titulo = modulo.titulo,
                     descricao = modulo.descricao,
                     imagem = modulo.imagem,
                     navController = navController,
                     moduloId = modulo.id
                 )
-            }
-            item {
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
 

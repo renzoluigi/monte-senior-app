@@ -29,7 +29,7 @@ import br.com.montesenior.aplicativo.repository.ModuloRepository
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
-fun CardTarefaTrilha(
+fun CardModulo(
     titulo: String,
     descricao: String,
     imagem: Int,
