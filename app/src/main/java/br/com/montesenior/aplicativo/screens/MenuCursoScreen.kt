@@ -15,7 +15,7 @@ import br.com.montesenior.aplicativo.components.CardModulo
 import br.com.montesenior.aplicativo.components.TopBarCurso
 import br.com.montesenior.aplicativo.model.usuarioMock
 import br.com.montesenior.aplicativo.repository.CursoRepository
-import br.com.montesenior.aplicativo.repository.ModuloRepository
+import br.com.montesenior.aplicativo.repository.MaterialCursoRepository
 
 @Composable
 fun MenuCursoScreen(
@@ -23,7 +23,8 @@ fun MenuCursoScreen(
     navController: NavController
 ) {
     val curso = CursoRepository.cursos.getValue(cursoId)
-    val modulos = ModuloRepository.modulos.values.toList()
+    val modulos = MaterialCursoRepository.materialCursos.getValue(curso.materialId).modulos
+
     Scaffold(
         topBar = {
             TopBarCurso(
@@ -49,7 +50,7 @@ fun MenuCursoScreen(
                     descricao = modulo.descricao,
                     imagem = modulo.imagem,
                     navController = navController,
-                    moduloId = modulo.id
+                    tarefas = modulo.tarefas
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }

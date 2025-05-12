@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TrilhaCard(imagem: Int, titulo: String, onClick: () -> Unit) {
+fun CardTrilha(imagem: Int, titulo: String, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .width(140.dp)

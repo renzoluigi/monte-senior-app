@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import br.com.montesenior.aplicativo.repository.ModuloRepository
+import br.com.montesenior.aplicativo.model.Tarefa
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
@@ -34,10 +34,8 @@ fun CardModulo(
     descricao: String,
     imagem: Int,
     navController: NavController,
-    moduloId: String
+    tarefas: List<Tarefa>
 ) {
-    val tarefas = ModuloRepository.modulos.getValue(moduloId).tarefas
-
     Card(
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(8.dp),
@@ -90,7 +88,7 @@ fun CardModulo(
             ) {
                 items(tarefas.size) { item ->
                     Spacer(modifier = Modifier.width(8.dp))
-                    TrilhaCard(
+                    CardTrilha(
                         imagem = tarefas[item].imagem,
                         titulo = tarefas[item].titulo,
                         onClick = {

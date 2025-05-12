@@ -6,7 +6,6 @@ import br.com.montesenior.aplicativo.model.CursoItem
 object CursoRepository {
     val cursos = mapOf(
         "curso_cuidador" to CursoItem(
-            id = 1,
             titulo = "Curso de cuidador de idosos",
             descricaoBreve = "Este curso abrangente oferece uma formação completa para cuidadores de idosos.",
             projecao = "A profissão e as responsabilidades do Cuidador de pessoa Idosa. (25 H)\n" +
@@ -15,10 +14,9 @@ object CursoRepository {
                     "Marketing Pessoal, elaboração do currículo. auxílio no desenvolvimento profissional. (10H)",
             imagem = R.drawable.curso_cuidador_bg,
             cargaHoraria = 80,
-            cursoId = "curso_cuidador"
+            materialId = "curso_cuidador"
         ),
         "curso_etarismo" to CursoItem(
-            id = 2,
             titulo = "Curso de estereótipos e etarismo",
             descricaoBreve = "Este curso oferece uma reflexão profunda sobre os estereótipos e o etarismo" +
                     " (discriminação por idade), capacitando os participantes a identificar e combater" +
@@ -29,7 +27,7 @@ object CursoRepository {
                     "Dinâmicas e recursos para sensibilizar outras pessoas sobre o tema.",
             imagem = R.drawable.curso_estereotipos_bg,
             cargaHoraria = 2,
-            cursoId = "curso_etarismo"
+            materialId = "curso_etarismo"
         )
     )
 }

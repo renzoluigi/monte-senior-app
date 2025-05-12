@@ -60,12 +60,6 @@ fun DetalhesCursoScreen(
                     .padding(start = 16.dp, end = 16.dp, top = 385.dp)
             ) {
                 item {
-                    Text(
-                        text = "Detalhes do Curso",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 22.sp,
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -106,7 +100,7 @@ fun DetalhesCursoScreen(
                     Button(
                         modifier = Modifier.fillMaxWidth().height(50.dp),
                         onClick = {
-                            navController.navigate("cursos/${curso.cursoId}") //era pra ter matricula antes
+                            navController.navigate("cursos/${curso.materialId}") //era pra ter matricula antes
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = AzulMarinho,
