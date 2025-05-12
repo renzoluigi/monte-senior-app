@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -45,25 +46,22 @@ fun PerfilScreen(usuario: Usuario) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
+
         Image(
-            painter = painterResource(id = R.drawable.perfil_bg),
+            painter = painterResource(id = R.drawable.banner_perfil_bg),
             contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(175.dp),
             contentScale = ContentScale.FillBounds
         )
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(100.dp))
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-            }
+            Spacer(modifier = Modifier.height(110.dp))
             Card(
-                shape = CircleShape,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                shape = CircleShape
             ) {
                 Image(
                     painter = painterResource(id = usuario.foto),
@@ -73,7 +71,12 @@ fun PerfilScreen(usuario: Usuario) {
                         .clip(CircleShape)
                 )
             }
-            Spacer(modifier = Modifier.height(4.dp))
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 240.dp)
+        ) {
             Text(
                 text = usuario.nome,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -96,7 +99,9 @@ fun PerfilScreen(usuario: Usuario) {
             ) {
                 Button(
                     onClick = {},
-                    modifier = Modifier.fillMaxWidth().height(50.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
                     shape = RoundedCornerShape(10.dp),
                     colors = ButtonDefaults.buttonColors(BlueMonteSenior)
                 ) {
@@ -105,63 +110,59 @@ fun PerfilScreen(usuario: Usuario) {
                         fontSize = 16.sp
                     )
                 }
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center
+                Spacer(modifier = Modifier.height(10.dp))
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(220.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = AzulMarinho
+                    )
                 ) {
-                    Card(
+                    Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .height(220.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = AzulMarinho
-                        )
+                            .fillMaxSize()
+                            .padding(16.dp)
                     ) {
-                        Column(
+                        Text(
+                            text = "Informações Pessoais",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        RowTextInfo(info1 = "Nome:", info2 = usuario.nome)
+                        RowTextInfo(info1 = "Email:", info2 = usuario.email)
+                        RowTextInfo(info1 = "Telefone:", info2 = usuario.telefone)
+                        RowTextInfo(info1 = "Data de nascimento:", info2 = usuario.nascimento)
+                        RowTextInfo(
+                            info1 = "Endereco:",
+                            info2 = "${usuario.endereco.rua}," +
+                                    " ${usuario.endereco.numero}," +
+                                    " ${usuario.endereco.bairro}," +
+                                    " ${usuario.endereco.cidade}," +
+                                    " ${usuario.endereco.estado}"
+                        )
+                        Spacer(modifier = Modifier.height(5.dp))
+                        Row(
                             modifier = Modifier
-                                .fillMaxSize()
-                                .padding(16.dp)
+                                .align(Alignment.End)
+                                .clickable(onClick = {})
                         ) {
                             Text(
-                                text = "Informações Pessoais",
-                                fontSize = 20.sp,
+                                text = "Editar",
+                                color = Color.White,
                                 fontWeight = FontWeight.Bold,
-                                color = Color.White
-
+                                fontSize = 15.sp
                             )
-                            Spacer(modifier = Modifier.height(10.dp))
-                            RowTextInfo(info1 = "Nome:", info2 = usuario.nome)
-                            RowTextInfo(info1 = "Email:", info2 = usuario.email)
-                            RowTextInfo(info1 = "Telefone:", info2 = usuario.telefone)
-                            RowTextInfo(info1 = "Data de nascimento:", info2 = usuario.nascimento)
-                            RowTextInfo(
-                                info1 = "Endereco:",
-                                info2 = "${usuario.endereco.rua}," +
-                                        " ${usuario.endereco.numero}," +
-                                        " ${usuario.endereco.bairro}," +
-                                        " ${usuario.endereco.cidade}," +
-                                        " ${usuario.endereco.estado}"
+                            Spacer(modifier = Modifier.width(5.dp))
+                            Icon(
+                                imageVector = Icons.Default.Edit,
+                                contentDescription = "Editar",
+                                tint = Color.White,
+                                modifier = Modifier.size(22.dp)
                             )
-                            Spacer(modifier = Modifier.height(5.dp))
-                            Row(
-                                modifier = Modifier
-                                    .align(Alignment.End)
-                                    .clickable(onClick = {})
-                            ) {
-                                Text(
-                                    text = "Editar",
-                                    color = Color.White,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 15.sp
-                                )
-                                Spacer(modifier = Modifier.width(5.dp))
-                                Icon(
-                                    imageVector = Icons.Default.Edit,
-                                    contentDescription = "Editar",
-                                    tint = Color.White,
-                                    modifier = Modifier.size(22.dp)
-                                )
-                            }
                         }
                     }
                 }

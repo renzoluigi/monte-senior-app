@@ -27,20 +27,21 @@ import br.com.montesenior.aplicativo.model.CardCursoItem
 
 @Composable
 fun CursosScreen(modifier: Modifier = Modifier, navController: NavController) {
-    val materiais = listOf(
+    val cursos = listOf(
         CardCursoItem(
-            "Cuidador de idosos",
-            "Ideal para familiares e profissionais, ensina cuidados básicos, segurança e bem-estar para idosos.",
-            R.drawable.curso_cuidador,
-            "detalhes-curso-cuidador"
+            titulo = "Cuidador de idosos",
+            descricao = "Ideal para familiares e profissionais, ensina cuidados básicos," +
+                    " segurança e bem-estar para idosos.",
+            imagem = R.drawable.curso_cuidador,
+            rota = "cursos/detalhes/curso_cuidador"
         ),
         CardCursoItem(
-            "Estereótipos e etarismo",
-            "Desenvolva uma visão crítica sobre preconceitos contra a velhice," +
+            titulo = "Estereótipos e etarismo",
+            descricao = "Desenvolva uma visão crítica sobre preconceitos contra a velhice," +
             " aprendendo a combater práticas discriminatórias e promover o respeito ao" +
             " envelhecimento.",
-            R.drawable.curso_etarismo,
-            "detalhes-curso-etarismo"
+            imagem = R.drawable.curso_etarismo,
+            rota = "cursos/detalhes/curso_etarismo"
         )
     )
     Box(modifier = Modifier.fillMaxSize()) {
@@ -68,9 +69,9 @@ fun CursosScreen(modifier: Modifier = Modifier, navController: NavController) {
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    items(materiais) { item ->
+                    items(cursos) { curso ->
                         Spacer(modifier = Modifier.height(8.dp))
-                        CardCurso(item, navController)
+                        CardCurso(curso, navController)
                         Spacer(modifier = Modifier.height(8.dp))
                     }
                 }

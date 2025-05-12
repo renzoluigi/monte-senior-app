@@ -19,8 +19,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.montesenior.aplicativo.components.NavBar
 import br.com.montesenior.aplicativo.model.usuarioMock
-import br.com.montesenior.aplicativo.repository.cursoCuidador
-import br.com.montesenior.aplicativo.repository.cursoEtarismo
+import br.com.montesenior.aplicativo.repository.CursoRepository
 import br.com.montesenior.aplicativo.screens.BoasVindasScreen
 import br.com.montesenior.aplicativo.screens.DetalhesCursoScreen
 import br.com.montesenior.aplicativo.screens.EsqueceuSuaSenhaScreen
@@ -78,16 +77,20 @@ class MainActivity : ComponentActivity() {
                                     navController = navController
                                 )
                             }
-                            composable(route = "detalhes-curso-cuidador") {
+                            composable(route = "cursos/detalhes/{cursoId}") { backStackEntry ->
+                                val cursoId = backStackEntry.arguments?.getString("cursoId")
+                                    ?: return@composable
                                 DetalhesCursoScreen(
                                     navController = navController,
-                                    curso = cursoCuidador
+                                    cursoId = cursoId
                                 )
                             }
-                            composable(route = "detalhes-curso-etarismo") {
-                                DetalhesCursoScreen(
-                                    navController = navController,
-                                    curso = cursoEtarismo
+                            composable(route = "cursos/{cursoId}") { backStackEntry ->
+                                val cursoId = backStackEntry.arguments?.getString("cursoId")
+                                    ?: return@composable
+                                MenuCursoScreen(
+                                    cursoId = cursoId,
+                                    navController = navController
                                 )
                             }
                             composable(route = "perfil") {
@@ -95,18 +98,6 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(route = "novidades") {
                                 NovidadesScreen()
-                            }
-                            composable(route = "menu-curso-cuidador") {
-                                MenuCursoScreen(
-                                    cursoItem = cursoCuidador,
-                                    navController = navController
-                                )
-                            }
-                            composable(route = "menu-curso-etarismo") {
-                                MenuCursoScreen(
-                                    cursoItem = cursoEtarismo,
-                                    navController = navController
-                                )
                             }
                         composable(route = "video-aula/{tarefaId}") { backStackEntry ->
                             val tarefaId = backStackEntry.arguments?.getString("tarefaId")

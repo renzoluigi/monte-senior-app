@@ -23,19 +23,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import br.com.montesenior.aplicativo.model.CursoItem
+import br.com.montesenior.aplicativo.repository.CursoRepository
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
 fun DetalhesCursoScreen(
-    modifier: Modifier = Modifier,
     navController: NavController,
-    curso: CursoItem
+    cursoId: String
 ) {
+    val curso = CursoRepository.cursos.getValue(cursoId)
+
     Column(modifier = Modifier.fillMaxSize()) {
         Box {
             Image(
-                modifier = Modifier.fillMaxWidth().height(400.dp),
+                modifier = Modifier.fillMaxWidth().height(375.dp),
                 painter = painterResource(id = curso.imagem),
                 contentDescription = "Imagem de um cuidador de idoso auxiliando uma idosa",
                 contentScale = ContentScale.FillBounds
@@ -56,7 +57,7 @@ fun DetalhesCursoScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp, top = 410.dp)
+                    .padding(start = 16.dp, end = 16.dp, top = 385.dp)
             ) {
                 item {
                     Text(
@@ -105,7 +106,7 @@ fun DetalhesCursoScreen(
                     Button(
                         modifier = Modifier.fillMaxWidth().height(50.dp),
                         onClick = {
-                            navController.navigate("menu-curso-etarismo") //era pra ter matricula antes
+                            navController.navigate("cursos/${curso.cursoId}") //era pra ter matricula antes
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = AzulMarinho,

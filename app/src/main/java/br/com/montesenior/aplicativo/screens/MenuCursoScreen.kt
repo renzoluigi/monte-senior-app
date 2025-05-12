@@ -13,17 +13,21 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.CardModulo
 import br.com.montesenior.aplicativo.components.TopBarCurso
-import br.com.montesenior.aplicativo.model.CursoItem
 import br.com.montesenior.aplicativo.model.usuarioMock
+import br.com.montesenior.aplicativo.repository.CursoRepository
 import br.com.montesenior.aplicativo.repository.ModuloRepository
 
 @Composable
-fun MenuCursoScreen(cursoItem: CursoItem, navController: NavController) {
+fun MenuCursoScreen(
+    cursoId: String,
+    navController: NavController
+) {
+    val curso = CursoRepository.cursos.getValue(cursoId)
     val modulos = ModuloRepository.modulos.values.toList()
     Scaffold(
         topBar = {
             TopBarCurso(
-                nomeCurso = cursoItem.titulo,
+                nomeCurso = curso.titulo,
                 usuario = usuarioMock,
                 comandoVoltar = {
                     navController.navigate("cursos")

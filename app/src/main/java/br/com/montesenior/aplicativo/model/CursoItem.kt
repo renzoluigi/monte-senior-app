@@ -7,4 +7,5 @@ data class CursoItem(
     val projecao: String,
     val imagem: Int,
     val cargaHoraria: Int,
+    val cursoId: String
 )
