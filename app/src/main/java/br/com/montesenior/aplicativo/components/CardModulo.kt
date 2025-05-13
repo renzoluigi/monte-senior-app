@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -49,29 +50,23 @@ fun CardModulo(
                 Image(
                     painter = painterResource(id = imagem),
                     contentDescription = "Ícone da $titulo",
-                    modifier = Modifier.size(48.dp)
+                    modifier = Modifier.size(64.dp)
                 )
                 Spacer(modifier = Modifier.width(16.dp))
-                Column(modifier = Modifier.width(150.dp)) {
+                Column(modifier = Modifier.fillMaxWidth()) {
                     Text(
-                        titulo,
+                        text = titulo,
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.End,
+                        modifier = Modifier.align(Alignment.End)
                     )
                     Text(
-                        descricao,
+                        text = descricao,
                         fontSize = 14.sp,
                         color = Color.Gray,
-                    )
-                }
-                Button(
-                    onClick = { /* TODO: ação */ },
-                    shape = RoundedCornerShape(20.dp),
-                    colors = ButtonDefaults.buttonColors(AzulMarinho)
-                ) {
-                    Text(
-                        text = "Começar",
-                        color = Color.White
+                        textAlign = TextAlign.Justify,
+                        modifier = Modifier.align(Alignment.End)
                     )
                 }
             }
@@ -88,8 +83,8 @@ fun CardModulo(
             ) {
                 items(tarefas.size) { item ->
                     Spacer(modifier = Modifier.width(8.dp))
-                    CardTrilha(
-                        imagem = tarefas[item].imagem,
+                    CardTarefa(
+                        imagem = tarefas[item].tipo.imagem,
                         titulo = tarefas[item].titulo,
                         onClick = {
                             navController.navigate("${tarefas[item].tipo.id}/${tarefas[item].id}")

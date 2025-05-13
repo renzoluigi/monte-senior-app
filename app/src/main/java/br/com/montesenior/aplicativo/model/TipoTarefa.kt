@@ -1,5 +1,19 @@
 package br.com.montesenior.aplicativo.model
 
-enum class TipoTarefa(val id: String) {
-    LEITURA("leitura"),VIDEO("video-aula"),QUIZ("quiz")
+import br.com.montesenior.aplicativo.R
+
+enum class TipoTarefa(
+    val id: String,
+    val imagem: Int
+) {
+    LEITURA(
+        id = "leitura",
+        R.drawable.ler_material
+    ),VIDEO(
+        id = "video-aula",
+        R.drawable.assista_o_video
+    ),QUIZ(
+        id = "quiz",
+        R.drawable.prova
+    )
 }

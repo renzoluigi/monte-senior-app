@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -36,7 +37,7 @@ fun DetalhesCursoScreen(
     Column(modifier = Modifier.fillMaxSize()) {
         Box {
             Image(
-                modifier = Modifier.fillMaxWidth().height(375.dp),
+                modifier = Modifier.fillMaxWidth().height(390.dp),
                 painter = painterResource(id = curso.imagem),
                 contentDescription = "Imagem de um cuidador de idoso auxiliando uma idosa",
                 contentScale = ContentScale.FillBounds
@@ -57,7 +58,7 @@ fun DetalhesCursoScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp, top = 385.dp)
+                    .padding(start = 16.dp, end = 16.dp, top = 400.dp)
             ) {
                 item {
                     Row(
@@ -78,6 +79,7 @@ fun DetalhesCursoScreen(
                     }
                     Text(
                         text = curso.descricaoBreve,
+                        textAlign = TextAlign.Justify,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
                     Text(
@@ -88,6 +90,7 @@ fun DetalhesCursoScreen(
                     )
                     Text(
                         text = curso.projecao,
+                        textAlign = TextAlign.Justify,
                         modifier = Modifier.padding(bottom = 4.dp)
                     )
                     Text(

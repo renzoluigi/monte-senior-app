@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -53,7 +54,8 @@ fun CardCurso(curso: CardCursoItem, navController: NavController) {
                 text = curso.descricao,
                 fontSize = 14.sp,
                 color = Color.Gray,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp),
+                textAlign = TextAlign.Justify
             )
             Button(
                 onClick = {

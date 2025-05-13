@@ -21,21 +21,18 @@ object MaterialCursoRepository {
                             id = "intro_material",
                             tipo = TipoTarefa.LEITURA,
                             titulo = "Leia o  Material",
-                            imagem = R.drawable.ler_material,
                             isConcluida = false
                         ),
                         Tarefa(
                             id = "intro_etarismo_video_aula",
                             tipo = TipoTarefa.VIDEO,
                             titulo = "Vídeo Introdutório",
-                            imagem = R.drawable.assista_o_video,
                             isConcluida = false
                         ),
                         Tarefa(
                             id = "intro_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
                             titulo = "Quiz Introdutório",
-                            imagem = R.drawable.prova,
                             isConcluida = false
                         )
                     )
@@ -53,14 +50,12 @@ object MaterialCursoRepository {
                             id = "intro_video",
                             tipo = TipoTarefa.VIDEO,
                             titulo = "Assistir ao Vídeo",
-                            imagem = R.drawable.assista_o_video,
                             isConcluida = false
                         ),
                         Tarefa(
                             id = "inclusao_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
                             titulo = "Responder o Quiz",
-                            imagem = R.drawable.prova,
                             isConcluida = false
                         )
                     )
@@ -80,21 +75,18 @@ object MaterialCursoRepository {
                             id = "intro_material",
                             tipo = TipoTarefa.LEITURA,
                             titulo = "Leia o  Material",
-                            imagem = R.drawable.ler_material,
                             isConcluida = false
                         ),
                         Tarefa(
                             id = "intro_etarismo_video_aula",
                             tipo = TipoTarefa.VIDEO,
                             titulo = "Vídeo Introdutório",
-                            imagem = R.drawable.assista_o_video,
                             isConcluida = false
                         ),
                         Tarefa(
                             id = "intro_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
                             titulo = "Quiz Introdutório",
-                            imagem = R.drawable.prova,
                             isConcluida = false
                         )
                     )
@@ -112,14 +104,12 @@ object MaterialCursoRepository {
                             id = "intro_video",
                             tipo = TipoTarefa.VIDEO,
                             titulo = "Assistir ao Vídeo",
-                            imagem = R.drawable.assista_o_video,
                             isConcluida = false
                         ),
                         Tarefa(
                             id = "inclusao_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
                             titulo = "Responder o Quiz",
-                            imagem = R.drawable.prova,
                             isConcluida = true
                         )
                     )
@@ -137,14 +127,12 @@ object MaterialCursoRepository {
                             id = "intro_video",
                             tipo = TipoTarefa.VIDEO,
                             titulo = "Assistir ao Vídeo",
-                            imagem = R.drawable.assista_o_video,
                             isConcluida = false
                         ),
                         Tarefa(
                             id = "inclusao_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
                             titulo = "Responder o Quiz",
-                            imagem = R.drawable.prova,
                             isConcluida = false
                         )
                     )
@@ -162,14 +150,12 @@ object MaterialCursoRepository {
                             id = "intro_video",
                             tipo = TipoTarefa.VIDEO,
                             titulo = "Assistir ao Vídeo",
-                            imagem = R.drawable.assista_o_video,
                             isConcluida = false
                         ),
                         Tarefa(
                             id = "inclusao_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
                             titulo = "Responder o Quiz",
-                            imagem = R.drawable.prova,
                             isConcluida = false
                         )
                     )
