@@ -47,7 +47,8 @@ fun NovidadesScreen() {
                 NovidadeCard(
                     imagem = NovidadesRepository.novidades()[index].imagem,
                     titulo = NovidadesRepository.novidades()[index].titulo,
-                    descricao = NovidadesRepository.novidades()[index].descricao
+                    descricao = NovidadesRepository.novidades()[index].descricao,
+                    link = NovidadesRepository.novidades()[index].link
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }

@@ -18,12 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import br.com.montesenior.aplicativo.components.abrirUrl
 import br.com.montesenior.aplicativo.repository.CursoRepository
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
@@ -33,6 +35,7 @@ fun DetalhesCursoScreen(
     cursoId: String
 ) {
     val curso = CursoRepository.cursos.getValue(cursoId)
+    val contexto = LocalContext.current
 
     Column(modifier = Modifier.fillMaxSize()) {
         Box {
@@ -97,11 +100,15 @@ fun DetalhesCursoScreen(
                         text = "Mais informações sobre o curso...",
                         modifier = Modifier
                             .padding(bottom = 8.dp)
-                            .clickable(onClick = {}),
+                            .clickable(onClick = {
+                                abrirUrl(contexto = contexto, url = curso.maisInformacoesLink)
+                            }),
                         color = Color.Blue
                     )
                     Button(
-                        modifier = Modifier.fillMaxWidth().height(50.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
                         onClick = {
                             navController.navigate("cursos/${curso.materialId}") //era pra ter matricula antes
                         },
@@ -122,3 +129,4 @@ fun DetalhesCursoScreen(
         }
     }
 }
+

@@ -1,5 +1,8 @@
 package br.com.montesenior.aplicativo.components
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,22 +21,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.montesenior.aplicativo.R
 
 @Composable
-fun NovidadeCard(imagem: Int, titulo: String, descricao: String) {
+fun NovidadeCard(
+    imagem: Int,
+    titulo: String,
+    descricao: String,
+    link: String
+) {
+    val context = LocalContext.current
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(150.dp)
-            .clickable(onClick = {}),
+            .clickable(onClick = {
+                abrirUrl(context, link)
+            }),
         colors = CardDefaults.cardColors(Color.White)
     ) {
         Row(
@@ -51,7 +62,9 @@ fun NovidadeCard(imagem: Int, titulo: String, descricao: String) {
             }
             Column(
                 horizontalAlignment = Alignment.End,
-                modifier = Modifier.fillMaxSize().padding(start = 16.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(start = 16.dp)
             ) {
                 Text(
                     text = titulo,
@@ -74,12 +87,7 @@ fun NovidadeCard(imagem: Int, titulo: String, descricao: String) {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun NovidadeCardPreview() {
-    NovidadeCard(
-        imagem = R.drawable.curso_cuidador,
-        titulo = "Titulo",
-        descricao = "Descricao"
-    )
+fun abrirUrl(contexto: Context, url: String) {
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    contexto.startActivity(intent)
 }

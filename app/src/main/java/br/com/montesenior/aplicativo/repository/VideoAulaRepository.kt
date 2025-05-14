@@ -14,7 +14,10 @@ object VideoAulaRepository {
                                     Instrutor: Dr. Drauzio Varella
                                 """.trimIndent(),
                 youtubeId = "oyyjgAu_RaI",
-                isAssistido = false
+                isAssistido = false,
+                pdfLink = "https://www.google.com",
+                exerciosLink = "https://www.google.com",
+                linksUteis = "https://www.google.com"
             )
         )
     }

@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.TopBarVideoAula
 import br.com.montesenior.aplicativo.components.YoutubePlayer
+import br.com.montesenior.aplicativo.components.abrirUrl
 import br.com.montesenior.aplicativo.repository.VideoAulaRepository
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 import br.com.montesenior.aplicativo.ui.theme.Poppins
@@ -42,6 +44,7 @@ fun VideoAulaScreen(
 ) {
     val isAssistido by viewModel.isAssistido.observeAsState(false)
     val videoAula = VideoAulaRepository.videoAulas().getValue(videoAulaId)
+    val contexto = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -108,24 +111,41 @@ fun VideoAulaScreen(
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = " • Apresentação em PDF",
-                            modifier = Modifier.clickable(onClick = {}),
+                            modifier = Modifier.clickable(onClick = {
+                                abrirUrl(
+                                    contexto = contexto,
+                                    url = videoAula.pdfLink
+                                )
+                            }),
                             color = Color.DarkGray
                         )
                         Text(
                             text = " • Lista de Exercícios",
-                            modifier = Modifier.clickable(onClick = {}),
+                            modifier = Modifier.clickable(onClick = {
+                                abrirUrl(
+                                    contexto = contexto,
+                                    url = videoAula.exerciosLink
+                                )
+                            }),
                             color = Color.DarkGray
                         )
                         Text(
                             text = " • Links Úteis",
-                            modifier = Modifier.clickable(onClick = {}),
+                            modifier = Modifier.clickable(onClick = {
+                                abrirUrl(
+                                    contexto = contexto,
+                                    url = videoAula.linksUteis
+                                )
+                            }),
                             color = Color.DarkGray
                         )
                     }
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
-                    onClick = {},
+                    onClick = {
+                        navController.popBackStack()
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(50.dp),
@@ -143,6 +163,5 @@ fun VideoAulaScreen(
                 }
             }
         }
-
     }
 }
