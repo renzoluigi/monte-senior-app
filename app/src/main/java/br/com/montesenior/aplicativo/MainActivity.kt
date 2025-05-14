@@ -19,8 +19,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.montesenior.aplicativo.components.NavBar
 import br.com.montesenior.aplicativo.model.usuarioMock
-import br.com.montesenior.aplicativo.repository.CursoRepository
 import br.com.montesenior.aplicativo.screens.BoasVindasScreen
+import br.com.montesenior.aplicativo.screens.LeituraConteudoScreen
 import br.com.montesenior.aplicativo.screens.DetalhesCursoScreen
 import br.com.montesenior.aplicativo.screens.EsqueceuSuaSenhaScreen
 import br.com.montesenior.aplicativo.screens.LoginScreen
@@ -99,9 +99,9 @@ class MainActivity : ComponentActivity() {
                             composable(route = "novidades") {
                                 NovidadesScreen()
                             }
-                        composable(route = "video-aula/{tarefaId}") { backStackEntry ->
-                            val tarefaId = backStackEntry.arguments?.getString("tarefaId")
-                                ?: return@composable
+                            composable(route = "video-aula/{tarefaId}") { backStackEntry ->
+                                val tarefaId = backStackEntry.arguments?.getString("tarefaId")
+                                    ?: return@composable
                                 VideoAulaScreen(
                                     videoAulaId = tarefaId,
                                     navController = navController
@@ -118,6 +118,14 @@ class MainActivity : ComponentActivity() {
                                     navController = navController,
                                     viewModel = viewModel(),
                                     tarefaId = tarefaId
+                                )
+                            }
+                            composable("leitura-conteudo/{materialId}") { backStackEntry ->
+                                val materialId = backStackEntry.arguments?.getString("materialId")
+                                    ?: return@composable
+                                LeituraConteudoScreen(
+                                    materialId = materialId,
+                                    navController = navController
                                 )
                             }
                         }

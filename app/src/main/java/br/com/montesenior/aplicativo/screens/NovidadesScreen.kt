@@ -21,19 +21,18 @@ import br.com.montesenior.aplicativo.components.NovidadeCard
 import br.com.montesenior.aplicativo.repository.NovidadesRepository
 
 @Composable
-fun NovidadesScreen(modifier: Modifier = Modifier) {
+fun NovidadesScreen() {
     Box {
         Image(
             painter = painterResource(id = R.drawable.white_bg),
-            contentDescription = null,
+            contentDescription = "Fundo branco",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillBounds
         )
         LazyColumn(modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            horizontalAlignment = Alignment.CenterHorizontally) {
             item {
                 Spacer(Modifier.height(8.dp))
                 Image(
@@ -43,12 +42,14 @@ fun NovidadesScreen(modifier: Modifier = Modifier) {
                     contentScale = ContentScale.Crop
                 )
             }
-            items(NovidadesRepository.novidades().size) { item ->
+            items(NovidadesRepository.novidades().size) { index ->
+                Spacer(modifier = Modifier.height(8.dp))
                 NovidadeCard(
-                    imagem = NovidadesRepository.novidades()[item].imagem,
-                    titulo = NovidadesRepository.novidades()[item].titulo,
-                    descricao = NovidadesRepository.novidades()[item].descricao
+                    imagem = NovidadesRepository.novidades()[index].imagem,
+                    titulo = NovidadesRepository.novidades()[index].titulo,
+                    descricao = NovidadesRepository.novidades()[index].descricao
                 )
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }

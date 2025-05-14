@@ -7,7 +7,7 @@ enum class TipoTarefa(
     val imagem: Int
 ) {
     LEITURA(
-        id = "leitura",
+        id = "leitura-conteudo",
         R.drawable.ler_material
     ),VIDEO(
         id = "video-aula",
