@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -57,8 +59,16 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("androidx.compose.runtime:runtime-livedata:1.8.0")
+    //live data
+    implementation("androidx.compose.runtime:runtime-livedata:1.8.1")
+    //nav animator
     implementation("com.google.accompanist:accompanist-navigation-animation:0.34.0")
+    //youtube player
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
     implementation("androidx.compose.foundation:foundation:1.5.0")
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-auth")
 }

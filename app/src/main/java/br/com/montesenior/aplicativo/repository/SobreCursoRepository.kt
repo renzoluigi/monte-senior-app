@@ -3,7 +3,7 @@ package br.com.montesenior.aplicativo.repository
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.model.Curso
 
-object CursoRepository {
+object SobreCursoRepository {
     val cursos = mapOf(
         "curso_cuidador" to Curso(
             titulo = "Curso de cuidador de idosos",
@@ -14,21 +14,21 @@ object CursoRepository {
                     "Marketing Pessoal, elaboração do currículo. auxílio no desenvolvimento profissional. (10H)",
             imagem = R.drawable.curso_cuidador_bg,
             cargaHoraria = 80,
-            materialId = "curso_cuidador",
+            cursoId = "curso_cuidador",
             maisInformacoesLink = "https://www.google.com"
         ),
         "curso_etarismo" to Curso(
             titulo = "Curso de estereótipos e etarismo",
-            descricaoBreve = "Este curso oferece uma reflexão profunda sobre os estereótipos e o etarismo" +
-                    " (discriminação por idade), capacitando os participantes a identificar e combater" +
-                    " práticas prejudiciais contra idosos.",
+            descricaoBreve = "Este curso oferece uma reflexão profunda sobre os estereótipos e" +
+                    " o etarismo (discriminação por idade), capacitando os participantes a" +
+                    " identificar e combater práticas prejudiciais contra idosos.",
             projecao = "Introdução ao conceito de etarismo, como ele se manifesta no cotidiano e seus impactos na saúde mental e física dos idosos.\n" +
-                    "Como promover uma cultura de respeito e inclusão em diferentes contextos (família, trabalho, saúde e sociedade).\n" +
+                    "Como promover uma cultura de respeito e inclusão em diferentes contextos (família, trabalho, saúde e sociedade).\n"  +
                     "Análise de situações comuns e alternativas para abordá-las com empatia.\n" +
                     "Dinâmicas e recursos para sensibilizar outras pessoas sobre o tema.",
             imagem = R.drawable.curso_estereotipos_bg,
             cargaHoraria = 2,
-            materialId = "curso_etarismo",
+            cursoId = "curso_etarismo",
             maisInformacoesLink = "https://www.google.com"
         )
     )

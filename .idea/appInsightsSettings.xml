@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="br.com.montesenior.aplicativo" />
+                  <option name="mobileSdkAppId" value="1:810281568657:android:5ac1cf2e14a43faab47230" />
+                  <option name="projectId" value="monte-senior-app" />
+                  <option name="projectNumber" value="810281568657" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -64,7 +64,7 @@ fun PerfilScreen(usuario: Usuario) {
                 shape = CircleShape
             ) {
                 Image(
-                    painter = painterResource(id = usuario.foto),
+                    painter = painterResource(id = R.drawable.foto),
                     contentDescription = "Foto de perfil",
                     modifier = Modifier
                         .size(125.dp)
@@ -86,7 +86,7 @@ fun PerfilScreen(usuario: Usuario) {
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = "${usuario.endereco.cidade}, ${usuario.endereco.estado}",
+                text = "${usuario.endereco}, ${usuario.endereco}",
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -135,14 +135,10 @@ fun PerfilScreen(usuario: Usuario) {
                         RowTextInfo(info1 = "Nome:", info2 = usuario.nome)
                         RowTextInfo(info1 = "Email:", info2 = usuario.email)
                         RowTextInfo(info1 = "Telefone:", info2 = usuario.telefone)
-                        RowTextInfo(info1 = "Data de nascimento:", info2 = usuario.nascimento)
+                        RowTextInfo(info1 = "Data de nascimento:", info2 = usuario.dataNascimento)
                         RowTextInfo(
                             info1 = "Endereco:",
-                            info2 = "${usuario.endereco.rua}," +
-                                    " ${usuario.endereco.numero}," +
-                                    " ${usuario.endereco.bairro}," +
-                                    " ${usuario.endereco.cidade}," +
-                                    " ${usuario.endereco.estado}"
+                            info2 = "${usuario.endereco}"
                         )
                         Spacer(modifier = Modifier.height(5.dp))
                         Row(

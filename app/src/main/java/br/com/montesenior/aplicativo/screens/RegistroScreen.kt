@@ -40,7 +40,7 @@ import br.com.montesenior.aplicativo.components.VoltarColumnButton
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
-fun RegistroScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun RegistroScreen(navController: NavController) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -69,7 +69,7 @@ fun RegistroScreen(modifier: Modifier = Modifier, navController: NavController) 
                         fontWeight = FontWeight.Bold,
                         fontSize = 28.sp
                     )
-                    Spacer(modifier = Modifier.height(5.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "Preencha os campos abaixo para continuar.",
                         color = Color.Gray,

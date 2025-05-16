@@ -1,27 +1,17 @@
 package br.com.montesenior.aplicativo.model
 
-import br.com.montesenior.aplicativo.R
+import com.google.firebase.firestore.FirebaseFirestore
 
 data class Usuario(
-    val id: Long,
+    val uid: String,
     val nome: String,
     val email: String,
-    val endereco: EnderecoItem,
+    val endereco: String,
     val telefone: String,
-    val senha: String,
-    val progresso: Int,
-    val foto: Int,
-    val nascimento: String
-)
-
-val usuarioMock = Usuario(
-    id = 1,
-    nome = "Marconi Luckas",
-    email = "email@gmail.com",
-    endereco = enderecoMock,
-    telefone = "(11) 99999-9999",
-    senha = "admin",
-    progresso = 0,
-    foto = R.drawable.foto,
-    nascimento = "23/05/2025"
-)
+    val tipo: String = "aluno",
+    val imagem: String,
+    val dataNascimento: String,
+    val matriculas: List<String> = listOf()
+) {
+    constructor(): this("", "", "", "", "", "", "", "", listOf())
+}

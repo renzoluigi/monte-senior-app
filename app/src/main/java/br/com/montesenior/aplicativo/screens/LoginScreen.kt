@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -21,13 +22,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -49,7 +53,6 @@ import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 @Composable
 fun LoginScreen(
     navController: NavController,
-    modifier: Modifier = Modifier,
     loginScreenViewModel: LoginScreenViewModel = LoginScreenViewModel()
 ) {
     val email by loginScreenViewModel.email.observeAsState(initial = "")
@@ -57,6 +60,7 @@ fun LoginScreen(
     val mensagemErro by loginScreenViewModel.mensagemErro.observeAsState(initial = "")
     val isSenhaVisivel by loginScreenViewModel.isSenhaVisivel.observeAsState(initial = false)
     val isAutorizado by loginScreenViewModel.isAutorizado.observeAsState(initial = false)
+    val isCarregando by loginScreenViewModel.isCarregando.observeAsState(initial = false)
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -85,7 +89,7 @@ fun LoginScreen(
                         fontWeight = FontWeight.Bold,
                         fontSize = 28.sp
                     )
-                    Spacer(modifier = Modifier.height(5.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "Insira seu email e senha para acessar o app.",
                         color = Color.Gray,
@@ -156,7 +160,10 @@ fun LoginScreen(
                             }
                         }
                     )
-                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
                         Text(
                             text = "Esqueceu sua senha?",
                             color = Color.Black,
@@ -166,29 +173,48 @@ fun LoginScreen(
                                 })
                         )
                     }
-                    Text(
-                        text = mensagemErro,
-                        color = if (isAutorizado) Color.Green else Color.Red,
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
-                    )
-                    Button(
-                        onClick = {
-                            loginScreenViewModel.onClickEntrar()
-                            if (isAutorizado) {
-                                navController.navigate("cursos")
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors(AzulMarinho),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(60.dp),
-                        shape = RoundedCornerShape(10.dp)
-                    ) {
+                    if (mensagemErro.isNotEmpty()) {
                         Text(
-                            text = "Entrar",
-                            fontSize = 20.sp
+                            text = mensagemErro,
+                            color = if (isAutorizado) Color.Green else Color.Red,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center
                         )
+
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
+                    if (isCarregando) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(modifier = Modifier.size(40.dp))
+                        }
+                    } else {
+                        Button(
+                            onClick = { loginScreenViewModel.onClickEntrar() },
+                            colors = ButtonDefaults.buttonColors(AzulMarinho),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(60.dp),
+                            shape = RoundedCornerShape(10.dp)
+                        ) {
+                            Text(
+                                text = "Entrar",
+                                fontSize = 20.sp
+                            )
+                        }
+                    }
+                }
+            }
+            LaunchedEffect(key1 = isAutorizado) {
+                if (isAutorizado) {
+                    navController.navigate("cursos") {
+                        popUpTo("boas-vindas") {
+                            inclusive = true
+                        }
                     }
                 }
             }
@@ -200,7 +226,6 @@ fun LoginScreen(
 @Composable
 private fun RegistroScreenPreview() {
     LoginScreen(
-        modifier = Modifier,
         loginScreenViewModel = LoginScreenViewModel(),
         navController = NavController(LocalContext.current)
     )

@@ -18,7 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.montesenior.aplicativo.components.NavBar
-import br.com.montesenior.aplicativo.model.usuarioMock
+import br.com.montesenior.aplicativo.model.Usuario
 import br.com.montesenior.aplicativo.screens.BoasVindasScreen
 import br.com.montesenior.aplicativo.screens.LeituraConteudoScreen
 import br.com.montesenior.aplicativo.screens.DetalhesCursoScreen
@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                     Surface(modifier = Modifier.fillMaxSize()) {
                         NavHost(
                             navController = navController,
-                            startDestination = "cursos",
+                            startDestination = "login",
                             modifier = Modifier.padding(innerPadding)
                         ) {
                             composable(route = "boas-vindas") {
@@ -94,7 +94,15 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable(route = "perfil") {
-                                PerfilScreen(usuario = usuarioMock)
+                                PerfilScreen(usuario = Usuario(
+                                    uid = "renzo_luigi",
+                                    nome = "Renzo Luigi",
+                                    email = "renzooluigi@hotmail.com",
+                                    endereco = "Rua Onze de Abril",
+                                    telefone = "11952408932",
+                                    imagem = "https://github.com/renzooluigi.png",
+                                    dataNascimento = "22/10/2000"
+                                ))
                             }
                             composable(route = "novidades") {
                                 NovidadesScreen()

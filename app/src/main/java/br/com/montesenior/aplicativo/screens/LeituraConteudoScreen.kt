@@ -29,7 +29,6 @@ fun LeituraConteudoScreen(
     navController: NavController
 ) {
     val conteudos = LeituraConteudoRepository.conteudos.getValue(materialId).conteudos
-
     val pagerState = rememberPagerState(
         initialPage = 0,
         pageCount = { conteudos.size }

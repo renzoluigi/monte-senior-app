@@ -6,6 +6,6 @@ data class Curso(
     val projecao: String,
     val imagem: Int,
     val cargaHoraria: Int,
-    val materialId: String,
+    val cursoId: String,
     val maisInformacoesLink: String
 )

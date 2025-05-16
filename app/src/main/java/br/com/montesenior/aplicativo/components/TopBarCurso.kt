@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.model.Usuario
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
@@ -77,7 +78,7 @@ fun TopBarCurso(
                         modifier = Modifier.align(Alignment.End)
                     )
                     Text(
-                        text = "Progresso: ${usuario.progresso}%",
+                        text = "Progresso: 10%",
                         fontSize = 14.sp,
                         color = Color.White,
                         modifier = Modifier.align(Alignment.End)
@@ -85,7 +86,7 @@ fun TopBarCurso(
                 }
                 Spacer(modifier = Modifier.width(12.dp))
                 Image(
-                    painter = painterResource(id = usuario.foto),
+                    painter = painterResource(id = R.drawable.foto),
                     contentDescription = "Perfil",
                     modifier = Modifier
                         .size(60.dp)

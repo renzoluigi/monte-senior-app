@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.abrirUrl
-import br.com.montesenior.aplicativo.repository.CursoRepository
+import br.com.montesenior.aplicativo.repository.SobreCursoRepository
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
@@ -34,7 +34,7 @@ fun DetalhesCursoScreen(
     navController: NavController,
     cursoId: String
 ) {
-    val curso = CursoRepository.cursos.getValue(cursoId)
+    val curso = SobreCursoRepository.cursos.getValue(cursoId)
     val contexto = LocalContext.current
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -110,7 +110,7 @@ fun DetalhesCursoScreen(
                             .fillMaxWidth()
                             .height(50.dp),
                         onClick = {
-                            navController.navigate("cursos/${curso.materialId}") //era pra ter matricula antes
+                            navController.navigate("cursos/${curso.cursoId}") //era pra ter matricula antes
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = AzulMarinho,

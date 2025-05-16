@@ -26,7 +26,7 @@ import br.com.montesenior.aplicativo.model.CardCursoItem
 
 
 @Composable
-fun CursosScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun CursosScreen(navController: NavController) {
     val cursos = listOf(
         CardCursoItem(
             titulo = "Cuidador de idosos",
