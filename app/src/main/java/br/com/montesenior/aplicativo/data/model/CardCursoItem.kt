@@ -1,4 +1,4 @@
-package br.com.montesenior.aplicativo.model
+package br.com.montesenior.aplicativo.data.model
 
 data class CardCursoItem(
     val titulo: String,

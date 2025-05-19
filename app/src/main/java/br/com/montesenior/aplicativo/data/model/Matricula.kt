@@ -1,4 +1,4 @@
-package br.com.montesenior.aplicativo.model
+package br.com.montesenior.aplicativo.data.model
 
 import com.google.firebase.Timestamp
 

@@ -22,7 +22,7 @@ import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.CardCurso
 import br.com.montesenior.aplicativo.components.VoltarColumnButton
-import br.com.montesenior.aplicativo.model.CardCursoItem
+import br.com.montesenior.aplicativo.data.model.CardCursoItem
 
 
 @Composable

@@ -51,7 +51,7 @@ fun BoasVindasScreen(modifier: Modifier = Modifier, navController: NavController
                     .fillMaxSize()
                     .padding(20.dp)) {
                     Text(
-                        text = "Seja bem vindo ao app da Monte Senior!",
+                        text = "Seja bem vindo ao app da Monte Sênior!",
                         fontSize = 25.sp,
                         color = Color.White
                     )

@@ -32,7 +32,7 @@ import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.TopBarVideoAula
 import br.com.montesenior.aplicativo.components.YoutubePlayer
 import br.com.montesenior.aplicativo.components.abrirUrl
-import br.com.montesenior.aplicativo.repository.VideoAulaRepository
+import br.com.montesenior.aplicativo.data.repository.VideoAulaRepository
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 import br.com.montesenior.aplicativo.ui.theme.Poppins
 

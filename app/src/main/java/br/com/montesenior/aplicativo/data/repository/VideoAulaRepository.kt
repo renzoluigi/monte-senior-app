@@ -1,6 +1,6 @@
-package br.com.montesenior.aplicativo.repository
+package br.com.montesenior.aplicativo.data.repository
 
-import br.com.montesenior.aplicativo.model.VideoAula
+import br.com.montesenior.aplicativo.data.model.VideoAula
 
 object VideoAulaRepository {
     val videoAulas = {

@@ -6,11 +6,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -18,8 +22,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.montesenior.aplicativo.components.NavBar
-import br.com.montesenior.aplicativo.model.Usuario
 import br.com.montesenior.aplicativo.screens.BoasVindasScreen
+import br.com.montesenior.aplicativo.screens.CompletarRegistroScreen
 import br.com.montesenior.aplicativo.screens.LeituraConteudoScreen
 import br.com.montesenior.aplicativo.screens.DetalhesCursoScreen
 import br.com.montesenior.aplicativo.screens.EsqueceuSuaSenhaScreen
@@ -30,6 +34,7 @@ import br.com.montesenior.aplicativo.screens.NovidadesScreen
 import br.com.montesenior.aplicativo.screens.PerfilScreen
 import br.com.montesenior.aplicativo.screens.VideoAulaScreen
 import br.com.montesenior.aplicativo.ui.theme.AplicativoTheme
+import br.com.montesenior.aplicativo.viewmodel.UsuarioViewModel
 import com.br.montesenior.aplicativo_porto.screens.RegistroScreen
 
 class MainActivity : ComponentActivity() {
@@ -41,6 +46,8 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.destination?.route
+                val usuarioViewModel: UsuarioViewModel = viewModel()
+                val usuarioLogado by usuarioViewModel.usuarioLogado.collectAsState()
                 Scaffold(
                     bottomBar = {
                         if (currentRoute == "cursos" || currentRoute == "perfil" ||
@@ -54,7 +61,7 @@ class MainActivity : ComponentActivity() {
                     Surface(modifier = Modifier.fillMaxSize()) {
                         NavHost(
                             navController = navController,
-                            startDestination = "login",
+                            startDestination = "boas-vindas",
                             modifier = Modifier.padding(innerPadding)
                         ) {
                             composable(route = "boas-vindas") {
@@ -63,9 +70,19 @@ class MainActivity : ComponentActivity() {
                             composable(route = "registro") {
                                 RegistroScreen(navController = navController)
                             }
+                            composable(route = "completar-registro/{nome}/{email}/{telefone}/{genero}") {
+                                val nome = it.arguments?.getString("nome") ?: ""
+                                val email = it.arguments?.getString("email") ?: ""
+                                val telefone = it.arguments?.getString("telefone") ?: ""
+                                val genero = it.arguments?.getString("genero") ?: ""
+                                CompletarRegistroScreen(nome, email, telefone, genero, navController)
+                            }
                             composable(route = "login") {
                                 LoginScreen(
-                                    navController = navController
+                                    navController = navController,
+                                    onLoginSuccess = { usuarioId ->
+                                        usuarioViewModel.loginUsuario(usuarioId)
+                                    }
                                 )
                             }
                             composable(route = "esqueceu-a-senha") {
@@ -73,7 +90,6 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(route = "cursos") {
                                 CursosScreen(
-                                    modifier = Modifier.fillMaxSize(),
                                     navController = navController
                                 )
                             }
@@ -94,15 +110,13 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                             composable(route = "perfil") {
-                                PerfilScreen(usuario = Usuario(
-                                    uid = "renzo_luigi",
-                                    nome = "Renzo Luigi",
-                                    email = "renzooluigi@hotmail.com",
-                                    endereco = "Rua Onze de Abril",
-                                    telefone = "11952408932",
-                                    imagem = "https://github.com/renzooluigi.png",
-                                    dataNascimento = "22/10/2000"
-                                ))
+                                if (usuarioLogado != null) {
+                                    PerfilScreen(usuario = usuarioLogado!!)
+                                } else {
+                                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                                        CircularProgressIndicator()
+                                    }
+                                }
                             }
                             composable(route = "novidades") {
                                 NovidadesScreen()
@@ -143,6 +157,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+// uid como email
+
 // trilha no perfil
 // formacao de cuidador familiar
 // chatbot

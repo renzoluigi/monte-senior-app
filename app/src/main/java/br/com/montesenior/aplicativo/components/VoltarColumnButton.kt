@@ -19,7 +19,7 @@ fun VoltarColumnButton(navController: NavController, rota: String) {
             text = "< Voltar",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.clickable(onClick = { navController.navigate(rota) })
+            modifier = Modifier.clickable(onClick = { navController.popBackStack() })
         )
     }
 }

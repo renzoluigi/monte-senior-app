@@ -14,14 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.TopBarLeitura
-import br.com.montesenior.aplicativo.repository.LeituraConteudoRepository
+import br.com.montesenior.aplicativo.data.repository.LeituraConteudoRepository
 
 @Composable
 fun LeituraConteudoScreen(

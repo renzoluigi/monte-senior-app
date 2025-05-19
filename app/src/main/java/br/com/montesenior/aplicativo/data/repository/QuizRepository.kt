@@ -1,7 +1,7 @@
-package br.com.montesenior.aplicativo.repository
+package br.com.montesenior.aplicativo.data.repository
 
-import br.com.montesenior.aplicativo.model.Questao
-import br.com.montesenior.aplicativo.model.Quiz
+import br.com.montesenior.aplicativo.data.model.Questao
+import br.com.montesenior.aplicativo.data.model.Quiz
 
 object QuizRepository {
     val quizzes = mapOf(

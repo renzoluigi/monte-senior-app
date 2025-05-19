@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.CardModulo
 import br.com.montesenior.aplicativo.components.TopBarCurso
-import br.com.montesenior.aplicativo.model.Usuario
-import br.com.montesenior.aplicativo.repository.SobreCursoRepository
-import br.com.montesenior.aplicativo.repository.MaterialCursoRepository
+import br.com.montesenior.aplicativo.data.model.Usuario
+import br.com.montesenior.aplicativo.data.repository.SobreCursoRepository
+import br.com.montesenior.aplicativo.data.repository.MaterialCursoRepository
 
 @Composable
 fun MenuCursoScreen(
@@ -30,13 +30,15 @@ fun MenuCursoScreen(
             TopBarCurso(
                 nomeCurso = curso.titulo,
                 usuario = Usuario(
-                    uid = "renzo_luigi",
                     nome = "Renzo Luigi",
-                    email = "renzooluigi@hotmail.com",
-                    endereco = "Rua Onze de Abril",
-                    telefone = "11952408932",
+                    email = "renoluigi@hotmail.com",
+                    endereco = "Rua",
+                    telefone = "1191111111",
                     imagem = "https://github.com/renzooluigi.png",
-                    dataNascimento = "22/10/2000"
+                    dataNascimento = "22/10/2000",
+                    genero = "Masculino",
+                    matriculas = listOf(),
+                    tipo = "aluno"
                 ),
                 comandoVoltar = {
                     navController.navigate("cursos")
@@ -63,6 +65,5 @@ fun MenuCursoScreen(
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }
-
     }
 }

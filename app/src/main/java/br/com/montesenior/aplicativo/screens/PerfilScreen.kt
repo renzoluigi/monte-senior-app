@@ -2,7 +2,6 @@ package br.com.montesenior.aplicativo.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -37,16 +35,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.RowTextInfo
-import br.com.montesenior.aplicativo.model.Usuario
+import br.com.montesenior.aplicativo.data.model.Usuario
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 import br.com.montesenior.aplicativo.ui.theme.BlueMonteSenior
 
 @Composable
 fun PerfilScreen(usuario: Usuario) {
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-
         Image(
             painter = painterResource(id = R.drawable.banner_perfil_bg),
             contentDescription = null,
@@ -86,7 +84,7 @@ fun PerfilScreen(usuario: Usuario) {
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = "${usuario.endereco}, ${usuario.endereco}",
+                text = usuario.endereco,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -138,7 +136,7 @@ fun PerfilScreen(usuario: Usuario) {
                         RowTextInfo(info1 = "Data de nascimento:", info2 = usuario.dataNascimento)
                         RowTextInfo(
                             info1 = "Endereco:",
-                            info2 = "${usuario.endereco}"
+                            info2 = usuario.endereco
                         )
                         Spacer(modifier = Modifier.height(5.dp))
                         Row(

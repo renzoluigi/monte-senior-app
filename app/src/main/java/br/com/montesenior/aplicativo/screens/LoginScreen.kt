@@ -35,16 +35,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.VoltarColumnButton
@@ -53,14 +52,16 @@ import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 @Composable
 fun LoginScreen(
     navController: NavController,
-    loginScreenViewModel: LoginScreenViewModel = LoginScreenViewModel()
+    onLoginSuccess: (String) -> Unit
 ) {
+    val loginScreenViewModel: LoginScreenViewModel = viewModel()
     val email by loginScreenViewModel.email.observeAsState(initial = "")
     val senha by loginScreenViewModel.senha.observeAsState(initial = "")
     val mensagemErro by loginScreenViewModel.mensagemErro.observeAsState(initial = "")
     val isSenhaVisivel by loginScreenViewModel.isSenhaVisivel.observeAsState(initial = false)
     val isAutorizado by loginScreenViewModel.isAutorizado.observeAsState(initial = false)
     val isCarregando by loginScreenViewModel.isCarregando.observeAsState(initial = false)
+    val uid by loginScreenViewModel.uid.observeAsState(initial = null)
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -123,7 +124,7 @@ fun LoginScreen(
                         },
                         singleLine = true
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = "Senha",
                         fontSize = 20.sp,
@@ -216,17 +217,9 @@ fun LoginScreen(
                             inclusive = true
                         }
                     }
+                    onLoginSuccess(uid!!)
                 }
             }
         }
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun RegistroScreenPreview() {
-    LoginScreen(
-        loginScreenViewModel = LoginScreenViewModel(),
-        navController = NavController(LocalContext.current)
-    )
 }

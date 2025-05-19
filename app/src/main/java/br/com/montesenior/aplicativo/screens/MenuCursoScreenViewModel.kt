@@ -1,7 +1,7 @@
 package br.com.montesenior.aplicativo.screens
 
 import androidx.lifecycle.ViewModel
-import br.com.montesenior.aplicativo.model.Modulo
+import br.com.montesenior.aplicativo.data.model.Modulo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 

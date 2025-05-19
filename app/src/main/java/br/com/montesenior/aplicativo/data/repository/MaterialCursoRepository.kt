@@ -1,10 +1,10 @@
-package br.com.montesenior.aplicativo.repository
+package br.com.montesenior.aplicativo.data.repository
 
 import br.com.montesenior.aplicativo.R
-import br.com.montesenior.aplicativo.model.MaterialCurso
-import br.com.montesenior.aplicativo.model.Modulo
-import br.com.montesenior.aplicativo.model.Tarefa
-import br.com.montesenior.aplicativo.model.TipoTarefa
+import br.com.montesenior.aplicativo.data.model.MaterialCurso
+import br.com.montesenior.aplicativo.data.model.Modulo
+import br.com.montesenior.aplicativo.data.model.Tarefa
+import br.com.montesenior.aplicativo.data.model.TipoTarefa
 
 object MaterialCursoRepository {
     val materialCursos = mapOf(

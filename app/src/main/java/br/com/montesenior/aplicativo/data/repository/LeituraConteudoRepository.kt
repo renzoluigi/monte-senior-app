@@ -1,7 +1,7 @@
-package br.com.montesenior.aplicativo.repository
+package br.com.montesenior.aplicativo.data.repository
 
 import br.com.montesenior.aplicativo.R
-import br.com.montesenior.aplicativo.model.LeituraConteudo
+import br.com.montesenior.aplicativo.data.model.LeituraConteudo
 
 object LeituraConteudoRepository {
     val conteudos = mapOf(

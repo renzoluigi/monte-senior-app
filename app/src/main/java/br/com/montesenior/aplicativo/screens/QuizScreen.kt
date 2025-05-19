@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.TopBarVideoAula
-import br.com.montesenior.aplicativo.repository.QuizRepository
+import br.com.montesenior.aplicativo.data.repository.QuizRepository
 import br.com.montesenior.aplicativo.screens.QuizResultScreen
 import br.com.montesenior.aplicativo.screens.QuizScreenViewModel
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho

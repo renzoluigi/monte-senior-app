@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.abrirUrl
-import br.com.montesenior.aplicativo.repository.SobreCursoRepository
+import br.com.montesenior.aplicativo.data.repository.SobreCursoRepository
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable

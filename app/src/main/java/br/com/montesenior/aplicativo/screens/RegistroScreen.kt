@@ -1,6 +1,7 @@
 package com.br.montesenior.aplicativo_porto.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -23,6 +25,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -31,16 +36,31 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
+import br.com.montesenior.aplicativo.components.GeneroField
 import br.com.montesenior.aplicativo.components.VoltarColumnButton
+import br.com.montesenior.aplicativo.screens.RegistroScreenViewModel
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
 fun RegistroScreen(navController: NavController) {
+    val registroScreenViewModel: RegistroScreenViewModel = viewModel()
+    val nome by registroScreenViewModel.nome.observeAsState("")
+    val email by registroScreenViewModel.email.observeAsState("")
+    val genero by registroScreenViewModel.genero.observeAsState("")
+    val telefone by registroScreenViewModel.telefone.observeAsState("")
+//    val senha by registroScreenViewModel.senha.observeAsState("")
+//    val confirmarSenha by registroScreenViewModel.confirmarSenha.observeAsState("")
+//    val isSenhaVisivel by registroScreenViewModel.isSenhaVisivel.observeAsState(false)
+//    val isConfirmarSenhaVisivel by registroScreenViewModel.isConfirmarSenhaVisivel.observeAsState(false)
+    val isRegistroSucesso by registroScreenViewModel.isRegistroSucesso.observeAsState()
+    val mensagemErro by registroScreenViewModel.mensagemErro.observeAsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -49,7 +69,10 @@ fun RegistroScreen(navController: NavController) {
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-        VoltarColumnButton(navController, "boas-vindas")
+        VoltarColumnButton(
+            navController = navController,
+            rota = "boas-vindas"
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize(),
@@ -78,14 +101,15 @@ fun RegistroScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(10.dp))
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         OutlinedTextField(
-                            onValueChange = {},
-                            value = "",
+                            onValueChange = {
+                                registroScreenViewModel.onNomeChanged(it)
+                            },
+                            value = nome,
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(20.dp),
                             label = {
                                 Text(text = "Insira seu nome completo")
                             },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                             trailingIcon = {
                                 Icon(
                                     imageVector = Icons.Filled.Person,
@@ -95,8 +119,10 @@ fun RegistroScreen(navController: NavController) {
                             singleLine = true
                         )
                         OutlinedTextField(
-                            onValueChange = {},
-                            value = "",
+                            onValueChange = {
+                                registroScreenViewModel.onEmailChanged(it)
+                            },
+                            value = email,
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(20.dp),
                             label = {
@@ -112,54 +138,40 @@ fun RegistroScreen(navController: NavController) {
                             singleLine = true
                         )
                         OutlinedTextField(
-                            onValueChange = {},
-                            value = "",
+                            onValueChange = {
+                                registroScreenViewModel.onTelefoneChanged(it)
+                            },
+                            value = telefone,
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(20.dp),
                             label = {
-                                Text(text = "Insira sua senha")
+                                Text(text = "Insira seu telefone")
                             },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                             trailingIcon = {
                                 Icon(
-                                    imageVector = Icons.Filled.Lock,
-                                    contentDescription = "Ícone de senha"
+                                    imageVector = Icons.Filled.Phone,
+                                    contentDescription = "Ícone de telefone"
                                 )
-                            },
-                            visualTransformation = PasswordVisualTransformation(),
-                            singleLine = true
+                            }
                         )
-                        OutlinedTextField(
-                            onValueChange = {},
-                            value = "",
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(20.dp),
-                            label = {
-                                Text(text = "Confirme sua senha")
-                            },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                            trailingIcon = {
-                                Icon(
-                                    imageVector = Icons.Filled.Lock,
-                                    contentDescription = "Ícone de senha"
-                                )
-                            },
-                            visualTransformation = PasswordVisualTransformation(),
-                            singleLine = true
-
-                        )
+                        GeneroField(
+                            generoSelecionado = genero,
+                            onGeneroChanged = { registroScreenViewModel.onGeneroChanged(it) })
                     }
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
                     Button(
-                        onClick = {},
+                        onClick = {
+                            navController.navigate("completar-registro/$nome/$email/$telefone/$genero")
+                        },
                         colors = ButtonDefaults.buttonColors(AzulMarinho),
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(60.dp),
-                        shape = RoundedCornerShape(10.dp)
+                        shape = RoundedCornerShape(10.dp),
+                        enabled = true
                     ) {
                         Text(
-                            text = "Registrar-se",
+                            text = "Continuar",
                             fontSize = 20.sp
                         )
                     }
@@ -169,8 +181,3 @@ fun RegistroScreen(navController: NavController) {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun LoginScreenPreview() {
-    RegistroScreen(navController = NavController(LocalContext.current))
-}
