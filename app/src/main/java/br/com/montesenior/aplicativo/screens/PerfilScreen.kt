@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
@@ -38,6 +40,7 @@ import br.com.montesenior.aplicativo.components.RowTextInfo
 import br.com.montesenior.aplicativo.data.model.Usuario
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 import br.com.montesenior.aplicativo.ui.theme.BlueMonteSenior
+import coil3.compose.AsyncImage
 
 @Composable
 fun PerfilScreen(usuario: Usuario) {
@@ -54,15 +57,15 @@ fun PerfilScreen(usuario: Usuario) {
             contentScale = ContentScale.FillBounds
         )
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(110.dp))
             Card(
                 shape = CircleShape
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.foto),
+                AsyncImage(
+                    model = usuario.imagem,
                     contentDescription = "Foto de perfil",
                     modifier = Modifier
                         .size(125.dp)
@@ -84,10 +87,9 @@ fun PerfilScreen(usuario: Usuario) {
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = usuario.endereco,
+                text = usuario.tipo,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                fontSize = 18.sp
             )
             Column(
                 modifier = Modifier
@@ -112,7 +114,7 @@ fun PerfilScreen(usuario: Usuario) {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(220.dp),
+                        .height(240.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = AzulMarinho
                     )
@@ -131,13 +133,11 @@ fun PerfilScreen(usuario: Usuario) {
                         )
                         Spacer(modifier = Modifier.height(10.dp))
                         RowTextInfo(info1 = "Nome:", info2 = usuario.nome)
+                        RowTextInfo(info1 = "Gênero:", info2 = usuario.genero)
                         RowTextInfo(info1 = "Email:", info2 = usuario.email)
-                        RowTextInfo(info1 = "Telefone:", info2 = usuario.telefone)
+                        RowTextInfo(info1 = "Endereco:", info2 = usuario.endereco)
+                        RowTextInfo(info1 = "Telefone:", info2 = formatarTelefone(usuario.telefone))
                         RowTextInfo(info1 = "Data de nascimento:", info2 = usuario.dataNascimento)
-                        RowTextInfo(
-                            info1 = "Endereco:",
-                            info2 = usuario.endereco
-                        )
                         Spacer(modifier = Modifier.height(5.dp))
                         Row(
                             modifier = Modifier
@@ -148,7 +148,7 @@ fun PerfilScreen(usuario: Usuario) {
                                 text = "Editar",
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 15.sp
+                                fontSize = 16.sp
                             )
                             Spacer(modifier = Modifier.width(5.dp))
                             Icon(
@@ -163,4 +163,8 @@ fun PerfilScreen(usuario: Usuario) {
             }
         }
     }
+}
+
+fun formatarTelefone(telefone: String): String{
+    return if (telefone.length == 11) { "(${telefone.substring(0, 2)}) ${telefone.substring(2, 7)}-${telefone.substring(7)}" } else { "" }
 }

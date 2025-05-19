@@ -227,7 +227,7 @@ fun CompletarRegistroScreen(
                                 .padding(vertical = 8.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            CircularProgressIndicator(modifier = Modifier.size(40.dp))
+                            CircularProgressIndicator(modifier = Modifier.size(36.dp))
                         }
                     } else {
                         Button(

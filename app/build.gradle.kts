@@ -65,10 +65,13 @@ dependencies {
     implementation("com.google.accompanist:accompanist-navigation-animation:0.34.0")
     //youtube player
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
-    implementation("androidx.compose.foundation:foundation:1.5.0")
+    implementation("androidx.compose.foundation:foundation")
     //firebase
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-auth")
+
+    implementation("io.coil-kt.coil3:coil-compose:3.2.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.2.0")
 }

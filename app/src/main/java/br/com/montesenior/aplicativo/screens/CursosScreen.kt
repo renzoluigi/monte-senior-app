@@ -52,7 +52,10 @@ fun CursosScreen(navController: NavController) {
             contentScale = ContentScale.Crop
         )
         Column(modifier = Modifier.fillMaxSize()) {
-            VoltarColumnButton(navController = navController, rota = "boas-vindas")
+            VoltarColumnButton(
+                navController = navController,
+                rota = "boas-vindas"
+            )
             Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
