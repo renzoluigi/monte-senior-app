@@ -69,7 +69,8 @@ fun PerfilScreen(usuario: Usuario) {
                     contentDescription = "Foto de perfil",
                     modifier = Modifier
                         .size(125.dp)
-                        .clip(CircleShape)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.FillBounds
                 )
             }
         }

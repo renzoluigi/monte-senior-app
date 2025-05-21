@@ -1,4 +1,4 @@
-package br.com.montesenior.aplicativo.screens
+package br.com.montesenior.aplicativo.screens.course
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

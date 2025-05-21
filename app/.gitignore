@@ -1,5 +1,2 @@
 gitignore
 /build
-
-#firebase
-app/google-services.json

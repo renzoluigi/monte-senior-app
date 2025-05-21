@@ -1,4 +1,4 @@
-package br.com.montesenior.aplicativo.screens
+package br.com.montesenior.aplicativo.screens.authentication
 
 import android.util.Log
 import androidx.lifecycle.LiveData

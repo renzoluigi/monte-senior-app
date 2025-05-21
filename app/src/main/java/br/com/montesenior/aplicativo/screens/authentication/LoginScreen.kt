@@ -1,6 +1,6 @@
 @file:JvmName("LoginScreenKt")
 
-package br.com.montesenior.aplicativo.screens
+package br.com.montesenior.aplicativo.screens.authentication
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -47,6 +47,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.VoltarColumnButton
+import br.com.montesenior.aplicativo.screens.authentication.LoginScreenViewModel
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable

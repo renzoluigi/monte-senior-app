@@ -1,4 +1,4 @@
-package br.com.montesenior.aplicativo.screens
+package br.com.montesenior.aplicativo.screens.course
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +20,8 @@ import br.com.montesenior.aplicativo.data.repository.MaterialCursoRepository
 @Composable
 fun MenuCursoScreen(
     cursoId: String,
-    navController: NavController
+    navController: NavController,
+    usuario: Usuario
 ) {
     val curso = SobreCursoRepository.cursos.getValue(cursoId)
     val modulos = MaterialCursoRepository.materialCursos.getValue(curso.cursoId).modulos
@@ -29,17 +30,7 @@ fun MenuCursoScreen(
         topBar = {
             TopBarCurso(
                 nomeCurso = curso.titulo,
-                usuario = Usuario(
-                    nome = "Renzo Luigi",
-                    email = "renoluigi@hotmail.com",
-                    endereco = "Rua",
-                    telefone = "1191111111",
-                    imagem = "https://github.com/renzooluigi.png",
-                    dataNascimento = "22/10/2000",
-                    genero = "Masculino",
-                    matriculas = listOf(),
-                    tipo = "aluno"
-                ),
+                usuario = usuario,
                 comandoVoltar = {
                     navController.navigate("cursos")
                 }

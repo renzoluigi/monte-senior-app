@@ -1,4 +1,4 @@
-package br.com.montesenior.aplicativo.screens
+package br.com.montesenior.aplicativo.screens.authentication
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

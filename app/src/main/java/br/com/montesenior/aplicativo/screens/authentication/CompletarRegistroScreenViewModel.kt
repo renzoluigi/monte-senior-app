@@ -1,5 +1,7 @@
-package br.com.montesenior.aplicativo.screens
+package br.com.montesenior.aplicativo.screens.authentication
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,11 +9,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.montesenior.aplicativo.data.model.Usuario
 import br.com.montesenior.aplicativo.data.repository.UsuariosRepository
-import br.com.montesenior.aplicativo.viewmodel.UsuarioViewModel
+import br.com.montesenior.aplicativo.data.service.CloudinaryService
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class CompletarRegistroScreenViewModel : ViewModel() {
     private val auth = Firebase.auth
@@ -25,9 +35,6 @@ class CompletarRegistroScreenViewModel : ViewModel() {
 
     private val _dataNascimento = MutableLiveData<String>()
     val dataNascimento: LiveData<String> = _dataNascimento
-
-    private val _imagemPerfilLink = MutableLiveData<String>()
-    val imagemPerfilLink: LiveData<String> = _imagemPerfilLink
 
     private val _senha = MutableLiveData<String>()
     val senha: LiveData<String> = _senha
@@ -59,10 +66,6 @@ class CompletarRegistroScreenViewModel : ViewModel() {
         _endereco.value = newEndereco
     }
 
-    fun onImagemPerfilLinkChanged(newImagemPerfilLink: String) {
-        _imagemPerfilLink.value = newImagemPerfilLink
-    }
-
     fun onSenhaChanged(newSenha: String) {
         _senha.value = newSenha
     }
@@ -83,7 +86,8 @@ class CompletarRegistroScreenViewModel : ViewModel() {
         nome: String,
         email: String,
         genero: String,
-        telefone: String
+        telefone: String,
+        imagemUrl: String
     ) {
         _isCarregando.value = true
         _mensagemErro.value = ""
@@ -108,6 +112,11 @@ class CompletarRegistroScreenViewModel : ViewModel() {
             _isCarregando.value = false
             return
         }
+        if (imagemUrl.isEmpty()) {
+            _mensagemErro.value = "Imagem não encontrada"
+            _isCarregando.value = false
+            return
+        }
         if (tipo.value == null) {
             _mensagemErro.value = "O tipo é obrigatório"
             _isCarregando.value = false
@@ -120,11 +129,6 @@ class CompletarRegistroScreenViewModel : ViewModel() {
         }
         if (dataNascimento.value == null) {
             _mensagemErro.value = "A data de nascimento é obrigatória"
-            _isCarregando.value = false
-            return
-        }
-        if (imagemPerfilLink.value == null) {
-            _mensagemErro.value = "O link da imagem de perfil é obrigatório"
             _isCarregando.value = false
             return
         }
@@ -156,7 +160,7 @@ class CompletarRegistroScreenViewModel : ViewModel() {
                             endereco = endereco.value!!,
                             telefone = telefone,
                             tipo = tipo.value!!,
-                            imagem = imagemPerfilLink.value!!,
+                            imagem = imagemUrl,
                             dataNascimento = dataNascimento.value!!,
                             genero = genero
                         )

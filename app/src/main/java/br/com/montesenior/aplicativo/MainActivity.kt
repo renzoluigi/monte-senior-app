@@ -23,19 +23,22 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.montesenior.aplicativo.components.NavBar
 import br.com.montesenior.aplicativo.screens.BoasVindasScreen
-import br.com.montesenior.aplicativo.screens.CompletarRegistroScreen
-import br.com.montesenior.aplicativo.screens.LeituraConteudoScreen
 import br.com.montesenior.aplicativo.screens.DetalhesCursoScreen
-import br.com.montesenior.aplicativo.screens.EsqueceuSuaSenhaScreen
-import br.com.montesenior.aplicativo.screens.LoginScreen
-import br.com.montesenior.aplicativo.screens.MenuCursoScreen
-import br.com.montesenior.aplicativo.screens.MenuCursoScreenViewModel
 import br.com.montesenior.aplicativo.screens.NovidadesScreen
 import br.com.montesenior.aplicativo.screens.PerfilScreen
-import br.com.montesenior.aplicativo.screens.VideoAulaScreen
+import br.com.montesenior.aplicativo.screens.authentication.CompletarRegistroScreen
+import br.com.montesenior.aplicativo.screens.authentication.EnviarImagemScreen
+import br.com.montesenior.aplicativo.screens.authentication.EsqueceuSuaSenhaScreen
+import br.com.montesenior.aplicativo.screens.authentication.LeituraConteudoScreen
+import br.com.montesenior.aplicativo.screens.authentication.LoginScreen
+import br.com.montesenior.aplicativo.screens.course.MenuCursoScreen
+import br.com.montesenior.aplicativo.screens.course.MenuCursoScreenViewModel
+import br.com.montesenior.aplicativo.screens.course.VideoAulaScreen
 import br.com.montesenior.aplicativo.ui.theme.AplicativoTheme
 import br.com.montesenior.aplicativo.viewmodel.UsuarioViewModel
 import com.br.montesenior.aplicativo_porto.screens.RegistroScreen
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,12 +73,29 @@ class MainActivity : ComponentActivity() {
                             composable(route = "registro") {
                                 RegistroScreen(navController = navController)
                             }
-                            composable(route = "completar-registro/{nome}/{email}/{telefone}/{genero}") {
-                                val nome = it.arguments?.getString("nome") ?: ""
-                                val email = it.arguments?.getString("email") ?: ""
-                                val telefone = it.arguments?.getString("telefone") ?: ""
-                                val genero = it.arguments?.getString("genero") ?: ""
-                                CompletarRegistroScreen(nome, email, telefone, genero, navController)
+                            composable(route = "enviar-imagem/{nome}/{email}/{telefone}/{genero}") { backStackEntry ->
+                                val nome = backStackEntry.arguments?.getString("nome") ?: ""
+                                val email = backStackEntry.arguments?.getString("email") ?: ""
+                                val telefone = backStackEntry.arguments?.getString("telefone") ?: ""
+                                val genero = backStackEntry.arguments?.getString("genero") ?: ""
+                                EnviarImagemScreen(nome, email, telefone, genero, navController)
+                            }
+                            composable(route = "completar-registro/{nome}/{email}/{telefone}/{genero}/{urlCodificado}") { backStackEntry ->
+                                val nome = backStackEntry.arguments?.getString("nome") ?: ""
+                                val email = backStackEntry.arguments?.getString("email") ?: ""
+                                val telefone = backStackEntry.arguments?.getString("telefone") ?: ""
+                                val genero = backStackEntry.arguments?.getString("genero") ?: ""
+                                val urlCodificado =
+                                    backStackEntry.arguments?.getString("urlCodificado") ?: ""
+                                val urlDecodificado = URLDecoder.decode(urlCodificado, StandardCharsets.UTF_8.toString())
+                                CompletarRegistroScreen(
+                                    nome,
+                                    email,
+                                    telefone,
+                                    genero,
+                                    urlDecodificado,
+                                    navController
+                                )
                             }
                             composable(route = "login") {
                                 LoginScreen(
@@ -101,25 +121,37 @@ class MainActivity : ComponentActivity() {
                                     cursoId = cursoId
                                 )
                             }
-                            composable(route = "cursos/{cursoId}") { backStackEntry ->
-                                val cursoId = backStackEntry.arguments?.getString("cursoId")
-                                    ?: return@composable
-                                MenuCursoScreen(
-                                    cursoId = cursoId,
-                                    navController = navController
-                                )
-                            }
                             composable(route = "perfil") {
                                 if (usuarioLogado != null) {
                                     PerfilScreen(usuario = usuarioLogado!!)
                                 } else {
-                                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                                    Box(
+                                        modifier = Modifier.fillMaxSize(),
+                                        contentAlignment = Alignment.Center
+                                    ) {
                                         CircularProgressIndicator()
                                     }
                                 }
                             }
                             composable(route = "novidades") {
                                 NovidadesScreen()
+                            }
+                            composable(route = "cursos/{cursoId}") { backStackEntry ->
+                                val cursoId = backStackEntry.arguments?.getString("cursoId")
+                                    ?: return@composable
+                                MenuCursoScreen(
+                                    cursoId = cursoId,
+                                    navController = navController,
+                                    usuario = usuarioLogado!!
+                                )
+                            }
+                            composable("leitura-conteudo/{materialId}") { backStackEntry ->
+                                val materialId = backStackEntry.arguments?.getString("materialId")
+                                    ?: return@composable
+                                LeituraConteudoScreen(
+                                    materialId = materialId,
+                                    navController = navController
+                                )
                             }
                             composable(route = "video-aula/{tarefaId}") { backStackEntry ->
                                 val tarefaId = backStackEntry.arguments?.getString("tarefaId")
@@ -140,14 +172,6 @@ class MainActivity : ComponentActivity() {
                                     navController = navController,
                                     viewModel = viewModel(),
                                     tarefaId = tarefaId
-                                )
-                            }
-                            composable("leitura-conteudo/{materialId}") { backStackEntry ->
-                                val materialId = backStackEntry.arguments?.getString("materialId")
-                                    ?: return@composable
-                                LeituraConteudoScreen(
-                                    materialId = materialId,
-                                    navController = navController
                                 )
                             }
                         }

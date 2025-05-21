@@ -38,7 +38,7 @@ import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.GeneroField
 import br.com.montesenior.aplicativo.components.VoltarColumnButton
-import br.com.montesenior.aplicativo.screens.RegistroScreenViewModel
+import br.com.montesenior.aplicativo.screens.authentication.RegistroScreenViewModel
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
@@ -151,7 +151,7 @@ fun RegistroScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(
                         onClick = {
-                            navController.navigate("completar-registro/$nome/$email/$telefone/$genero")
+                            navController.navigate("enviar-imagem/$nome/$email/$telefone/$genero")
                         },
                         colors = ButtonDefaults.buttonColors(AzulMarinho),
                         modifier = Modifier

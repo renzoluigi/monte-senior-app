@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.data.model.Usuario
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
+import coil3.compose.AsyncImage
 
 @Composable
 fun TopBarCurso(
@@ -84,9 +85,9 @@ fun TopBarCurso(
                     )
                 }
                 Spacer(modifier = Modifier.width(12.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.foto),
-                    contentDescription = "Perfil",
+                AsyncImage(
+                    model = usuario.imagem,
+                    contentDescription = "Foto do usuário",
                     modifier = Modifier
                         .size(60.dp)
                         .clip(CircleShape),

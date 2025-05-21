@@ -74,4 +74,7 @@ dependencies {
 
     implementation("io.coil-kt.coil3:coil-compose:3.2.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.2.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0") //retrofit
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
 }

@@ -1,4 +1,4 @@
-package br.com.montesenior.aplicativo.screens
+package br.com.montesenior.aplicativo.screens.course
 
 import androidx.lifecycle.ViewModel
 import br.com.montesenior.aplicativo.data.model.Modulo

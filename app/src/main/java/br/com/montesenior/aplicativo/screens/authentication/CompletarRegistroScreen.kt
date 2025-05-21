@@ -1,4 +1,4 @@
-package br.com.montesenior.aplicativo.screens
+package br.com.montesenior.aplicativo.screens.authentication
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -45,6 +45,7 @@ import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.DataNascimentoField
 import br.com.montesenior.aplicativo.components.TipoAlunoField
 import br.com.montesenior.aplicativo.components.VoltarColumnButton
+import br.com.montesenior.aplicativo.screens.authentication.CompletarRegistroScreenViewModel
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
@@ -53,19 +54,17 @@ fun CompletarRegistroScreen(
     email: String,
     telefone: String,
     genero: String,
+    imagemUrl: String,
     navController: NavController
 ) {
     val completarRegistroScreenViewModel: CompletarRegistroScreenViewModel = viewModel()
     val tipo by completarRegistroScreenViewModel.tipo.observeAsState("")
     val endereco by completarRegistroScreenViewModel.endereco.observeAsState("")
     val dataNascimento by completarRegistroScreenViewModel.dataNascimento.observeAsState("")
-    val imagemPerfilLink by completarRegistroScreenViewModel.imagemPerfilLink.observeAsState("")
     val senha by completarRegistroScreenViewModel.senha.observeAsState("")
     val confirmarSenha by completarRegistroScreenViewModel.confirmarSenha.observeAsState("")
     val isSenhaVisivel by completarRegistroScreenViewModel.isSenhaVisivel.observeAsState(false)
-    val isConfirmarSenhaVisivel by completarRegistroScreenViewModel.isConfirmarSenhaVisivel.observeAsState(
-        false
-    )
+    val isConfirmarSenhaVisivel by completarRegistroScreenViewModel.isConfirmarSenhaVisivel.observeAsState(false)
     val isCarregando by completarRegistroScreenViewModel.isCarregando.observeAsState(false)
     val mensagemErro by completarRegistroScreenViewModel.mensagemErro.observeAsState("")
 
@@ -127,23 +126,6 @@ fun CompletarRegistroScreen(
                                 )
                             },
                             singleLine = true
-                        )
-                        OutlinedTextField(
-                            onValueChange = {
-                                completarRegistroScreenViewModel.onImagemPerfilLinkChanged(it)
-                            },
-                            value = imagemPerfilLink,
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(20.dp),
-                            label = {
-                                Text(text = "Link da imagem de perfil")
-                            },
-                            trailingIcon = {
-                                Icon(
-                                    imageVector = Icons.Filled.AccountCircle,
-                                    contentDescription = null
-                                )
-                            }
                         )
                         OutlinedTextField(
                             onValueChange = {
@@ -236,7 +218,8 @@ fun CompletarRegistroScreen(
                                     nome = nome,
                                     email = email,
                                     genero = genero,
-                                    telefone = telefone
+                                    telefone = telefone,
+                                    imagemUrl = imagemUrl
                                 )
                             },
                             colors = ButtonDefaults.buttonColors(AzulMarinho),
