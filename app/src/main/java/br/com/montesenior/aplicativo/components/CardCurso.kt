@@ -26,7 +26,10 @@ import br.com.montesenior.aplicativo.data.model.CardCursoItem
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
-fun CardCurso(curso: CardCursoItem, navController: NavController) {
+fun CardCurso(
+    curso: CardCursoItem,
+    navController: NavController
+) {
     Card(
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(6.dp),
@@ -65,7 +68,7 @@ fun CardCurso(curso: CardCursoItem, navController: NavController) {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = AzulMarinho),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(16.dp)
             ) {
                 Text(text = "Inscreva-se >")
             }

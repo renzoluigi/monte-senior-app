@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -42,10 +41,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
-import br.com.montesenior.aplicativo.components.DataNascimentoField
+import br.com.montesenior.aplicativo.components.DatePicker
 import br.com.montesenior.aplicativo.components.TipoAlunoField
 import br.com.montesenior.aplicativo.components.VoltarColumnButton
-import br.com.montesenior.aplicativo.screens.authentication.CompletarRegistroScreenViewModel
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
@@ -60,13 +58,16 @@ fun CompletarRegistroScreen(
     val completarRegistroScreenViewModel: CompletarRegistroScreenViewModel = viewModel()
     val tipo by completarRegistroScreenViewModel.tipo.observeAsState("")
     val endereco by completarRegistroScreenViewModel.endereco.observeAsState("")
-    val dataNascimento by completarRegistroScreenViewModel.dataNascimento.observeAsState("")
     val senha by completarRegistroScreenViewModel.senha.observeAsState("")
+    val dataNascimento by completarRegistroScreenViewModel.dataNascimento.observeAsState("")
     val confirmarSenha by completarRegistroScreenViewModel.confirmarSenha.observeAsState("")
     val isSenhaVisivel by completarRegistroScreenViewModel.isSenhaVisivel.observeAsState(false)
-    val isConfirmarSenhaVisivel by completarRegistroScreenViewModel.isConfirmarSenhaVisivel.observeAsState(false)
+    val isConfirmarSenhaVisivel by completarRegistroScreenViewModel.isConfirmarSenhaVisivel.observeAsState(
+        false
+    )
     val isCarregando by completarRegistroScreenViewModel.isCarregando.observeAsState(false)
     val mensagemErro by completarRegistroScreenViewModel.mensagemErro.observeAsState("")
+    val isErro by completarRegistroScreenViewModel.isErro.observeAsState(false)
 
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -77,8 +78,7 @@ fun CompletarRegistroScreen(
             contentScale = ContentScale.Crop
         )
         VoltarColumnButton(
-            navController = navController,
-            rota = ""
+            onClick = { navController.popBackStack() }
         )
         Column(
             modifier = Modifier
@@ -101,14 +101,16 @@ fun CompletarRegistroScreen(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        DatePicker(
+                            label = "Data de Nascimento",
+                            selectedDate = dataNascimento,
+                            onDateSelected = {
+                                completarRegistroScreenViewModel.onDataNascimentoChanged(it)
+                            }
+                        )
                         TipoAlunoField(
                             tipoSelecionado = tipo,
                             onTipoChanged = { completarRegistroScreenViewModel.onTipoChanged(it) })
-                        DataNascimentoField {
-                            completarRegistroScreenViewModel.onDataNascimentoChanged(
-                                it
-                            )
-                        }
                         OutlinedTextField(
                             onValueChange = {
                                 completarRegistroScreenViewModel.onEnderecoChanged(it)
@@ -196,12 +198,12 @@ fun CompletarRegistroScreen(
                     if (mensagemErro.isNotEmpty()) {
                         Text(
                             text = mensagemErro,
-                            color = Color.Red,
+                            color = if (isErro) Color.Red else Color.Green,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center
                         )
-
                     }
+                    Spacer(modifier = Modifier.height(8.dp))
                     if (isCarregando) {
                         Box(
                             modifier = Modifier

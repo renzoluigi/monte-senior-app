@@ -13,12 +13,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -42,49 +45,35 @@ fun NovidadeCard(
         modifier = Modifier
             .fillMaxWidth()
             .height(150.dp)
-            .clickable(onClick = {
-                abrirUrl(context, link)
-            }),
+            .clip(RoundedCornerShape(16.dp))
+            .clickable { abrirUrl(context, link) },
+        elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(Color.White)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)
-        ) {
-            Card{
-                Image(
-                    painter = painterResource(id = imagem),
-                    contentDescription = "Imagem do evento",
-                    modifier = Modifier.size(150.dp),
-                    contentScale = ContentScale.Crop
-                )
-            }
-            Column(
-                horizontalAlignment = Alignment.End,
+        Row(modifier = Modifier.padding(8.dp)) {
+            Image(
+                painter = painterResource(id = imagem),
+                contentDescription = "Imagem do evento",
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(start = 16.dp)
-            ) {
-                Text(
-                    text = titulo,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                    .size(120.dp)
+                    .clip(RoundedCornerShape(12.dp)),
+                contentScale = ContentScale.Crop
+            )
+            Spacer(Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(titulo, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    text = descricao,
-                    fontSize = 12.sp,
-                    color = Color.Gray,
-                    textAlign = TextAlign.Justify,
-                    maxLines = 4,
-                    overflow = TextOverflow.Ellipsis
+                    descricao,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
+                    fontSize = 13.sp,
+                    color = Color.Gray
                 )
             }
         }
     }
+
 }
 
 fun abrirUrl(contexto: Context, url: String) {

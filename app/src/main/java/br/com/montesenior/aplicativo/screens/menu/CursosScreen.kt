@@ -1,4 +1,6 @@
 
+import android.app.Activity
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -21,12 +24,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.CardCurso
-import br.com.montesenior.aplicativo.components.VoltarColumnButton
 import br.com.montesenior.aplicativo.data.model.CardCursoItem
 
 
 @Composable
 fun CursosScreen(navController: NavController) {
+    val context = LocalContext.current
+    val activity = context as? Activity
+
+    BackHandler {
+        activity?.moveTaskToBack(true)
+    }
     val cursos = listOf(
         CardCursoItem(
             titulo = "Cuidador de idosos",
@@ -52,11 +60,8 @@ fun CursosScreen(navController: NavController) {
             contentScale = ContentScale.Crop
         )
         Column(modifier = Modifier.fillMaxSize()) {
-            VoltarColumnButton(
-                navController = navController,
-                rota = "boas-vindas"
-            )
             Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+                Spacer(modifier = Modifier.height(16.dp))
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally

@@ -1,5 +1,6 @@
-package br.com.montesenior.aplicativo.screens
+package br.com.montesenior.aplicativo.screens.menu
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -13,14 +14,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.NovidadeCard
 import br.com.montesenior.aplicativo.data.repository.NovidadesRepository
 
 @Composable
-fun NovidadesScreen() {
+fun NovidadesScreen(navController: NavController) {
+    BackHandler {
+        navController.navigate("cursos") {
+            popUpTo(navController.graph.startDestinationId) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
     Box {
         Image(
             painter = painterResource(id = R.drawable.white_bg),
@@ -53,10 +63,4 @@ fun NovidadesScreen() {
             }
         }
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun NovidadesScreenPreview() {
-    NovidadesScreen()
 }

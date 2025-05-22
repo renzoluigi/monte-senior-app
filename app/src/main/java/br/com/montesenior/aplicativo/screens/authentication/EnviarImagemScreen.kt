@@ -9,17 +9,24 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,6 +36,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -65,10 +73,10 @@ fun EnviarImagemScreen( // TODO: VIEW MODEL
     val contexto = LocalContext.current
     var imagemSelecionadaUri by remember { mutableStateOf<Uri?>(null) }
     val coroutineScope = rememberCoroutineScope()
-    var uploadedImagemUrl by remember { mutableStateOf<String?>(null) }
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri -> // abre o seletor de imagens
-            imagemSelecionadaUri = uri // seleciona o uri da imagem selecionada
-    }
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri -> // abre o seletor de imagens
+            imagemSelecionadaUri = uri // recebe o uri da imagem selecionada
+        }
     var isCarregando by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -79,8 +87,9 @@ fun EnviarImagemScreen( // TODO: VIEW MODEL
             contentScale = ContentScale.Crop
         )
         VoltarColumnButton(
-            navController = navController,
-            rota = ""
+            onClick = {
+                navController.popBackStack()
+            }
         )
         Column(
             modifier = Modifier
@@ -104,20 +113,10 @@ fun EnviarImagemScreen( // TODO: VIEW MODEL
                     Text(text = "Adicione uma foto para seu perfil!")
                     Spacer(modifier = Modifier.height(8.dp))
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Button(
-                            onClick = {
-                                launcher.launch("image/*")
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(10.dp),
-                            colors = ButtonDefaults.buttonColors(AzulMarinho)
-
-                        ) {
-                            Text("Selecionar Imagem")
-                        }
-                        Spacer(modifier = Modifier.height(16.dp))
                         Box(
-                            modifier = Modifier.height(200.dp),
+                            modifier = Modifier
+                                .height(200.dp)
+                                .fillMaxWidth(),
                             contentAlignment = Alignment.Center
                         ) {
                             imagemSelecionadaUri?.let { uri ->
@@ -125,16 +124,30 @@ fun EnviarImagemScreen( // TODO: VIEW MODEL
                                     painter = rememberAsyncImagePainter(uri),
                                     contentDescription = "Imagem selecionada",
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(200.dp)
+                                        .size(200.dp)
+                                        .clip(CircleShape),
+                                    contentScale = ContentScale.FillBounds
                                 )
                             }
                         }
-                        Spacer(modifier = Modifier.height(16.dp))
-                        if (isCarregando) {
-                            CircularProgressIndicator( modifier = Modifier.align(Alignment.CenterHorizontally))
+                        Button(
+                            onClick = {
+                                launcher.launch("image/*")
+                            },
+                            modifier = Modifier.fillMaxWidth().height(50.dp),
+                            shape = RoundedCornerShape(10.dp),
+                            colors = ButtonDefaults.buttonColors(AzulMarinho)
+                        ) {
+                            Text("Selecionar Imagem")
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Icon(
+                                painter = painterResource(R.drawable.outline_upload),
+                                contentDescription = "Selecionar Imagem"
+                            )
                         }
-                        else {
+                        if (isCarregando) {
+                            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                        } else {
                             Button(
                                 onClick = {
                                     imagemSelecionadaUri?.let { uri ->
@@ -146,10 +159,16 @@ fun EnviarImagemScreen( // TODO: VIEW MODEL
                                                 coroutineScope.launch(Dispatchers.Main) {
                                                     isCarregando = false
                                                     try {
-                                                        val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
+                                                        val encodedUrl = URLEncoder.encode(
+                                                            url,
+                                                            StandardCharsets.UTF_8.toString()
+                                                        )
                                                         navController.navigate("completar-registro/$nome/$email/$telefone/$genero/$encodedUrl")
                                                     } catch (e: Exception) {
-                                                        Log.e("EnviarImagemScreen", "Erro ao codificar URL ou navegar: ${e.message}", e)
+                                                        Log.e(
+                                                            "EnviarImagemScreen",
+                                                            "Erro ao codificar URL ou navegar: ${e.message}"
+                                                        )
                                                     }
                                                 }
                                             },
@@ -165,11 +184,17 @@ fun EnviarImagemScreen( // TODO: VIEW MODEL
                                         )
                                     }
                                 },
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth().height(50.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 colors = ButtonDefaults.buttonColors(AzulMarinho)
                             ) {
                                 Text(text = "Enviar Imagem")
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Icon(
+                                    imageVector = Icons.Default.Send,
+                                    contentDescription = "Enviar Imagem",
+                                    modifier = Modifier.size(20.dp)
+                                )
                             }
                         }
                     }

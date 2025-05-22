@@ -1,4 +1,4 @@
-package br.com.montesenior.aplicativo.screens
+package br.com.montesenior.aplicativo.screens.menu
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -15,6 +15,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -68,7 +69,7 @@ fun DetalhesCursoScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp),
-                        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
                             text = "Carga horária:",
@@ -110,7 +111,7 @@ fun DetalhesCursoScreen(
                             .fillMaxWidth()
                             .height(50.dp),
                         onClick = {
-                            navController.navigate("cursos/${curso.cursoId}") //era pra ter matricula antes
+                            navController.navigate("cursos/${curso.cursoId}")
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = AzulMarinho,

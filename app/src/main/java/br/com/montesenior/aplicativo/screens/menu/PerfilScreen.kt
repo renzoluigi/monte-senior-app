@@ -1,5 +1,6 @@
-package br.com.montesenior.aplicativo.screens
+package br.com.montesenior.aplicativo.screens.menu
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -35,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.RowTextInfo
 import br.com.montesenior.aplicativo.data.model.Usuario
@@ -43,8 +45,16 @@ import br.com.montesenior.aplicativo.ui.theme.BlueMonteSenior
 import coil3.compose.AsyncImage
 
 @Composable
-fun PerfilScreen(usuario: Usuario) {
-
+fun PerfilScreen(usuario: Usuario, navController: NavController) {
+    BackHandler(enabled = true) {
+        navController.navigate("cursos") {
+            popUpTo(navController.graph.startDestinationId) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -57,7 +67,9 @@ fun PerfilScreen(usuario: Usuario) {
             contentScale = ContentScale.FillBounds
         )
         Column(
-            modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(110.dp))

@@ -34,7 +34,7 @@ import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 fun EsqueceuSuaSenhaScreen(modifier: Modifier = Modifier, navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.darkblue_bg),
+            painter = painterResource(id = R.drawable.cute_blue_bg),
             contentDescription = "Plano de fundo",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -44,7 +44,7 @@ fun EsqueceuSuaSenhaScreen(modifier: Modifier = Modifier, navController: NavCont
                 text = "< Voltar",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = AzulMarinho,
+                color = Color.Black,
                 modifier = Modifier.clickable(onClick = { navController.popBackStack() })
             )
         }
@@ -90,13 +90,4 @@ fun EsqueceuSuaSenhaScreen(modifier: Modifier = Modifier, navController: NavCont
             }
         }
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun EsqueceuSuaSenhaScreen() {
-    EsqueceuSuaSenhaScreen(
-        modifier = Modifier.fillMaxSize(),
-        navController = NavController(LocalContext.current)
-    )
 }

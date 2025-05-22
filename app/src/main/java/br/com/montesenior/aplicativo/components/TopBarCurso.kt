@@ -65,7 +65,7 @@ fun TopBarCurso(
             ) {
                 Column(Modifier.padding(start = 8.dp)) {
                     Text(
-                        text = usuario.nome,
+                        text = formatarNome(usuario.nome),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
@@ -96,4 +96,9 @@ fun TopBarCurso(
             }
         }
     }
+}
+
+fun formatarNome(nome: String): String {
+    val nomes = nome.split(" ")
+    return if (nomes.size > 1) "${nomes[0]} ${nomes[1]}" else nome
 }

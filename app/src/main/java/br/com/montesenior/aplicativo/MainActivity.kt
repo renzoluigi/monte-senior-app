@@ -22,10 +22,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.montesenior.aplicativo.components.NavBar
-import br.com.montesenior.aplicativo.screens.BoasVindasScreen
-import br.com.montesenior.aplicativo.screens.DetalhesCursoScreen
-import br.com.montesenior.aplicativo.screens.NovidadesScreen
-import br.com.montesenior.aplicativo.screens.PerfilScreen
+import br.com.montesenior.aplicativo.screens.authentication.BoasVindasScreen
+import br.com.montesenior.aplicativo.screens.menu.DetalhesCursoScreen
+import br.com.montesenior.aplicativo.screens.menu.NovidadesScreen
+import br.com.montesenior.aplicativo.screens.menu.PerfilScreen
 import br.com.montesenior.aplicativo.screens.authentication.CompletarRegistroScreen
 import br.com.montesenior.aplicativo.screens.authentication.EnviarImagemScreen
 import br.com.montesenior.aplicativo.screens.authentication.EsqueceuSuaSenhaScreen
@@ -123,7 +123,7 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(route = "perfil") {
                                 if (usuarioLogado != null) {
-                                    PerfilScreen(usuario = usuarioLogado!!)
+                                    PerfilScreen(usuario = usuarioLogado!!, navController = navController)
                                 } else {
                                     Box(
                                         modifier = Modifier.fillMaxSize(),
@@ -134,7 +134,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             composable(route = "novidades") {
-                                NovidadesScreen()
+                                NovidadesScreen(navController = navController)
                             }
                             composable(route = "cursos/{cursoId}") { backStackEntry ->
                                 val cursoId = backStackEntry.arguments?.getString("cursoId")

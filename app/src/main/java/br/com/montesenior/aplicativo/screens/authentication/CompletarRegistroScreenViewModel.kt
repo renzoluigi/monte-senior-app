@@ -1,7 +1,5 @@
 package br.com.montesenior.aplicativo.screens.authentication
 
-import android.content.Context
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,19 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.montesenior.aplicativo.data.model.Usuario
 import br.com.montesenior.aplicativo.data.repository.UsuariosRepository
-import br.com.montesenior.aplicativo.data.service.CloudinaryService
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONObject
-import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class CompletarRegistroScreenViewModel : ViewModel() {
     private val auth = Firebase.auth
@@ -44,6 +32,9 @@ class CompletarRegistroScreenViewModel : ViewModel() {
 
     private val _mensagemErro = MutableLiveData<String>()
     val mensagemErro: LiveData<String> = _mensagemErro
+
+    private val _isErro = MutableLiveData<Boolean>()
+    val isErro: LiveData<Boolean> = _isErro
 
     private val _isCarregando = MutableLiveData<Boolean>()
     val isCarregando: LiveData<Boolean> = _isCarregando
@@ -95,56 +86,67 @@ class CompletarRegistroScreenViewModel : ViewModel() {
         if (nome.isEmpty()) {
             _mensagemErro.value = "O nome é obrigatório"
             _isCarregando.value = false
+            _isErro.value = true
             return
         }
         if (email.isEmpty()) {
             _mensagemErro.value = "O email é obrigatório"
             _isCarregando.value = false
+            _isErro.value = true
             return
         }
         if (genero.isEmpty()) {
             _mensagemErro.value = "O gênero é obrigatório"
             _isCarregando.value = false
+            _isErro.value = true
             return
         }
         if (telefone.isEmpty()) {
             _mensagemErro.value = "O telefone é obrigatório"
             _isCarregando.value = false
+            _isErro.value = true
             return
         }
         if (imagemUrl.isEmpty()) {
             _mensagemErro.value = "Imagem não encontrada"
             _isCarregando.value = false
+            _isErro.value = true
             return
         }
         if (tipo.value == null) {
             _mensagemErro.value = "O tipo é obrigatório"
             _isCarregando.value = false
+            _isErro.value = true
             return
         }
         if (endereco.value == null) {
             _mensagemErro.value = "O endereço é obrigatório"
             _isCarregando.value = false
+            _isErro.value = true
             return
         }
         if (dataNascimento.value == null) {
             _mensagemErro.value = "A data de nascimento é obrigatória"
             _isCarregando.value = false
+            _isErro.value = true
             return
         }
         if (senha.value == null) {
             _mensagemErro.value = "A senha é obrigatória"
             _isCarregando.value = false
+            _isErro.value = true
             return
         }
         if (confirmarSenha.value == null) {
             _mensagemErro.value = "A confirmação de senha é obrigatória"
             _isCarregando.value = false
+            _isErro.value = true
             return
         }
         if (senha.value != confirmarSenha.value) {
             _mensagemErro.value = "As senhas não coincidem"
             _isCarregando.value = false
+            _isErro.value = true
             return
         }
 
@@ -152,7 +154,6 @@ class CompletarRegistroScreenViewModel : ViewModel() {
             .addOnCompleteListener { registroTask ->
                 if (registroTask.isSuccessful) {
                     val uid = auth.currentUser?.uid
-
                     if (uid != null) {
                         val novoUsuario = Usuario(
                             nome = nome,
@@ -164,7 +165,6 @@ class CompletarRegistroScreenViewModel : ViewModel() {
                             dataNascimento = dataNascimento.value!!,
                             genero = genero
                         )
-
                         viewModelScope.launch {
                             try {
                                 usuariosRepository.adicionarUsuario(uid, novoUsuario)
@@ -172,6 +172,8 @@ class CompletarRegistroScreenViewModel : ViewModel() {
                                     "CompletarRegistroScreenViewModel",
                                     "Usuário registrado com sucesso!"
                                 )
+                                _isErro.value = false
+                                _mensagemErro.value = "Usuário registrado com sucesso!"
                             } catch (e: Exception) {
                                 Log.e(
                                     "CompletarRegistroScreenViewModel",
@@ -184,6 +186,7 @@ class CompletarRegistroScreenViewModel : ViewModel() {
                     } else {
                         Log.e("CompletarRegistroScreenViewModel", "UID do usuário nulo")
                         _mensagemErro.value = "Erro ao obter ID do usuário. Tente novamente."
+                        _isErro.value = true
                         _isCarregando.value = false
                     }
                 } else {
@@ -192,6 +195,7 @@ class CompletarRegistroScreenViewModel : ViewModel() {
                         "Erro ao registrar usuário: ${registroTask.exception}"
                     )
                     _mensagemErro.value = "Erro ao registrar usuário: ${registroTask.exception}"
+                    _isErro.value = true
                     _isCarregando.value = false
                 }
             }

@@ -71,7 +71,11 @@ fun LoginScreen(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-        VoltarColumnButton(navController, "boas-vindas")
+        VoltarColumnButton(
+            onClick = {
+                navController.popBackStack()
+            }
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize(),
@@ -162,19 +166,17 @@ fun LoginScreen(
                             }
                         }
                     )
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        Text(
-                            text = "Esqueceu sua senha?",
-                            color = Color.Black,
-                            modifier = Modifier
-                                .clickable(onClick = {
-                                    navController.navigate("esqueceu-a-senha")
-                                })
-                        )
-                    }
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "Esqueceu sua senha?",
+                        color = Color.Black,
+                        modifier = Modifier
+                            .clickable(onClick = {
+                                navController.navigate("esqueceu-a-senha")
+                            })
+                            .align(Alignment.End)
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
                     if (mensagemErro.isNotEmpty()) {
                         Text(
                             text = mensagemErro,
@@ -182,7 +184,6 @@ fun LoginScreen(
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center
                         )
-
                     }
                     Spacer(modifier = Modifier.height(4.dp))
                     if (isCarregando) {
@@ -214,9 +215,10 @@ fun LoginScreen(
             LaunchedEffect(key1 = isAutorizado) {
                 if (isAutorizado) {
                     navController.navigate("cursos") {
-                        popUpTo("boas-vindas") {
-                            inclusive = true
+                        popUpTo(navController.graph.startDestinationId) { //remove tudo
+                            inclusive = true //inclusive ele mesmo
                         }
+                        launchSingleTop = true //evita varias instancias da mesma screen navegada
                     }
                     onLoginSuccess(uid!!)
                 }

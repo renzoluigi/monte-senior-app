@@ -13,13 +13,13 @@ import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
-fun VoltarColumnButton(navController: NavController, rota: String) {
+fun VoltarColumnButton(onClick: () -> Unit) {
     Column(modifier = Modifier.padding(16.dp)) {
         Text(
             text = "< Voltar",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.clickable(onClick = { navController.popBackStack() })
+            modifier = Modifier.clickable(onClick =  onClick )
         )
     }
 }

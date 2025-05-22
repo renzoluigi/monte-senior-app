@@ -59,8 +59,7 @@ fun RegistroScreen(navController: NavController) {
             contentScale = ContentScale.Crop
         )
         VoltarColumnButton(
-            navController = navController,
-            rota = "boas-vindas"
+            onClick = { navController.navigate("boas-vindas") }
         )
         Column(
             modifier = Modifier
