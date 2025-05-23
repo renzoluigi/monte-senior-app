@@ -60,14 +60,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     //live data
-    implementation("androidx.compose.runtime:runtime-livedata:1.8.1")
+    implementation("androidx.compose.runtime:runtime-livedata:LATEST_VERSION")
     //nav animator
     implementation("com.google.accompanist:accompanist-navigation-animation:0.34.0")
     //youtube player
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
     implementation("androidx.compose.foundation:foundation")
     //firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-auth")

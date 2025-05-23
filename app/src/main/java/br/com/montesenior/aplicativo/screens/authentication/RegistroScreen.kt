@@ -31,6 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -48,8 +49,7 @@ fun RegistroScreen(navController: NavController) {
     val email by registroScreenViewModel.email.observeAsState("")
     val genero by registroScreenViewModel.genero.observeAsState("")
     val telefone by registroScreenViewModel.telefone.observeAsState("")
-    val isRegistroSucesso by registroScreenViewModel.isRegistroSucesso.observeAsState()
-    val mensagemErro by registroScreenViewModel.mensagemErro.observeAsState()
+    val mensagemErro by registroScreenViewModel.mensagemErro.observeAsState("")
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -147,10 +147,21 @@ fun RegistroScreen(navController: NavController) {
                             generoSelecionado = genero,
                             onGeneroChanged = { registroScreenViewModel.onGeneroChanged(it) })
                     }
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
+                    if (mensagemErro.isNotBlank()) {
+                        Text(
+                            text = mensagemErro,
+                            color = Color.Red,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
                     Button(
                         onClick = {
-                            navController.navigate("enviar-imagem/$nome/$email/$telefone/$genero")
+                            registroScreenViewModel.onClickContinuar(onClick = {
+                                navController.navigate("enviar-imagem/$nome/$email/$telefone/$genero")
+                            })
                         },
                         colors = ButtonDefaults.buttonColors(AzulMarinho),
                         modifier = Modifier

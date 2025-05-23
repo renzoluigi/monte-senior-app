@@ -82,7 +82,7 @@ fun PerfilScreen(usuario: Usuario, navController: NavController) {
                     modifier = Modifier
                         .size(125.dp)
                         .clip(CircleShape),
-                    contentScale = ContentScale.FillBounds
+                    contentScale = ContentScale.Crop
                 )
             }
         }
@@ -155,7 +155,9 @@ fun PerfilScreen(usuario: Usuario, navController: NavController) {
                         Row(
                             modifier = Modifier
                                 .align(Alignment.End)
-                                .clickable(onClick = {})
+                                .clickable(onClick = {
+                                    navController.navigate("editar-perfil")
+                                })
                         ) {
                             Text(
                                 text = "Editar",
@@ -179,5 +181,5 @@ fun PerfilScreen(usuario: Usuario, navController: NavController) {
 }
 
 fun formatarTelefone(telefone: String): String{
-    return if (telefone.length == 11) { "(${telefone.substring(0, 2)}) ${telefone.substring(2, 7)}-${telefone.substring(7)}" } else { "" }
+    return if (telefone.length == 11) { "(${telefone.substring(0, 2)}) ${telefone.substring(2, 7)}-${telefone.substring(7)}" } else { telefone }
 }

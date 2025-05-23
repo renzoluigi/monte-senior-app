@@ -1,5 +1,6 @@
 package br.com.montesenior.aplicativo.screens.course
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -26,6 +27,14 @@ fun MenuCursoScreen(
     val curso = SobreCursoRepository.cursos.getValue(cursoId)
     val modulos = MaterialCursoRepository.materialCursos.getValue(curso.cursoId).modulos
 
+    BackHandler(enabled = true) {
+        navController.navigate("cursos") {
+            popUpTo(navController.graph.startDestinationId) {
+                inclusive = true
+            }
+            launchSingleTop = true
+        }
+    }
     Scaffold(
         topBar = {
             TopBarCurso(

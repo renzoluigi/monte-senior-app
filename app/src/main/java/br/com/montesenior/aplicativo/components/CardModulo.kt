@@ -67,7 +67,7 @@ fun CardModulo(
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "Sua Trilha de Aprendizado",
                 fontWeight = FontWeight.SemiBold

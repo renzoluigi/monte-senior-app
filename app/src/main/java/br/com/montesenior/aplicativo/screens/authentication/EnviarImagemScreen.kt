@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -126,7 +127,7 @@ fun EnviarImagemScreen( // TODO: VIEW MODEL
                                     modifier = Modifier
                                         .size(200.dp)
                                         .clip(CircleShape),
-                                    contentScale = ContentScale.FillBounds
+                                    contentScale = ContentScale.Crop
                                 )
                             }
                         }
@@ -134,7 +135,9 @@ fun EnviarImagemScreen( // TODO: VIEW MODEL
                             onClick = {
                                 launcher.launch("image/*")
                             },
-                            modifier = Modifier.fillMaxWidth().height(50.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp),
                             shape = RoundedCornerShape(10.dp),
                             colors = ButtonDefaults.buttonColors(AzulMarinho)
                         ) {
@@ -184,14 +187,16 @@ fun EnviarImagemScreen( // TODO: VIEW MODEL
                                         )
                                     }
                                 },
-                                modifier = Modifier.fillMaxWidth().height(50.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(50.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 colors = ButtonDefaults.buttonColors(AzulMarinho)
                             ) {
                                 Text(text = "Enviar Imagem")
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Icon(
-                                    imageVector = Icons.Default.Send,
+                                    imageVector = Icons.AutoMirrored.Filled.Send,
                                     contentDescription = "Enviar Imagem",
                                     modifier = Modifier.size(20.dp)
                                 )
