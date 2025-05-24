@@ -53,6 +53,8 @@ class MainActivity : ComponentActivity() {
                 val currentRoute = navBackStackEntry?.destination?.route
                 val usuarioViewModel: UsuarioViewModel = viewModel()
                 val usuarioLogado by usuarioViewModel.usuarioLogado.collectAsState()
+                val usuarioLogadoId by usuarioViewModel.usuarioLogadoId.collectAsState()
+
                 Scaffold(
                     bottomBar = {
                         if (currentRoute == "cursos" || currentRoute == "perfil" ||
@@ -152,10 +154,20 @@ class MainActivity : ComponentActivity() {
                         ) { backStackEntry ->
                             val cursoId = backStackEntry.arguments?.getString("cursoId")
                                 ?: return@composable
-                            DetalhesCursoScreen(
-                                navController = navController,
-                                cursoId = cursoId
-                            )
+                            if (usuarioLogadoId != null) {
+                                DetalhesCursoScreen(
+                                    navController = navController,
+                                    cursoId = cursoId,
+                                    usuarioId = usuarioLogadoId!!
+                                )
+                            } else {
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator()
+                                }
+                            }
                         }
                         composable(
                             route = "perfil",
@@ -181,7 +193,10 @@ class MainActivity : ComponentActivity() {
                             enterTransition = { fadeIn(animationSpec = tween(300)) },
                             exitTransition = { fadeOut(animationSpec = tween(300)) }
                         ) {
-                            EditarPerfilScreen(usuario = usuarioLogado!!, onSalvarClick = {navController.navigate("perfil")}, onVoltarClick = { navController.navigate("perfil") })
+                            EditarPerfilScreen(
+                                usuario = usuarioLogado!!,
+                                onSalvarClick = { navController.navigate("perfil") },
+                                onVoltarClick = { navController.navigate("perfil") })
                         }
                         composable(
                             route = "novidades",
@@ -246,14 +261,10 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-// uid como email
 
 // trilha no perfil
 // formacao de cuidador familiar
 // chatbot
-// email, telefone, genero, profissional familiar
 // carteirinhas, certificado, oportunidade, eventos
-// banco de dados
-// somente navegacao
 
 // onclick abre duas vezes cada tela

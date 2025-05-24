@@ -7,6 +7,8 @@ data class Matricula(
     val cursoId: String,
     @get:PropertyName("data_matricula") @set:PropertyName("data_matricula")
     var dataMatricula: Timestamp,
-    val progresso: Int,
+    val progresso: Double,
     val concluido: Boolean
-)
+) {
+    constructor() : this("", Timestamp.now(), 0.0, false)
+}

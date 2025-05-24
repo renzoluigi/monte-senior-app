@@ -62,9 +62,7 @@ fun CompletarRegistroScreen(
     val dataNascimento by completarRegistroScreenViewModel.dataNascimento.observeAsState("")
     val confirmarSenha by completarRegistroScreenViewModel.confirmarSenha.observeAsState("")
     val isSenhaVisivel by completarRegistroScreenViewModel.isSenhaVisivel.observeAsState(false)
-    val isConfirmarSenhaVisivel by completarRegistroScreenViewModel.isConfirmarSenhaVisivel.observeAsState(
-        false
-    )
+    val isConfirmarSenhaVisivel by completarRegistroScreenViewModel.isConfirmarSenhaVisivel.observeAsState(false)
     val isCarregando by completarRegistroScreenViewModel.isCarregando.observeAsState(false)
     val mensagemErro by completarRegistroScreenViewModel.mensagemErro.observeAsState("")
     val isErro by completarRegistroScreenViewModel.isErro.observeAsState(false)

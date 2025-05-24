@@ -13,9 +13,13 @@ class UsuarioViewModel: ViewModel() {
     private val _usuarioLogado = MutableStateFlow<Usuario?>(null)
     val usuarioLogado: StateFlow<Usuario?> = _usuarioLogado.asStateFlow()
 
+    private val _usuarioLogadoId = MutableStateFlow<String?>(null)
+    val usuarioLogadoId: StateFlow<String?> = _usuarioLogadoId.asStateFlow()
+
     fun loginUsuario(usuarioId: String) {
         viewModelScope.launch {
             _usuarioLogado.value = UsuariosRepository().getUsuario(usuarioId)
+            _usuarioLogadoId.value = usuarioId
         }
     }
 

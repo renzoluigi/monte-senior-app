@@ -10,11 +10,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,23 +28,33 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.abrirUrl
 import br.com.montesenior.aplicativo.data.repository.SobreCursoRepository
+import br.com.montesenior.aplicativo.screens.course.DetalhesCursoScreenViewModel
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
+import androidx.compose.runtime.getValue
 
 @Composable
 fun DetalhesCursoScreen(
     navController: NavController,
-    cursoId: String
+    cursoId: String,
+    usuarioId: String
 ) {
     val curso = SobreCursoRepository.cursos.getValue(cursoId)
     val contexto = LocalContext.current
 
+    val viewModel: DetalhesCursoScreenViewModel = viewModel()
+    val isCarregando by viewModel.isCarregando.observeAsState(false)
+    val mensagemErro by viewModel.mensagemErro.observeAsState("")
+
     Column(modifier = Modifier.fillMaxSize()) {
         Box {
             Image(
-                modifier = Modifier.fillMaxWidth().height(390.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(390.dp),
                 painter = painterResource(id = curso.imagem),
                 contentDescription = "Imagem de um cuidador de idoso auxiliando uma idosa",
                 contentScale = ContentScale.FillBounds
@@ -106,25 +119,42 @@ fun DetalhesCursoScreen(
                             }),
                         color = Color.Blue
                     )
-                    Button(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(50.dp),
-                        onClick = {
-                            navController.navigate("cursos/${curso.cursoId}")
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = AzulMarinho,
-                            contentColor = Color.White
-                        )
-                    ) {
-                        Text(
-                            text = "Matricular-se",
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                    if (isCarregando) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(modifier = Modifier.size(36.dp))
+                        }
+                    } else {
+                        Button(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp),
+                            onClick = {
+                                viewModel.onClickMatricular(
+                                    cursoId = cursoId,
+                                    uid = usuarioId,
+                                    onSucesso = {
+                                        navController.navigate("cursos/${curso.cursoId}")
+                                    }
+                                )
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = AzulMarinho,
+                                contentColor = Color.White
+                            )
+                        ) {
+                            Text(
+                                text = "Matricular-se",
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
                 }
             }
         }

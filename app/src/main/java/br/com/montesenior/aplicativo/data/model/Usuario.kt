@@ -11,8 +11,7 @@ data class Usuario(
     val imagem: String,
     @get:PropertyName("data_nascimento") @set:PropertyName("data_nascimento")
     var dataNascimento: String,
-    val genero: String,
-    val matriculas: List<String> = listOf()
+    val genero: String
 ) {
-    constructor() : this("", "", "", "", "", "", "", "", listOf())
+    constructor() : this("", "", "", "", "", "", "", "")
 }
