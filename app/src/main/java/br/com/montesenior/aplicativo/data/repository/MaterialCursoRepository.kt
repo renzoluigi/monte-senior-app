@@ -20,20 +20,17 @@ object MaterialCursoRepository {
                         Tarefa(
                             id = "intro_leitura_conteudo",
                             tipo = TipoTarefa.LEITURA,
-                            titulo = "Leia o  Material",
-                            isConcluida = false
+                            titulo = "Leia o  Material"
                         ),
                         Tarefa(
                             id = "intro_etarismo_video_aula",
                             tipo = TipoTarefa.VIDEO,
-                            titulo = "Vídeo Introdutório",
-                            isConcluida = false
+                            titulo = "Vídeo Introdutório"
                         ),
                         Tarefa(
                             id = "intro_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
-                            titulo = "Quiz Introdutório",
-                            isConcluida = false
+                            titulo = "Quiz Introdutório"
                         )
                     )
                 ),
@@ -49,14 +46,12 @@ object MaterialCursoRepository {
                         Tarefa(
                             id = "intro_video",
                             tipo = TipoTarefa.VIDEO,
-                            titulo = "Assistir ao Vídeo",
-                            isConcluida = false
+                            titulo = "Assistir ao Vídeo"
                         ),
                         Tarefa(
                             id = "inclusao_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
-                            titulo = "Responder o Quiz",
-                            isConcluida = false
+                            titulo = "Responder o Quiz"
                         )
                     )
                 )
@@ -74,20 +69,17 @@ object MaterialCursoRepository {
                         Tarefa(
                             id = "intro_material",
                             tipo = TipoTarefa.LEITURA,
-                            titulo = "Leia o  Material",
-                            isConcluida = false
+                            titulo = "Leia o  Material"
                         ),
                         Tarefa(
                             id = "intro_etarismo_video_aula",
                             tipo = TipoTarefa.VIDEO,
-                            titulo = "Vídeo Introdutório",
-                            isConcluida = false
+                            titulo = "Vídeo Introdutório"
                         ),
                         Tarefa(
                             id = "intro_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
                             titulo = "Quiz Introdutório",
-                            isConcluida = false
                         )
                     )
                 ),
@@ -103,14 +95,12 @@ object MaterialCursoRepository {
                         Tarefa(
                             id = "intro_video",
                             tipo = TipoTarefa.VIDEO,
-                            titulo = "Assistir ao Vídeo",
-                            isConcluida = false
+                            titulo = "Assistir ao Vídeo"
                         ),
                         Tarefa(
                             id = "inclusao_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
-                            titulo = "Responder o Quiz",
-                            isConcluida = true
+                            titulo = "Responder o Quiz"
                         )
                     )
                 ),
@@ -126,14 +116,12 @@ object MaterialCursoRepository {
                         Tarefa(
                             id = "intro_video",
                             tipo = TipoTarefa.VIDEO,
-                            titulo = "Assistir ao Vídeo",
-                            isConcluida = false
+                            titulo = "Assistir ao Vídeo"
                         ),
                         Tarefa(
                             id = "inclusao_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
-                            titulo = "Responder o Quiz",
-                            isConcluida = false
+                            titulo = "Responder o Quiz"
                         )
                     )
                 ),
@@ -149,14 +137,12 @@ object MaterialCursoRepository {
                         Tarefa(
                             id = "intro_video",
                             tipo = TipoTarefa.VIDEO,
-                            titulo = "Assistir ao Vídeo",
-                            isConcluida = false
+                            titulo = "Assistir ao Vídeo"
                         ),
                         Tarefa(
                             id = "inclusao_etarismo_quiz",
                             tipo = TipoTarefa.QUIZ,
-                            titulo = "Responder o Quiz",
-                            isConcluida = false
+                            titulo = "Responder o Quiz"
                         )
                     )
                 )

@@ -24,6 +24,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.montesenior.aplicativo.components.NavBar
+import br.com.montesenior.aplicativo.data.repository.UsuariosRepository
 import br.com.montesenior.aplicativo.screens.authentication.BoasVindasScreen
 import br.com.montesenior.aplicativo.screens.authentication.CompletarRegistroScreen
 import br.com.montesenior.aplicativo.screens.authentication.EnviarImagemScreen
@@ -247,7 +248,6 @@ class MainActivity : ComponentActivity() {
                                 ?: return@composable
                             QuizScreen(
                                 onQuizCompleted = {
-//                                        cursoViewModel.marcarTarefaComoConcluida(atividadeId, tarefaId)
                                 },
                                 navController = navController,
                                 viewModel = viewModel(),

@@ -8,7 +8,8 @@ data class Matricula(
     @get:PropertyName("data_matricula") @set:PropertyName("data_matricula")
     var dataMatricula: Timestamp,
     val progresso: Double,
-    val concluido: Boolean
+    val concluido: Boolean,
+    val progressoModulos: List<ProgressoModulo> = listOf()
 ) {
     constructor() : this("", Timestamp.now(), 0.0, false)
 }
