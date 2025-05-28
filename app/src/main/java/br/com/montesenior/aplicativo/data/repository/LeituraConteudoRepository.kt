@@ -11,6 +11,13 @@ object LeituraConteudoRepository {
                 Pair("bbbb", R.drawable.curso_etarismo),
                 Pair("cccc", R.drawable.curso_cuidador)
             )
+        ),
+        "intro_etarismo_conteudo" to LeituraConteudo (
+             listOf(
+                Pair("aaaa", R.drawable.curso_estereotipos_bg),
+                Pair("bbbb", R.drawable.curso_etarismo),
+                Pair("cccc", R.drawable.curso_cuidador)
+            )
         )
     )
 }

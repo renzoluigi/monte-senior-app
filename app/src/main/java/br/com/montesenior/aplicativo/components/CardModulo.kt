@@ -1,5 +1,6 @@
 package br.com.montesenior.aplicativo.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import br.com.montesenior.aplicativo.data.model.ProgressoModulo
 import br.com.montesenior.aplicativo.data.model.Tarefa
 
 @Composable
@@ -32,7 +34,10 @@ fun CardModulo(
     descricao: String,
     imagem: Int,
     navController: NavController,
-    tarefas: List<Tarefa>
+    tarefas: List<Tarefa>,
+    cursoId: String,
+    moduloId: String,
+    progressoModulo: ProgressoModulo?
 ) {
     Card(
         shape = RoundedCornerShape(20.dp),
@@ -79,13 +84,15 @@ fun CardModulo(
                     .height(200.dp)
             ) {
                 items(tarefas.size) { item ->
+                    val tarefaConcluida = progressoModulo?.tarefasConcluidas?.contains(tarefas[item].id)
                     Spacer(modifier = Modifier.width(8.dp))
                     CardTarefa(
                         imagem = tarefas[item].tipo.imagem,
                         titulo = tarefas[item].titulo,
                         onClick = {
-                            navController.navigate("${tarefas[item].tipo.id}/${tarefas[item].id}")
-                        }
+                            navController.navigate("$cursoId/$moduloId/${tarefas[item].tipo.id}/${tarefas[item].id}")
+                        },
+                        isConcluido = tarefaConcluida == true
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                 }

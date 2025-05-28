@@ -32,7 +32,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.abrirUrl
 import br.com.montesenior.aplicativo.data.repository.SobreCursoRepository
-import br.com.montesenior.aplicativo.screens.course.DetalhesCursoScreenViewModel
+import br.com.montesenior.aplicativo.screens.menu.DetalhesCursoScreenViewModel
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 import androidx.compose.runtime.getValue
 

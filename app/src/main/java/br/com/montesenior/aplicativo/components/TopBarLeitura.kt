@@ -28,6 +28,7 @@ fun TopBarLeitura(
     pagina: Int,
     totalPag: Int,
     navController: NavController,
+    onClickConcluir: () -> Unit
 ) {
     val isLastPage = pagina == totalPag
 
@@ -81,7 +82,7 @@ fun TopBarLeitura(
                     fontSize = 18.sp,
                     modifier = Modifier.clickable(
                         onClick = {
-                            navController.popBackStack()
+                            onClickConcluir()
                         },
                         enabled = isLastPage
                     )

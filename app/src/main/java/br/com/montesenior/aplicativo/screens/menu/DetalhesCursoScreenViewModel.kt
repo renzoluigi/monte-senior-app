@@ -1,4 +1,4 @@
-package br.com.montesenior.aplicativo.screens.course
+package br.com.montesenior.aplicativo.screens.menu
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -28,7 +28,7 @@ class DetalhesCursoScreenViewModel: ViewModel() {
             if (matriculaExistente == null) {
                 val novaMatricula = Matricula(
                     cursoId = cursoId,
-                    dataMatricula = Timestamp.now(),
+                    dataMatricula = Timestamp.Companion.now(),
                     progresso = 0.0,
                     concluido = false
                 )

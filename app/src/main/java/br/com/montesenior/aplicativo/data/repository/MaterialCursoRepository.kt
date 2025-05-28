@@ -67,9 +67,9 @@ object MaterialCursoRepository {
                     imagem = R.drawable.didatic,
                     tarefas = listOf(
                         Tarefa(
-                            id = "intro_material",
+                            id = "intro_etarismo_conteudo",
                             tipo = TipoTarefa.LEITURA,
-                            titulo = "Leia o  Material"
+                            titulo = "Leia o Material"
                         ),
                         Tarefa(
                             id = "intro_etarismo_video_aula",

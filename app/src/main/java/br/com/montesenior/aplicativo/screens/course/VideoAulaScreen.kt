@@ -28,23 +28,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.TopBarVideoAula
 import br.com.montesenior.aplicativo.components.YoutubePlayer
 import br.com.montesenior.aplicativo.components.abrirUrl
 import br.com.montesenior.aplicativo.data.repository.VideoAulaRepository
-import br.com.montesenior.aplicativo.screens.course.VideoAulaScreenViewModel
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 import br.com.montesenior.aplicativo.ui.theme.Poppins
 
 @Composable
 fun VideoAulaScreen(
-    viewModel: VideoAulaScreenViewModel = VideoAulaScreenViewModel(),
-    navController: NavController,
-    videoAulaId: String
+    uid: String,
+    cursoId: String,
+    moduloId: String,
+    tarefaId: String,
+    navController: NavController
 ) {
+    val viewModel: VideoAulaScreenViewModel = viewModel()
     val isAssistido by viewModel.isAssistido.observeAsState(false)
-    val videoAula = VideoAulaRepository.videoAulas().getValue(videoAulaId)
+    val videoAula = VideoAulaRepository.videoAulas().getValue(tarefaId)
     val contexto = LocalContext.current
 
     Scaffold(
@@ -145,6 +148,7 @@ fun VideoAulaScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
                     onClick = {
+                        viewModel.onClickConcluir(uid, cursoId, moduloId, tarefaId)
                         navController.popBackStack()
                     },
                     modifier = Modifier

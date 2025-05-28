@@ -1,10 +1,16 @@
 package br.com.montesenior.aplicativo.screens.course
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import br.com.montesenior.aplicativo.data.repository.UsuariosRepository
+import kotlinx.coroutines.launch
 
 class QuizScreenViewModel: ViewModel() {
+    private val usuariosRepository = UsuariosRepository()
+
     private val _currentQuestion = MutableLiveData<Int>(0)
     val currentQuestion: LiveData<Int> = _currentQuestion
 
@@ -37,7 +43,17 @@ class QuizScreenViewModel: ViewModel() {
             _selectedAnswer.value = null
         } else {
             _isCompleted.value = true
-//                                onQuizCompleted(score)
+        }
+    }
+
+    fun onQuizCompleted(uid: String, cursoId: String, moduloId: String, tarefaId: String) {
+        viewModelScope.launch {
+            try {
+                usuariosRepository.marcarTarefaConcluida(uid, cursoId, moduloId, tarefaId)
+                Log.d("QuizScreenViewModel", "Tarefa concluída com sucesso: $tarefaId")
+            } catch (e: Exception) {
+                Log.e("QuizScreenViewModel", "Erro ao marcar tarefa concluída", e)
+            }
         }
     }
 }

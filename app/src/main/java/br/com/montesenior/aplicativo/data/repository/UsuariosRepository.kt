@@ -59,7 +59,7 @@ class UsuariosRepository {
             val matricula =
                 usuariosCollection.document(uid)
                     .collection("matriculas")
-                    .document()
+                    .document(cursoId)
                     .get()
                     .await()
             if (matricula.exists()) {
@@ -97,7 +97,8 @@ class UsuariosRepository {
         val modulo = modulosAtualizados.find { it.moduloId == moduloId }
         if (modulo != null && !modulo.tarefasConcluidas.contains(tarefaId)) {
             val atualizadas = modulo.tarefasConcluidas.toMutableList().apply { add(tarefaId) }
-            modulosAtualizados[modulosAtualizados.indexOf(modulo)] = modulo.copy(tarefasConcluidas = atualizadas)
+            modulosAtualizados[modulosAtualizados.indexOf(modulo)] =
+                modulo.copy(tarefasConcluidas = atualizadas)
         } else if (modulo == null) {
             modulosAtualizados.add(ProgressoModulo(moduloId, listOf(tarefaId), false))
         }
@@ -105,9 +106,33 @@ class UsuariosRepository {
         matriculaRef.update(
             mapOf(
                 "progressoModulos" to modulosAtualizados,
-                "progresso" to modulosAtualizados.count{ it.concluido == true }.toDouble() / MaterialCursoRepository.materialCursos.getValue(cursoId).modulos.size,
+                "progresso" to modulosAtualizados.count { it.concluido == true }
+                    .toDouble() / MaterialCursoRepository.materialCursos.getValue(cursoId).modulos.size,
                 "concluido" to modulosAtualizados.all { it.concluido == true }
             )
         )
+    }
+
+    suspend fun carregarProgressoModulos(
+        uid: String,
+        cursoId: String
+    ): List<ProgressoModulo>? {
+        return try {
+            val matriculaRef = usuariosCollection
+                .document(uid)
+                .collection("matriculas")
+                .document(cursoId)
+                .get()
+                .await()
+            if (matriculaRef.exists()) {
+                val matricula = matriculaRef.toObject(Matricula::class.java)
+                matricula?.progressoModulos
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            Log.e("UsuariosRepository", "Erro ao obter progresso do módulo: ${e.message}")
+            null
+        }
     }
 }

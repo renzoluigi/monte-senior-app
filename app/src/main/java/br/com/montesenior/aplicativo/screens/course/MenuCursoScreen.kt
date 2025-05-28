@@ -9,23 +9,34 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.CardModulo
 import br.com.montesenior.aplicativo.components.TopBarCurso
 import br.com.montesenior.aplicativo.data.model.Usuario
 import br.com.montesenior.aplicativo.data.repository.SobreCursoRepository
 import br.com.montesenior.aplicativo.data.repository.MaterialCursoRepository
+import androidx.compose.runtime.getValue
 
 @Composable
 fun MenuCursoScreen(
+    usuario: Usuario,
+    uid: String,
     cursoId: String,
-    navController: NavController,
-    usuario: Usuario
+    navController: NavController
 ) {
+    val menuCursoScreenViewModel: MenuCursoScreenViewModel = viewModel()
     val curso = SobreCursoRepository.cursos.getValue(cursoId)
     val modulos = MaterialCursoRepository.materialCursos.getValue(curso.cursoId).modulos
+    val listaProgressoModulo by menuCursoScreenViewModel.listaProgressoModulo.observeAsState()
+
+    LaunchedEffect(uid, cursoId) {
+        menuCursoScreenViewModel.carregarProgressoModulos(uid, cursoId)
+    }
 
     BackHandler(enabled = true) {
         navController.navigate("cursos") {
@@ -60,7 +71,10 @@ fun MenuCursoScreen(
                     descricao = modulo.descricao,
                     imagem = modulo.imagem,
                     navController = navController,
-                    tarefas = modulo.tarefas
+                    tarefas = modulo.tarefas,
+                    cursoId = cursoId,
+                    moduloId = modulo.id,
+                    progressoModulo = listaProgressoModulo?.find { it.moduloId == modulo.id}
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }

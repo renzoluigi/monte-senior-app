@@ -1,4 +1,4 @@
-package br.com.montesenior.aplicativo.screens.authentication
+package br.com.montesenior.aplicativo.screens.course
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,16 +18,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.TopBarLeitura
 import br.com.montesenior.aplicativo.data.repository.LeituraConteudoRepository
+import br.com.montesenior.aplicativo.screens.course.LeituraConteudoScreenViewModel
 
 @Composable
 fun LeituraConteudoScreen(
-    materialId: String,
+    uid: String,
+    cursoId: String,
+    moduloId: String,
+    tarefaId: String,
     navController: NavController
 ) {
-    val conteudos = LeituraConteudoRepository.conteudos.getValue(materialId).conteudos
+    val leituraConteudoScreenViewModel: LeituraConteudoScreenViewModel = viewModel()
+    val conteudos = LeituraConteudoRepository.conteudos.getValue(tarefaId).conteudos
     val pagerState = rememberPagerState(
         initialPage = 0,
         pageCount = { conteudos.size }
@@ -47,7 +53,11 @@ fun LeituraConteudoScreen(
             TopBarLeitura(
                 pagina = pagerState.currentPage + 1,
                 totalPag = pagerState.pageCount,
-                navController = navController
+                navController = navController,
+                onClickConcluir = {
+                    leituraConteudoScreenViewModel.onClickConcluir(uid, cursoId, moduloId, tarefaId)
+                    navController.popBackStack()
+                }
             )
             Box(
                 modifier = Modifier

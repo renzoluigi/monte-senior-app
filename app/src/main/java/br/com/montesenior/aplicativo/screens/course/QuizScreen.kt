@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.montesenior.aplicativo.components.TopBarVideoAula
 import br.com.montesenior.aplicativo.data.repository.QuizRepository
@@ -34,15 +35,17 @@ import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 
 @Composable
 fun QuizScreen(
-    onQuizCompleted: () -> Unit,
     navController: NavController,
-    viewModel: QuizScreenViewModel,
+    uid: String,
+    cursoId: String,
+    moduloId: String,
     tarefaId: String
 ) {
+    val viewModel: QuizScreenViewModel = viewModel()
     val currentQuestion by viewModel.currentQuestion.observeAsState(0)
     val score by viewModel.score.observeAsState(0)
     val isCompleted by viewModel.isCompleted.observeAsState(false)
-    val selectedAnswer by viewModel.selectedAnswer.observeAsState(null)
+    val respostaSelecionada by viewModel.selectedAnswer.observeAsState(null)
     val questoes = QuizRepository.quizzes.getValue(tarefaId).questoes
 
     Column(
@@ -63,7 +66,7 @@ fun QuizScreen(
                     viewModel.onRetry()
                 },
                 navController = navController,
-                onFinish = onQuizCompleted
+                onFinish = { viewModel.onQuizCompleted(uid, cursoId, moduloId, tarefaId) }
             )
         } else {
             LazyColumn(
@@ -88,25 +91,25 @@ fun QuizScreen(
                     )
                 }
                 items(questoes[currentQuestion].opcoes.size) { index ->
-                    val isSelected = selectedAnswer == index
+                    val isSelecionada = respostaSelecionada == index
                     Surface(
                         modifier = Modifier
                             .fillMaxWidth()
                             .selectable(
-                                selected = isSelected,
+                                selected = isSelecionada,
                                 onClick = {
                                     viewModel.onAnswerSelected(index)
                                 }
                             ),
                         shape = RoundedCornerShape(12.dp),
                         color = when {
-                            isSelected -> Color.Green.copy(alpha = 0.2f)
+                            isSelecionada -> Color.Green.copy(alpha = 0.2f)
                             else -> Color.White
                         },
                         border = BorderStroke(
                             width = 1.dp,
                             color = when {
-                                isSelected -> AzulMarinho
+                                isSelecionada -> AzulMarinho
                                 else -> Color.LightGray
                             }
                         )
@@ -130,7 +133,7 @@ fun QuizScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(50.dp),
-                        enabled = selectedAnswer != null,
+                        enabled = respostaSelecionada != null,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = AzulMarinho,
                             disabledContainerColor = AzulMarinho.copy(alpha = 0.5f)

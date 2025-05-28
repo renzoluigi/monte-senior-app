@@ -117,3 +117,5 @@ class LoginScreenViewModel : ViewModel() {
         }
     }
 }
+
+// -> max attemps

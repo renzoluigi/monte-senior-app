@@ -1,25 +1,22 @@
 package br.com.montesenior.aplicativo.screens.course
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.montesenior.aplicativo.data.model.Modulo
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import androidx.lifecycle.viewModelScope
+import br.com.montesenior.aplicativo.data.model.ProgressoModulo
+import br.com.montesenior.aplicativo.data.repository.UsuariosRepository
+import kotlinx.coroutines.launch
 
-class MenuCursoScreenViewModel() : ViewModel() {
-    private val _atividades = MutableStateFlow<List<Modulo>>(emptyList())
-    val atividades: StateFlow<List<Modulo>> = _atividades
+class MenuCursoScreenViewModel: ViewModel() {
+    private val usuariosRepository = UsuariosRepository()
 
-    fun marcarTarefaComoConcluida(atividadeId: String, tarefaId: String) {
-        val novaLista = _atividades.value.map { modulo ->
-            if (modulo.id == atividadeId) {
-                val tarefasAtualizadas = modulo.tarefas.map { tarefa ->
-                    if (tarefa.id == tarefaId) tarefa.copy(isConcluida = true) else tarefa
-                }
-                modulo.copy(tarefas = tarefasAtualizadas)
-            } else {
-                modulo
-            }
+    private val _listaProgressoModulo = MutableLiveData<List<ProgressoModulo>>()
+    val listaProgressoModulo: LiveData<List<ProgressoModulo>> = _listaProgressoModulo
+
+    fun carregarProgressoModulos(uid: String, cursoId: String) {
+        viewModelScope.launch {
+            _listaProgressoModulo.value = usuariosRepository.carregarProgressoModulos(uid, cursoId)
         }
-        _atividades.value = novaLista
     }
 }

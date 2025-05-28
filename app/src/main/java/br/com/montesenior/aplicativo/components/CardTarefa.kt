@@ -33,7 +33,8 @@ import androidx.compose.ui.unit.sp
 fun CardTarefa(
     imagem: Int,
     titulo: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    isConcluido: Boolean
 ) {
     Card(
         modifier = Modifier
@@ -64,12 +65,13 @@ fun CardTarefa(
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Icon(
-                imageVector = Icons.Filled.Check,
-                contentDescription = "Concluído",
-                tint = Color.Green,
-                modifier = Modifier.size(16.dp)
-            )
+            if (isConcluido) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "Concluído",
+                    tint = Color.Green
+                )
+            }
         }
     }
 }

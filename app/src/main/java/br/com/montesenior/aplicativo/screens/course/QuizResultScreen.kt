@@ -100,8 +100,8 @@ fun QuizResultScreen(
         Button(
             onClick = {
                 if (score == 2) {
-                    navController.popBackStack()
                     onFinish()
+                    navController.popBackStack()
                 } else {
                     onRetry()
                 }

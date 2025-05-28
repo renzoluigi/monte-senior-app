@@ -24,13 +24,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.com.montesenior.aplicativo.components.NavBar
-import br.com.montesenior.aplicativo.data.repository.UsuariosRepository
 import br.com.montesenior.aplicativo.screens.authentication.BoasVindasScreen
 import br.com.montesenior.aplicativo.screens.authentication.CompletarRegistroScreen
 import br.com.montesenior.aplicativo.screens.authentication.EnviarImagemScreen
 import br.com.montesenior.aplicativo.screens.authentication.EsqueceuSuaSenhaScreen
-import br.com.montesenior.aplicativo.screens.authentication.LeituraConteudoScreen
 import br.com.montesenior.aplicativo.screens.authentication.LoginScreen
+import br.com.montesenior.aplicativo.screens.course.LeituraConteudoScreen
 import br.com.montesenior.aplicativo.screens.course.MenuCursoScreen
 import br.com.montesenior.aplicativo.screens.course.VideoAulaScreen
 import br.com.montesenior.aplicativo.screens.menu.DetalhesCursoScreen
@@ -40,12 +39,14 @@ import br.com.montesenior.aplicativo.screens.menu.PerfilScreen
 import br.com.montesenior.aplicativo.ui.theme.AplicativoTheme
 import br.com.montesenior.aplicativo.viewmodel.UsuarioViewModel
 import com.br.montesenior.aplicativo_porto.screens.RegistroScreen
+import com.google.firebase.FirebaseApp
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         enableEdgeToEdge()
         setContent {
             AplicativoTheme {
@@ -55,7 +56,6 @@ class MainActivity : ComponentActivity() {
                 val usuarioViewModel: UsuarioViewModel = viewModel()
                 val usuarioLogado by usuarioViewModel.usuarioLogado.collectAsState()
                 val usuarioLogadoId by usuarioViewModel.usuarioLogadoId.collectAsState()
-
                 Scaffold(
                     bottomBar = {
                         if (currentRoute == "cursos" || currentRoute == "perfil" ||
@@ -215,43 +215,62 @@ class MainActivity : ComponentActivity() {
                             MenuCursoScreen(
                                 cursoId = cursoId,
                                 navController = navController,
-                                usuario = usuarioLogado!!
+                                usuario = usuarioLogado!!,
+                                uid = usuarioLogadoId!!
                             )
                         }
                         composable(
-                            "leitura-conteudo/{materialId}",
+                            "{cursoId}/{moduloId}/leitura-conteudo/{materialId}",
                             enterTransition = { fadeIn(animationSpec = tween(300)) },
                             exitTransition = { fadeOut(animationSpec = tween(300)) }) { backStackEntry ->
+                            val cursoId = backStackEntry.arguments?.getString("cursoId")
+                                ?: return@composable
+                            val moduloId = backStackEntry.arguments?.getString("moduloId")
+                                ?: return@composable
                             val materialId = backStackEntry.arguments?.getString("materialId")
                                 ?: return@composable
                             LeituraConteudoScreen(
-                                materialId = materialId,
+                                uid = usuarioLogadoId!!,
+                                cursoId = cursoId,
+                                moduloId = moduloId,
+                                tarefaId = materialId,
                                 navController = navController
                             )
                         }
                         composable(
-                            route = "video-aula/{tarefaId}",
+                            route = "{cursoId}/{moduloId}/video-aula/{tarefaId}",
                             enterTransition = { fadeIn(animationSpec = tween(300)) },
                             exitTransition = { fadeOut(animationSpec = tween(300)) }) { backStackEntry ->
+                            val cursoId = backStackEntry.arguments?.getString("cursoId")
+                                ?: return@composable
+                            val moduloId = backStackEntry.arguments?.getString("moduloId")
+                                ?: return@composable
                             val tarefaId = backStackEntry.arguments?.getString("tarefaId")
                                 ?: return@composable
                             VideoAulaScreen(
-                                videoAulaId = tarefaId,
+                                uid = usuarioLogadoId!!,
+                                cursoId = cursoId,
+                                tarefaId = tarefaId,
+                                moduloId = moduloId,
                                 navController = navController
                             )
                         }
                         composable(
-                            "quiz/{tarefaId}",
+                            "{cursoId}/{moduloId}/quiz/{tarefaId}",
                             enterTransition = { fadeIn(animationSpec = tween(300)) },
                             exitTransition = { fadeOut(animationSpec = tween(300)) }) { backStackEntry ->
+                            val cursoId = backStackEntry.arguments?.getString("cursoId")
+                                ?: return@composable
+                            val moduloId = backStackEntry.arguments?.getString("moduloId")
+                                ?: return@composable
                             val tarefaId = backStackEntry.arguments?.getString("tarefaId")
                                 ?: return@composable
                             QuizScreen(
-                                onQuizCompleted = {
-                                },
-                                navController = navController,
-                                viewModel = viewModel(),
-                                tarefaId = tarefaId
+                                uid = usuarioLogadoId!!,
+                                cursoId = cursoId,
+                                moduloId = moduloId,
+                                tarefaId = tarefaId,
+                                navController = navController
                             )
                         }
                     }
