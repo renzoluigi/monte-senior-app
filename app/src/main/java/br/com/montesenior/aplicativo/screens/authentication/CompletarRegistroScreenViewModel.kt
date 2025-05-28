@@ -170,7 +170,8 @@ class CompletarRegistroScreenViewModel : ViewModel() {
                                 usuariosRepository.adicionarUsuario(uid, novoUsuario)
                                 Log.d(
                                     "CompletarRegistroScreenViewModel",
-                                    "Usuário registrado com sucesso!")
+                                    "Usuário registrado com sucesso!"
+                                )
                                 _isErro.value = false
                                 _mensagemErro.value = "Usuário registrado com sucesso!"
                             } catch (e: Exception) {

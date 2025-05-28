@@ -33,6 +33,7 @@ fun MenuCursoScreen(
     val curso = SobreCursoRepository.cursos.getValue(cursoId)
     val modulos = MaterialCursoRepository.materialCursos.getValue(curso.cursoId).modulos
     val listaProgressoModulo by menuCursoScreenViewModel.listaProgressoModulo.observeAsState()
+    val progresso by menuCursoScreenViewModel.progressoCurso.observeAsState(0)
 
     LaunchedEffect(uid, cursoId) {
         menuCursoScreenViewModel.carregarProgressoModulos(uid, cursoId)
@@ -51,6 +52,7 @@ fun MenuCursoScreen(
             TopBarCurso(
                 nomeCurso = curso.titulo,
                 usuario = usuario,
+                progresso = progresso.toInt(),
                 comandoVoltar = {
                     navController.navigate("cursos")
                 }

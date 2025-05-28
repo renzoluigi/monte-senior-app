@@ -86,31 +86,54 @@ class UsuariosRepository {
             .document(cursoId)
 
         val matriculaSnap = matriculaRef.get().await()
-
         if (!matriculaSnap.exists()) {
             Log.d("UsuariosRepository", "Matrícula não encontrada: $cursoId")
             return
         }
-        val matricula = matriculaSnap.toObject(Matricula::class.java) ?: return
+        val matricula = matriculaSnap.toObject(Matricula::class.java)
+        if (matricula == null) {
+            Log.d("UsuariosRepository", "Matrícula não encontrada: $uid/$cursoId")
+            return
+        }
         val modulosAtualizados = matricula.progressoModulos.toMutableList()
+        val moduloIndex = modulosAtualizados.indexOfFirst { it.moduloId == moduloId }
 
-        val modulo = modulosAtualizados.find { it.moduloId == moduloId }
-        if (modulo != null && !modulo.tarefasConcluidas.contains(tarefaId)) {
-            val atualizadas = modulo.tarefasConcluidas.toMutableList().apply { add(tarefaId) }
-            modulosAtualizados[modulosAtualizados.indexOf(modulo)] =
-                modulo.copy(tarefasConcluidas = atualizadas)
-        } else if (modulo == null) {
-            modulosAtualizados.add(ProgressoModulo(moduloId, listOf(tarefaId), false))
+        if (moduloIndex != -1) { //
+            val modulo = modulosAtualizados[moduloIndex]
+            if (!modulo.tarefasConcluidas.contains(tarefaId)) {
+                val tarefasAtualizadas = modulo.tarefasConcluidas.toMutableList().apply { add(tarefaId) }
+                var moduloAtualizado = modulo.copy(tarefasConcluidas = tarefasAtualizadas)
+                val totalTarefasModulo = MaterialCursoRepository.materialCursos.getValue(cursoId)
+                    .modulos.find { it.id == moduloId }?.tarefas?.size ?: 0
+                if (tarefasAtualizadas.size == totalTarefasModulo && totalTarefasModulo > 0) {
+                    moduloAtualizado = moduloAtualizado.copy(concluido = true)
+                }
+                modulosAtualizados[moduloIndex] = moduloAtualizado
+            }
+        } else { //adicionar um novo modulo se ele nao for achado
+            val totalTarefasNoModulo = MaterialCursoRepository.materialCursos.getValue(cursoId)
+                .modulos.find { it.id == moduloId }?.tarefas?.size ?: 0
+            val moduloConcluido = (totalTarefasNoModulo == 1)
+
+            modulosAtualizados.add(ProgressoModulo(moduloId, listOf(tarefaId), moduloConcluido))
+        }
+        //calculo do progresso
+        val modulosConcluidos = modulosAtualizados.count { it.concluido }
+        val totalModulos = MaterialCursoRepository.materialCursos.getValue(cursoId).modulos.size
+        val progressoGeral = if (totalModulos > 0) {
+            modulosConcluidos.toDouble() / totalModulos
+        } else {
+            0.0
+            Log.d("UsuariosRepository", "Total de módulos não encontrado para cursoId: $cursoId")
         }
 
         matriculaRef.update(
             mapOf(
                 "progressoModulos" to modulosAtualizados,
-                "progresso" to modulosAtualizados.count { it.concluido == true }
-                    .toDouble() / MaterialCursoRepository.materialCursos.getValue(cursoId).modulos.size,
-                "concluido" to modulosAtualizados.all { it.concluido == true }
+                "progresso" to progressoGeral,
+                "concluido" to modulosAtualizados.all { it.concluido }
             )
-        )
+        ).await()
     }
 
     suspend fun carregarProgressoModulos(

@@ -1,6 +1,5 @@
 package br.com.montesenior.aplicativo.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,11 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.data.model.Usuario
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
 import coil3.compose.AsyncImage
@@ -36,6 +33,7 @@ import coil3.compose.AsyncImage
 fun TopBarCurso(
     nomeCurso: String,
     usuario: Usuario,
+    progresso: Int,
     comandoVoltar: () -> Unit
 ) {
     Box(
@@ -78,7 +76,7 @@ fun TopBarCurso(
                         modifier = Modifier.align(Alignment.End)
                     )
                     Text(
-                        text = "Progresso: 10%",
+                        text = "Progresso: $progresso%",
                         fontSize = 14.sp,
                         color = Color.White,
                         modifier = Modifier.align(Alignment.End)

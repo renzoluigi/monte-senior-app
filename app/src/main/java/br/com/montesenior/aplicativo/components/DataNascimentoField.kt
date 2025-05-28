@@ -30,7 +30,7 @@ import java.util.Calendar
 @Composable
 fun DatePicker(
     label: String,
-    selectedDate: String, // Data formatada para exibição
+    selectedDate: String,
     onDateSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -52,7 +52,7 @@ fun DatePicker(
     Column(modifier = modifier) {
         Text(
             text = label,
-            style = MaterialTheme.typography.labelMedium, // Ou outro estilo de label
+            style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(bottom = 4.dp)
         )
@@ -60,10 +60,10 @@ fun DatePicker(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(55.dp)
-                .clip(RoundedCornerShape(20.dp)) // Primeiro clip para o ripple
+                .clip(RoundedCornerShape(20.dp))
                 .border(
                     1.dp,
-                    MaterialTheme.colorScheme.outline, // Cor da borda como OutlinedTextField
+                    MaterialTheme.colorScheme.outline,
                     RoundedCornerShape(20.dp)
                 )
                 .clickable { datePickerDialog.show() }
@@ -75,7 +75,7 @@ fun DatePicker(
                 modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
             ) {
                 Text(
-                    text = if (selectedDate.isNotEmpty()) selectedDate else "DD/MM/AAAA", // Placeholder
+                    text = if (selectedDate.isNotEmpty()) selectedDate else "DD/MM/AAAA",
                     style = MaterialTheme.typography.bodyLarge,
                     color = if (selectedDate.isNotEmpty()) MaterialTheme.colorScheme.onSurface
                     else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)

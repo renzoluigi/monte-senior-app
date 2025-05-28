@@ -62,7 +62,9 @@ fun CompletarRegistroScreen(
     val dataNascimento by completarRegistroScreenViewModel.dataNascimento.observeAsState("")
     val confirmarSenha by completarRegistroScreenViewModel.confirmarSenha.observeAsState("")
     val isSenhaVisivel by completarRegistroScreenViewModel.isSenhaVisivel.observeAsState(false)
-    val isConfirmarSenhaVisivel by completarRegistroScreenViewModel.isConfirmarSenhaVisivel.observeAsState(false)
+    val isConfirmarSenhaVisivel by completarRegistroScreenViewModel.isConfirmarSenhaVisivel.observeAsState(
+        false
+    )
     val isCarregando by completarRegistroScreenViewModel.isCarregando.observeAsState(false)
     val mensagemErro by completarRegistroScreenViewModel.mensagemErro.observeAsState("")
     val isErro by completarRegistroScreenViewModel.isErro.observeAsState(false)
@@ -215,7 +217,7 @@ fun CompletarRegistroScreen(
                         Button(
                             onClick = {
                                 completarRegistroScreenViewModel.onClickConcluir(
-                                    nome = nome,
+                                    nome = formatarNome(nome),
                                     email = email,
                                     genero = genero,
                                     telefone = telefone,
@@ -239,4 +241,21 @@ fun CompletarRegistroScreen(
             }
         }
     }
+}
+
+fun formatarNome(nome: String): String {
+    val nomeFormatado = nome.split(" ")
+    var nomeFormatadoFinal = ""
+    for (nome in nomeFormatado) {
+        nomeFormatadoFinal += if (nome.lowercase() == "de" || nome.lowercase() == "da" || nome.lowercase() == "do") {
+            " ${nome.lowercase()} "
+        } else {
+            if (nomeFormatado.indexOf(nome) == 0 || nomeFormatado.indexOf(nome) == nomeFormatado.size-1) {
+                nome.lowercase().replaceFirstChar { it.uppercase() }
+            } else {
+                " ${nome.lowercase().replaceFirstChar { it.uppercase() }} "
+            }
+        }
+    }
+    return nomeFormatadoFinal
 }
