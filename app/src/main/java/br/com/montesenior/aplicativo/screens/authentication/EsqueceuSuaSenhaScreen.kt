@@ -63,7 +63,7 @@ fun EsqueceuSuaSenhaScreen(modifier: Modifier = Modifier, navController: NavCont
                 text = "Informe seu email para iniciar o processo de recuperação de senha.",
                 color = Color.Gray
             )
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
                 onValueChange = {},
                 value = "",

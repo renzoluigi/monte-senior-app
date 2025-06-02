@@ -49,6 +49,7 @@ import br.com.montesenior.aplicativo.R
 import br.com.montesenior.aplicativo.components.VoltarColumnButton
 import br.com.montesenior.aplicativo.screens.authentication.LoginScreenViewModel
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
+import br.com.montesenior.aplicativo.ui.theme.GreenMonteSenior
 
 @Composable
 fun LoginScreen(
@@ -180,7 +181,7 @@ fun LoginScreen(
                     if (mensagemErro.isNotEmpty()) {
                         Text(
                             text = mensagemErro,
-                            color = if (isAutorizado) Color.Green else Color.Red,
+                            color = if (isAutorizado) GreenMonteSenior else Color.Red,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center
                         )

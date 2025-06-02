@@ -45,6 +45,7 @@ import br.com.montesenior.aplicativo.components.DatePicker
 import br.com.montesenior.aplicativo.components.TipoAlunoField
 import br.com.montesenior.aplicativo.components.VoltarColumnButton
 import br.com.montesenior.aplicativo.ui.theme.AzulMarinho
+import br.com.montesenior.aplicativo.ui.theme.GreenMonteSenior
 
 @Composable
 fun CompletarRegistroScreen(
@@ -198,7 +199,7 @@ fun CompletarRegistroScreen(
                     if (mensagemErro.isNotEmpty()) {
                         Text(
                             text = mensagemErro,
-                            color = if (isErro) Color.Red else Color.Green,
+                            color = if (isErro) Color.Red else GreenMonteSenior,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center
                         )
@@ -227,6 +228,7 @@ fun CompletarRegistroScreen(
                             colors = ButtonDefaults.buttonColors(AzulMarinho),
                             modifier = Modifier
                                 .fillMaxWidth()
+                                
                                 .height(60.dp),
                             shape = RoundedCornerShape(10.dp),
                             enabled = true
@@ -243,19 +245,27 @@ fun CompletarRegistroScreen(
     }
 }
 
-fun formatarNome(nome: String): String {
-    val nomeFormatado = nome.split(" ")
-    var nomeFormatadoFinal = ""
-    for (nome in nomeFormatado) {
-        nomeFormatadoFinal += if (nome.lowercase() == "de" || nome.lowercase() == "da" || nome.lowercase() == "do") {
-            " ${nome.lowercase()} "
-        } else {
-            if (nomeFormatado.indexOf(nome) == 0 || nomeFormatado.indexOf(nome) == nomeFormatado.size-1) {
-                nome.lowercase().replaceFirstChar { it.uppercase() }
-            } else {
-                " ${nome.lowercase().replaceFirstChar { it.uppercase() }} "
+fun formatarNome(nomeCompleto: String): String {
+    if (nomeCompleto.isBlank()) {
+        return ""
+    }
+
+    val particulas = setOf("de", "da", "do", "dos", "das")
+    val palavras = nomeCompleto.trim().split("\\s+".toRegex())
+
+    val nomeFormatado = palavras.mapIndexed { index, palavra ->
+        val palavraLower = palavra.lowercase()
+        when {
+            palavraLower in particulas && index != 0 && index != palavras.lastIndex -> {
+                palavraLower
+            }
+            else -> {
+                palavraLower.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(java.util.Locale.getDefault()) else it.toString()
+                }
             }
         }
     }
-    return nomeFormatadoFinal
+
+    return nomeFormatado.joinToString(" ")
 }
